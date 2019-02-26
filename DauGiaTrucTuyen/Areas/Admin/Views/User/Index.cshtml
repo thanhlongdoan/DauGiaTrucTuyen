@@ -1,47 +1,27 @@
-﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel.ListUserViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Danh sách tài khoản</div>
+    <div class="panel-heading">Danh sách người dùng</div>
     <div class="panel-body">
         <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Email)
+                        @Html.DisplayNameFor(model => model.UserName)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmailConfirmed)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.SecurityStamp)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.PhoneNumber)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+                        @Html.DisplayNameFor(model => model.CreateDate)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LockoutEnabled)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AccessFailedCount)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.UserName)
-                    </th>
-                    <th></th>
+                    <th>Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,39 +29,18 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SecurityStamp)
+                            @Html.DisplayFor(modelItem => item.UserName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PhoneNumber)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LockoutEnabled)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AccessFailedCount)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserName)
+                            @Html.DisplayFor(modelItem => item.CreateDate)
                         </td>
                         <td>
                             <a href="#"><i class="fas fa-edit"></i></a>
                             <a href="@Url.Action("Detail", new { id = item.Id })"><i class="fas fa-info-circle"></i></a>
-                            <a href="#"><i class="fas fa-trash text-danger"></i></a>
+                            <a id="js_btnDelete" href="javascript:;" data-id="@item.Id"><i class="fas fa-trash text-danger"></i></a>
                         </td>
                     </tr>
                 }
@@ -89,4 +48,48 @@
         </table>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("td").on('click', '#js_btnDelete', function () {
+            var id = $(this).attr('data-id');
+            swal({
+                title: "Xóa tài khoản?",
+                text: "Bạn có chắc chắn muốn xóa tài khoản này không?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Đồng ý",
+                cancelButtonText: 'Không',
+                confirmButtonColor: "#ec6c62",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function (result) {
+                if (result) {
+                    $.ajax(
+                        {
+                            url: "/Admin/User/Delete?id=" + id,
+                            type: "GET",
+                            success: function (data) {
+                                if (data) {
+                                    swal({
+                                        title: "Đã xóa thành công",
+                                        type: "success",
+                                        confirmButtonClass: "btn-primary",
+                                        confirmButtonText: "OK",
+                                        closeOnConfirm: false
+                                    }, function () {
+                                        location.reload();
+                                    });
+                                }
+                                else {
+                                    swal("Xóa thất bại", ":(", "error");
+                                }
+                            }
+                        }
+                    )
+                }
+            });
+        })
+    })
+</script>
 

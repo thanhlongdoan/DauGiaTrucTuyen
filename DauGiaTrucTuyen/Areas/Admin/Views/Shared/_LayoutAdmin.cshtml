@@ -20,6 +20,8 @@
     <link href="~/Content/Admin/dist/css/datatables/responsive.bootstrap.css" rel="stylesheet" />
     <!-- jQuery 3 -->
     <script src="~/Content/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Sweetalert  CSS-->
+    <link href="~/Content/Admin/sweetalert/css/sweetalert.css" rel="stylesheet" />
     <!-- Section css-->
     @RenderSection("css", required: false)
 </head>
@@ -185,13 +187,13 @@
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="active treeview">
                         <a href="#">
-                            <i class="fas fa-user-alt"></i> <span>Quản lý tài khoản</span>
+                            <i class="fas fa-user-alt"></i> <span>Quản lý người dùng</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active"><a href="@Url.Action("Index", "User")"><i class="fa fa-circle-o"></i> Danh sách tài khoản</a></li>
+                            <li class="active"><a href="@Url.Action("Index", "User")"><i class="fa fa-circle-o"></i> Danh sách người dùng</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -553,13 +555,15 @@
     <script src="~/Scripts/datatable/dataTables.fixedHeader.min.js"></script>
     <script src="~/Scripts/datatable/dataTables.responsive.min.js"></script>
     <script src="~/Scripts/datatable/responsive.bootstrap.min.js"></script>
+    <!-- Sweetalert JS -->
+    <script src="~/Content/Admin/sweetalert/js/sweetalert.min.js"></script>
     @RenderSection("scripts", required: false)
     <script>
         $(document).ready(function () {
             var table = $('#example').DataTable({
-                responsive: true
+                responsive: true,
+                stateSave: true
             });
-
             new $.fn.dataTable.FixedHeader(table);
         });
     </script>

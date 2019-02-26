@@ -1,11 +1,7 @@
-﻿using DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using static DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel;
 
 namespace DauGiaTrucTuyen
 {
@@ -16,6 +12,7 @@ namespace DauGiaTrucTuyen
             AutoMapper.Mapper.Initialize(conf =>
             {
                 conf.CreateMap<DetailUserViewModel, Microsoft.AspNet.Identity.EntityFramework.IdentityUser>();
+                conf.CreateMap<ListUserViewModel, Microsoft.AspNet.Identity.EntityFramework.IdentityUser>();
             });
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

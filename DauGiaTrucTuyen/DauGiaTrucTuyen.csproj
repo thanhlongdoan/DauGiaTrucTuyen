@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -183,13 +185,26 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
-    <Compile Include="Areas\Admin\Models\ManagerUserViewModel\DetailUserViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ManagerUserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902260244366_add-CreateDate_for_table_User.cs" />
+    <Compile Include="Migrations\201902260244366_add-CreateDate_for_table_User.Designer.cs">
+      <DependentUpon>201902260244366_add-CreateDate_for_table_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902260316169_add-CreateDate_for_table_User2.cs" />
+    <Compile Include="Migrations\201902260316169_add-CreateDate_for_table_User2.Designer.cs">
+      <DependentUpon>201902260316169_add-CreateDate_for_table_User2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902260320055_add-CreateDate_for_table_User_again.cs" />
+    <Compile Include="Migrations\201902260320055_add-CreateDate_for_table_User_again.Designer.cs">
+      <DependentUpon>201902260320055_add-CreateDate_for_table_User_again.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -1861,14 +1876,18 @@
     <Content Include="Content\Admin\plugins\iCheck\InputIcheck.js" />
     <Content Include="Content\Admin\plugins\iCheck\square\blue.css" />
     <Content Include="Content\Admin\plugins\iCheck\square\blue.png" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Admin\Scripts\icheck.js" />
+    <Content Include="Content\Admin\sweetalert\bootstrap-sweetalert.png" />
+    <Content Include="Content\Admin\sweetalert\css\sweetalert.css" />
+    <Content Include="Content\Admin\sweetalert\css\sweetalert.min.css" />
+    <Content Include="Content\Admin\sweetalert\docs.css" />
+    <Content Include="Content\Admin\sweetalert\js\sweetalert.js" />
+    <Content Include="Content\Admin\sweetalert\js\sweetalert.min.js" />
+    <Content Include="Content\Admin\sweetalert\sweet-alert.css" />
+    <Content Include="Content\Admin\sweetalert\thumbs-up.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -2043,6 +2062,9 @@
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Detail.cshtml" />
+    <Content Include="Content\Admin\sweetalert\sweet-alert-animations.less" />
+    <Content Include="Content\Admin\sweetalert\sweet-alert-combine.less" />
+    <Content Include="Content\Admin\sweetalert\sweet-alert.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\datatable\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\datatable\dataTables.fixedHeader.min.js" />
@@ -2096,19 +2118,27 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Client\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902260244366_add-CreateDate_for_table_User.resx">
+      <DependentUpon>201902260244366_add-CreateDate_for_table_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902260316169_add-CreateDate_for_table_User2.resx">
+      <DependentUpon>201902260316169_add-CreateDate_for_table_User2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902260320055_add-CreateDate_for_table_User_again.resx">
+      <DependentUpon>201902260320055_add-CreateDate_for_table_User_again.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

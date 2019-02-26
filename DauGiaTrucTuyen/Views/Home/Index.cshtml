@@ -1,7 +1,12 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
+@section css{
+    <!-- Theme style -->
+    <link href="~/Content/Admin/dist/css/AdminLTE.css" rel="stylesheet" />
+    <!-- iCheck -->
+    <link href="~/Content/Admin/plugins/iCheck/square/blue.css" rel="stylesheet" />
+}
 <div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -29,3 +34,71 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+<div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 70%; margin: auto">
+            <div class="modal-body">
+                @Html.Partial("~/Views/Account/Login.cshtml")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 70%; margin: auto">
+            <div class="modal-body">
+                @Html.Partial("~/Views/Account/Register.cshtml")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-forgotpassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 70%; margin: auto">
+            <div class="modal-body">
+                @Html.Partial("~/Views/Account/ForgotPassword.cshtml")
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#modal-register").modal("hide");
+            $("#modal-forgotpassword").modal("hide");
+            if ("@Request.IsAuthenticated" == "False") {
+                $("#modal-login").modal("show");
+            }
+            else {
+                $("#modal-register").modal("hide");
+            }
+
+            $(".login-box-body").on('click','#js_btnRegister', function () {
+                $("#modal-forgotpassword").modal("hide");
+                $("#modal-login").modal("hide");
+                $("#modal-register").modal("show");
+            });
+
+            $(".login-box-body").on('click','#js_btnLogin', function () {
+                $("#modal-forgotpassword").modal("hide");
+                $("#modal-register").modal("hide");
+                $("#modal-login").modal("show");
+            });
+
+            $(".login-box-body").on('click','#js_btnForgotPassword', function () {
+                $("#modal-login").modal("hide");
+                $("#modal-register").modal("hide");
+                $("#modal-forgotpassword").modal("show");
+            })
+        })
+    </script>
+    <script src="~/Content/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/Content/Admin/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- iCheck -->
+    <script src="~/Content/Admin/plugins/iCheck/icheck.js"></script>
+    <script src="~/Content/Admin/Scripts/icheck.js"></script>
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}
