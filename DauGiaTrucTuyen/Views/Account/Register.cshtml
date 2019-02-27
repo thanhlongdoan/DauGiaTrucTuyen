@@ -24,7 +24,7 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="form-group has-feedback">
-                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email" })
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email", @autofocus = "autofocus" })
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })

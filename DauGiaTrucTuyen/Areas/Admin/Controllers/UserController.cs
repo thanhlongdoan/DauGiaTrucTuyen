@@ -8,6 +8,7 @@ using static DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel;
 
 namespace DauGiaTrucTuyen.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();

@@ -14,9 +14,9 @@ namespace DauGiaTrucTuyen
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            createRolesandUsers();
+            createRolesandUsersDefault();
         }
-        private void createRolesandUsers()
+        public void createRolesandUsersDefault()
         {
             string emailAdmin = ConfigurationManager.AppSettings["EmailAdmin"];
             string pwdAdmin = ConfigurationManager.AppSettings["PwdAdmin"];
@@ -37,18 +37,18 @@ namespace DauGiaTrucTuyen
                 //Here we create a Admin super user who will maintain the website                  
 
                 var user = new ApplicationUser();
-                user.UserName = "Admin";
+                user.UserName = emailAdmin;
                 user.Email = emailAdmin;
                 user.CreateDate = DateTime.Now;
+                user.EmailConfirmed = true;
+                user.PhoneNumberConfirmed = true;
 
-                string userPWD = pwdAdmin;
-
-                var addUser = UserManager.Create(user, userPWD);
+                var addUser = UserManager.Create(user, pwdAdmin);
 
                 //Add default User to Role Admin   
                 if (addUser.Succeeded)
                 {
-                    var result = UserManager.AddToRole(user.Id, "Admin");
+                    UserManager.AddToRole(user.Id, "Admin");
                 }
             }
         }
