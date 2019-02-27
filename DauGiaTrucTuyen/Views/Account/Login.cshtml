@@ -34,6 +34,7 @@
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
@@ -51,14 +52,7 @@
             }
             <div class="social-auth-links text-center">
                 <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
-                    <i class="fab fa-facebook-f"></i> Đăng nhập với
-                    Facebook
-                </a>
-                <a href="#" class="btn btn-block btn-social btn-google btn-flat">
-                    <i class="fab fa-google-plus-g"></i> Đăng nhập với
-                    Google+
-                </a>
+                @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             </div>
             <!-- /.social-auth-links -->
             <a id="js_btnForgotPassword" href="javascript:;">Quên mật khẩu?</a><br>

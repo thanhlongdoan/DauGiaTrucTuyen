@@ -67,7 +67,10 @@
             $("#modal-register").modal("hide");
             $("#modal-forgotpassword").modal("hide");
             if ("@Request.IsAuthenticated" == "False") {
-                $("#modal-login").modal("show");
+                $("#modal-login").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
             }
             else {
                 $("#modal-register").modal("hide");
@@ -76,19 +79,28 @@
             $(".login-box-body").on('click','#js_btnRegister', function () {
                 $("#modal-forgotpassword").modal("hide");
                 $("#modal-login").modal("hide");
-                $("#modal-register").modal("show");
+                $("#modal-register").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
             });
 
             $(".login-box-body").on('click','#js_btnLogin', function () {
                 $("#modal-forgotpassword").modal("hide");
                 $("#modal-register").modal("hide");
-                $("#modal-login").modal("show");
+                $("#modal-login").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
             });
 
             $(".login-box-body").on('click','#js_btnForgotPassword', function () {
                 $("#modal-login").modal("hide");
                 $("#modal-register").modal("hide");
-                $("#modal-forgotpassword").modal("show");
+                $("#modal-forgotpassword").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
             })
         })
     </script>

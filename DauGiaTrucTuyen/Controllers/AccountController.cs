@@ -80,15 +80,15 @@ namespace DauGiaTrucTuyen.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
-                    //return RedirectToAction("Index", "Home", new { area = "Admin" });
+                //return RedirectToAction("Index", "Home", new { area = "Admin" });
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    ModelState.AddModelError("", "Đăng nhập không đúng !");
+                    return View("~/Views/Home/Index.cshtml");
             }
         }
 

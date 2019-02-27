@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DauGiaTrucTuyen.Models;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using static DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel;
@@ -12,12 +13,15 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            var user = db.Users.OrderBy(x => x.CreateDate).ToList();
+            var user = db.Users.OrderByDescending(x => x.CreateDate).ToList();
             List<ListUserViewModel> list = new List<ListUserViewModel>();
+            string emailAdmin = ConfigurationManager.AppSettings["EmailAdmin"];
             foreach (var item in user)
             {
                 var model = Mapper.Map<ListUserViewModel>(item);
-                list.Add(model);
+                //chỉ add vào model trừ user Admin
+                if (item.Email != emailAdmin)
+                    list.Add(model);
             }
             return View(list);
         }
