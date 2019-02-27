@@ -48,44 +48,44 @@ namespace DauGiaTrucTuyen.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập Email !")]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Email không đúng định dạng !")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu !")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Ghi nhớ ?")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Vui lòng nhập Email !")]
         [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Email không đúng định dạng !")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu !")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Nhập lại mật khẩu")]
+        [Compare("Password", ErrorMessage = "Mật khẩu và mật khẩu nhập lại không đúng !")]
         public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Vui lòng nhập Email !")]
         [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Email không đúng định dạng !")]
         public string Email { get; set; }
 
         [Required]
@@ -104,9 +104,9 @@ namespace DauGiaTrucTuyen.Models
 
     public class ForgotPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Vui lòng nhập Email !")]
         [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Email không đúng định dạng !")]
         public string Email { get; set; }
     }
 }

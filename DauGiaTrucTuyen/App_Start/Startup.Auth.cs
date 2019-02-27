@@ -34,7 +34,7 @@ namespace DauGiaTrucTuyen
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -54,15 +54,15 @@ namespace DauGiaTrucTuyen
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1045369058998836",
+               appSecret: "0e2adfaf1e63a6b390c18547b30e7338");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "44569147544-vs3cs819n3ngg1c8vsjprg8ursm2v0im.apps.googleusercontent.com",
+                ClientSecret = "DcpbStaJgr243wW7y0YYudJ6"
+            });
         }
     }
 }
