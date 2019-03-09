@@ -24,7 +24,7 @@ namespace DauGiaTrucTuyen.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
+            string a = "";
             return View();
         }
     }
