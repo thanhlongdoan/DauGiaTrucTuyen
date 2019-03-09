@@ -72,23 +72,39 @@ namespace DauGiaTrucTuyen.Controllers
             {
                 return View(model);
             }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            var user = await UserManager.FindAsync(model.Email, model.Password);
+            if (user != null && user.EmailConfirmed == false && user.PhoneNumberConfirmed == false)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                //return RedirectToAction("Index", "Home", new { area = "Admin" });
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Đăng nhập không đúng !");
-                    return View("~/Views/Home/Index.cshtml");
+                ModelState.AddModelError("", "Tài khoản của bạn chưa được xác nhận !");
+                return View("~/Views/Home/Index.cshtml");
+            }
+            else
+            {
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        {
+                            if (!UserManager.IsInRole(user.Id, "Admin"))
+                                return RedirectToLocal(returnUrl);
+                            return RedirectToAction("Index", "Home", new { area = "admin" });
+                        }
+                    case SignInStatus.LockedOut:
+                        {
+                            user.LockoutEndDateUtc = DateTime.Now;
+                            user.LockoutEnabled = true;
+                            await UserManager.UpdateAsync(user);
+                            ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa tạm thời. Vùi lòng thử lại sau ít phút !");
+                        }
+                        return View("~/Views/Home/Index.cshtml");
+                    //return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Đăng nhập không đúng !");
+                        return View("~/Views/Home/Index.cshtml");
+                }
             }
         }
 
@@ -387,9 +403,8 @@ namespace DauGiaTrucTuyen.Controllers
         }
 
         //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // Get: /Account/LogOff
+        [HttpGet]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

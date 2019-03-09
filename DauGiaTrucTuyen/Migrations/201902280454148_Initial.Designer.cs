@@ -7,13 +7,13 @@ namespace DauGiaTrucTuyen.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addCreateDate_for_table_User : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addCreateDate_for_table_User));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902260244366_add-CreateDate_for_table_User"; }
+            get { return "201902280454148_Initial"; }
         }
         
         string IMigrationMetadata.Source
