@@ -10,6 +10,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         // GET: Admin/Home
+        [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
         public ActionResult Index()
         {
             return View();

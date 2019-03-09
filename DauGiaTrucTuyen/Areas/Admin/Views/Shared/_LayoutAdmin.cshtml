@@ -1,11 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Admin</title>
-
-
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="~/Content/Admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome 5.5.0 -->
@@ -130,20 +129,20 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/Content/Admin/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Admin@gmail.com</span>
+                                <span class="hidden-xs">@User.Identity.GetUserName()</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
                                     <img src="~/Content/Admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                     <p>
-                                        Admin@gmail.com
+                                        @User.Identity.GetUserName()
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Đăng xuất</a>
+                                        <a href="@Url.Action("LogOff","Account", new { area = "" })" class="btn btn-default btn-flat">Đăng xuất</a>
                                     </div>
                                 </li>
                             </ul>
@@ -166,7 +165,7 @@
                         <img src="~/Content/Admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Admin@gmail.com</p>
+                        <p>@User.Identity.GetUserName()</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Đang hoạt động</a>
                     </div>
                 </div>

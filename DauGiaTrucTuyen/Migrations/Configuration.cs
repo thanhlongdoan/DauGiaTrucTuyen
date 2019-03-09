@@ -10,7 +10,6 @@ namespace DauGiaTrucTuyen.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "DauGiaTrucTuyen.Models.ApplicationDbContext";
         }
 
         protected override void Seed(DauGiaTrucTuyen.Models.ApplicationDbContext context)

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -36,18 +37,8 @@
                 <div class="top-header-right">
                     <div class="down-top">
                         <select class="in-drop">
-                            <option value="English" class="in-of">English</option>
-                            <option value="Japanese" class="in-of">Japanese</option>
-                            <option value="French" class="in-of">French</option>
-                            <option value="German" class="in-of">German</option>
-                        </select>
-                    </div>
-                    <div class="down-top top-down">
-                        <select class="in-drop">
-
-                            <option value="Dollar" class="in-of">Dollar</option>
-                            <option value="Yen" class="in-of">Yen</option>
-                            <option value="Euro" class="in-of">Euro</option>
+                            <option value="English" class="in-of">Tiếng Anh</option>
+                            <option value="VietNam" class="in-of">Tiếng Việt</option>
                         </select>
                     </div>
                     <!---->
@@ -58,27 +49,37 @@
         </div>
         <div class="bottom-header">
             <div class="container">
-                <div class="header-bottom-left">
-                    <div class="logo">
-                        <a href="index.html"><img src="~/Content/Client/images/logo.png" alt=" " /></a>
-                    </div>
-                    <div class="search">
-                        <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
-                        <input type="submit" value="SEARCH">
-
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="header-bottom-right">
-                    <div class="account"><a href="login.html"><span> </span>YOUR ACCOUNT</a></div>
-                    <ul class="login">
-                        <li><a href="login.html"><span> </span>LOGIN</a></li> |
-                        <li><a href="register.html">SIGNUP</a></li>
-                    </ul>
-                    <div class="cart"><a href="#"><span></span>CART</a></div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="clearfix"> </div>
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">ĐẤU GIÁ TRỰC TUYẾN</a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Trang chủ</a></li>
+                                <li><a href="#">Liên hệ</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="../navbar-static-top/">Đấu giá của tôi</a></li>
+                                <li><a href="../navbar-static-top/">Quản lý đấu giá</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.GetUserName() <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-user"></i> Cá nhân</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="@Url.Action("LogOff","Account")"><i class="fas fa-lock-open"></i> Đăng xuất</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div><!--/.container-fluid -->
+                </nav>
             </div>
         </div>
     </div>
@@ -89,10 +90,12 @@
         <!--Slidebar-->
         <div class="sub-cate">
             <div class=" top-nav rsidebar span_1_of_left">
-                <h3 class="cate">CATEGORIES</h3>
+                <h3 class="cate">
+                    DANH MỤC
+                </h3>
                 <ul class="menu">
                     <li class="item1">
-                        <a href="#">Curabitur sapien<img class="arrow-img" src="~/Content/Client/images/arrow1.png" alt="" /> </a>
+                        <a href="#">Curabitur sapien<img class="arrow-img" src="~/Content/Client/images/arrow1.png" alt="" /></a>
                         <ul class="cute">
                             <li class="subitem1"><a href="product.html">Cute Kittens </a></li>
                             <li class="subitem2"><a href="product.html">Strange Stuff </a></li>
@@ -172,7 +175,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="footer-bottom-cate">
-                    <h6>CATEGORIES</h6>
+                    <h6>Danh mục</h6>
                     <ul>
                         <li><a href="#">Curabitur sapien</a></li>
                         <li><a href="#">Dignissim purus</a></li>
@@ -189,7 +192,7 @@
                     </ul>
                 </div>
                 <div class="footer-bottom-cate bottom-grid-cat">
-                    <h6>FEATURE PROJECTS</h6>
+                    <h6>Chính sách</h6>
                     <ul>
                         <li><a href="#">Curabitur sapien</a></li>
                         <li><a href="#">Dignissim purus</a></li>
@@ -201,7 +204,7 @@
                     </ul>
                 </div>
                 <div class="footer-bottom-cate">
-                    <h6>TOP BRANDS</h6>
+                    <h6>Liên hệ</h6>
                     <ul>
                         <li><a href="#">Curabitur sapien</a></li>
                         <li><a href="#">Dignissim purus</a></li>
@@ -218,7 +221,7 @@
                     </ul>
                 </div>
                 <div class="footer-bottom-cate cate-bottom">
-                    <h6>OUR ADDERSS</h6>
+                    <h6>Kết nối</h6>
                     <ul>
                         <li>Aliquam metus  dui. </li>
                         <li>orci, ornareidquet</li>

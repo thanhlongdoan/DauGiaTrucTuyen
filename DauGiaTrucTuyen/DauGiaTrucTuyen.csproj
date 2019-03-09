@@ -55,6 +55,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -192,17 +193,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902260244366_add-CreateDate_for_table_User.cs" />
-    <Compile Include="Migrations\201902260244366_add-CreateDate_for_table_User.Designer.cs">
-      <DependentUpon>201902260244366_add-CreateDate_for_table_User.cs</DependentUpon>
+    <Compile Include="Migrations\201902280454148_Initial.cs" />
+    <Compile Include="Migrations\201902280454148_Initial.Designer.cs">
+      <DependentUpon>201902280454148_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902260316169_add-CreateDate_for_table_User2.cs" />
-    <Compile Include="Migrations\201902260316169_add-CreateDate_for_table_User2.Designer.cs">
-      <DependentUpon>201902260316169_add-CreateDate_for_table_User2.cs</DependentUpon>
+    <Compile Include="Migrations\201902280455367_Initial2.cs" />
+    <Compile Include="Migrations\201902280455367_Initial2.Designer.cs">
+      <DependentUpon>201902280455367_Initial2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902260320055_add-CreateDate_for_table_User_again.cs" />
-    <Compile Include="Migrations\201902260320055_add-CreateDate_for_table_User_again.Designer.cs">
-      <DependentUpon>201902260320055_add-CreateDate_for_table_User_again.cs</DependentUpon>
+    <Compile Include="Migrations\201902280456427_Initial3.cs" />
+    <Compile Include="Migrations\201902280456427_Initial3.Designer.cs">
+      <DependentUpon>201902280456427_Initial3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902280934160_init2222.cs" />
+    <Compile Include="Migrations\201902280934160_init2222.Designer.cs">
+      <DependentUpon>201902280934160_init2222.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2191,14 +2196,17 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902260244366_add-CreateDate_for_table_User.resx">
-      <DependentUpon>201902260244366_add-CreateDate_for_table_User.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902280454148_Initial.resx">
+      <DependentUpon>201902280454148_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902260316169_add-CreateDate_for_table_User2.resx">
-      <DependentUpon>201902260316169_add-CreateDate_for_table_User2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902280455367_Initial2.resx">
+      <DependentUpon>201902280455367_Initial2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902260320055_add-CreateDate_for_table_User_again.resx">
-      <DependentUpon>201902260320055_add-CreateDate_for_table_User_again.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902280456427_Initial3.resx">
+      <DependentUpon>201902280456427_Initial3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280934160_init2222.resx">
+      <DependentUpon>201902280934160_init2222.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

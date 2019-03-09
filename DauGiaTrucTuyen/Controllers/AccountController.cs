@@ -73,7 +73,7 @@ namespace DauGiaTrucTuyen.Controllers
                 return View(model);
             }
             var user = await UserManager.FindAsync(model.Email, model.Password);
-            if (user.EmailConfirmed == false && user.PhoneNumberConfirmed == false)
+            if (user != null && user.EmailConfirmed == false && user.PhoneNumberConfirmed == false)
             {
                 ModelState.AddModelError("", "Tài khoản của bạn chưa được xác nhận !");
                 return View("~/Views/Home/Index.cshtml");
@@ -403,9 +403,8 @@ namespace DauGiaTrucTuyen.Controllers
         }
 
         //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // Get: /Account/LogOff
+        [HttpGet]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

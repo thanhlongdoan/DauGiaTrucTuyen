@@ -10,11 +10,25 @@
 <div class="shoes-grid">
     <div class="row">
         <ul id="flexiselDemo1">
-            <li><img src="~/Content/Client/images/pi.jpg" /><div class="grid-flex"><small class="text-danger"><b>1:00s</b></small> <span>850$</span></div><div class="row"><a href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
-            <li><img src="~/Content/Client/images/pi1.jpg" /><div class="grid-flex"><small class="text-danger"><b>1:00s</b></small> <span>850$</span></div><div class="row"><a href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
-            <li><img src="~/Content/Client/images/pi2.jpg" /><div class="grid-flex"><small class="text-danger"><b>1:00s</b></small> <span>850$</span></div><div class="row"><a href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
-            <li><img src="~/Content/Client/images/pi3.jpg" /><div class="grid-flex"><small class="text-danger"><b>1:00s</b></small> <span>850$</span></div><div class="row"><a href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
-            <li><img src="~/Content/Client/images/pi4.jpg" /><div class="grid-flex"><small class="text-danger"><b>1:00s</b></small> <span>850$</span></div><div class="row"><a href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
+            <li>
+                <img src="~/Content/Client/images/pi.jpg" />
+                <div class="grid-flex">
+                    <small class="text-danger">
+                        <b id="time"></b>
+                    </small>
+                    <span>850$</span>
+                </div>
+                <div class="row">
+                    <a class="btn btn-default" href="#">
+                        <i style="font-size:18px;" class="fas fa-gavel"></i>
+                    </a>
+                </div>
+            </li>
+            <li><img src="~/Content/Client/images/pi1.jpg" /><div class="grid-flex"><small class="text-danger"><b id="time1"></b></small> <span>850$</span></div><div class="row"><a class="btn btn-default" href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
+            <li><img src="~/Content/Client/images/pi2.jpg" /><div class="grid-flex"><small class="text-danger"><b id="time2"></b></small> <span>850$</span></div><div class="row"><a class="btn btn-default" href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
+            <li><img src="~/Content/Client/images/pi3.jpg" /><div class="grid-flex"><small class="text-danger"><b id="time3"></b></small> <span>850$</span></div><div class="row"><a class="btn btn-default" href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
+            <li><img src="~/Content/Client/images/pi4.jpg" /><div class="grid-flex"><small class="text-danger"><b id="time4"></b></small> <span>850$</span></div><div class="row"><a class="btn btn-default" href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
+            <li><img src="~/Content/Client/images/pi4.jpg" /><div class="grid-flex"><small class="text-danger"><b id="time5"></b></small> <span>850$</span></div><div class="row"><a class="btn btn-default" href="#"><i style="font-size:18px;" class="fas fa-gavel"></i></a></div></li>
         </ul>
     </div>
     <div class="shoes-grid-left">
@@ -252,7 +266,31 @@
     </div>
 </div>
 @section scripts{
+    <!-- iCheck -->
+    <script src="~/Content/Admin/plugins/iCheck/icheck.js"></script>
+    <script src="~/Content/Admin/Scripts/icheck.js"></script>
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <!-- Slideshow -->
+    <script type="text/javascript" src="~/Content/Client/js/jquery.flexisel.js"></script>
     <script>
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10)
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
         $(document).ready(function () {
             $("#modal-register").modal("hide");
             $("#modal-forgotpassword").modal("hide");
@@ -280,19 +318,22 @@
                 $("#modal-register").modal("hide");
                 $("#modal-forgotpassword").modal("show");
             })
-        })
-    </script>
-    <!-- iCheck -->
-    <script src="~/Content/Admin/plugins/iCheck/icheck.js"></script>
-    <script src="~/Content/Admin/Scripts/icheck.js"></script>
-    <!-- Validation -->
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
-    //slideshow
-    <script type="text/javascript" src="~/Content/Client/js/jquery.flexisel.js"></script>
-    <script>
-        $(document).ready(function () {
+            //set countdown timmer
+            var fiveMinutes = 60 * 0.5,
+                display = document.querySelector('#time');
+                display1 = document.querySelector('#time1');
+                display2 = document.querySelector('#time2');
+                display3 = document.querySelector('#time3');
+                display4 = document.querySelector('#time4');
+                display5 = document.querySelector('#time5');
+                startTimer(fiveMinutes, display);
+                startTimer(fiveMinutes, display1);
+                startTimer(fiveMinutes, display2);
+                startTimer(fiveMinutes, display3);
+                startTimer(fiveMinutes, display4);
+                startTimer(fiveMinutes, display5);
+            //slideshow
             $("#flexiselDemo1").flexisel({
                 visibleItems: 5,
                 animationSpeed: 1000,
@@ -303,18 +344,18 @@
                 responsiveBreakpoints: {
                     portrait: {
                         changePoint: 480,
-                        visibleItems: 1
+                        visibleItems: 3
                     },
                     landscape: {
                         changePoint: 640,
-                        visibleItems: 2
+                        visibleItems: 4
                     },
                     tablet: {
                         changePoint: 768,
-                        visibleItems: 3
+                        visibleItems: 5
                     }
                 }
             });
-        });
+        })
     </script>
 }

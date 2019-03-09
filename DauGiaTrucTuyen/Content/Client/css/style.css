@@ -4,6 +4,7 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
+
 body {
     background: #fff;
     font-family: 'Open Sans', sans-serif;
@@ -690,7 +691,7 @@ p.m_text {
         margin-top: 10px;
         margin-bottom: 10px;
         max-width: 150px;
-        max-height: 500px;
+        max-height: 150px;
     }
 
 .grid-flex {
@@ -1417,6 +1418,11 @@ select.in-drop {
     background: #F97E76;
     outline: none;
 }
+
+/*--hover img--*/
+.nbs-flexisel-item img:hover {
+    transform: scale(1.1);
+}
 /*--responsive--*/
 @media(max-width:1440px) {
 }
@@ -1435,6 +1441,17 @@ select.in-drop {
 
     .img-left-arrow {
         padding: 0 0 0 4.7em;
+    }
+}
+
+@media (max-width: 991px) {
+    /*d-none slidebar DANHMUC*/
+    .sub-cate {
+        display: none;
+    }
+
+    .shoes-grid {
+        width: 100%;
     }
 }
 
@@ -1518,6 +1535,11 @@ select.in-drop {
 }
 
 @media(max-width:768px) {
+    .nbs-flexisel-item > img {
+        max-width: 120px;
+        max-height: 100px;
+    }
+
     .top-down {
         padding: 0 0em 0 0em;
     }
@@ -1624,10 +1646,6 @@ select.in-drop {
 }
 
 @media(max-width:640px) {
-    /*d-none slidebar DANHMUC*/
-    .sub-cate {
-        display: none;
-    }
 
     .top-header-left {
         float: none;
