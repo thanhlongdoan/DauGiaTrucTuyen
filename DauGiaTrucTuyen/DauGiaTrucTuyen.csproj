@@ -184,15 +184,35 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\ManagerCategoryViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ManagerProductViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerUserViewModel.cs" />
+    <Compile Include="Common\Upload.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="DataBinding\Category.cs" />
+    <Compile Include="DataBinding\Product.cs" />
+    <Compile Include="DataBinding\User.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data\Category.cs" />
+    <Compile Include="Data\Db_DauGiaTrucTuyen.cs" />
+    <Compile Include="Data\FeedBack.cs" />
+    <Compile Include="Data\Product.cs" />
+    <Compile Include="Data\ProductDetail.cs" />
+    <Compile Include="Data\Report.cs" />
+    <Compile Include="Data\StatusUser.cs" />
+    <Compile Include="Data\Transaction.cs" />
+    <Compile Include="Data\TransactionAuction.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IDataBinding\IUser.cs" />
     <Compile Include="Migrations\201902280454148_Initial.cs" />
     <Compile Include="Migrations\201902280454148_Initial.Designer.cs">
       <DependentUpon>201902280454148_Initial.cs</DependentUpon>
@@ -1894,6 +1914,7 @@
     <Content Include="Content\Client\css\etalage.css" />
     <Content Include="Content\Client\css\form.css" />
     <Content Include="Content\Client\css\style.css" />
+    <Content Include="Content\Client\css\style1.css" />
     <Content Include="Content\Client\images\a-star.png" />
     <Content Include="Content\Client\images\arrow1.png" />
     <Content Include="Content\Client\images\arrow2.png" />
@@ -2132,6 +2153,13 @@
     <Content Include="Content\Admin\sweetalert\sweet-alert-combine.less" />
     <Content Include="Content\Admin\sweetalert\sweet-alert.less" />
     <Content Include="Content\Client\images\Thumbs.db" />
+    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\GetListProductStatus1.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\datatable\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\datatable\dataTables.fixedHeader.min.js" />
@@ -2182,9 +2210,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Category\GetCategorySideBar.cshtml" />
+    <Content Include="Views\Category\GetCategoryFooter.cshtml" />
+    <Content Include="Views\Product\GetListProductForPageClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\ImageProduct\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

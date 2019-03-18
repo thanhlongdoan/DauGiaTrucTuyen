@@ -653,7 +653,7 @@ p.m_text {
 }
 
 #flexiselDemo1 {
-    display: none;
+    display: block;
 }
 
 .nbs-flexisel-container {

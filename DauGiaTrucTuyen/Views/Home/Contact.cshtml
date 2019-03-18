@@ -1,17 +1,52 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    Layout = null;
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<!DOCTYPE html>
+<html lang="en">
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="~/Content/Client/js/jquery.flexisel.js"></script>
+    <link href="~/Content/Client/css/style1.css" rel="stylesheet" />
+    <link href="~/Content/Admin/bower_components/font-awesome/css/all.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="countdown"></div>
+    <button style="display:none">FINISH!!!</button>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var timer2 = localStorage.getItem('timer');
+            if (timer2 === null) timer2 = "1:30";
+            $('.countdown').html(timer2);
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+            var interval = setInterval(function () {
+                var timer = timer2.split(':');
+                var minutes = parseInt(timer[0], 10);
+                var seconds = parseInt(timer[1], 10);
+                --seconds;
+                minutes = (seconds < 0) ? --minutes : minutes;
+                if (minutes < 0) {
+                    clearInterval(interval);
+                    localStorage.removeItem('timer');
+                    $('button').show();
+                } else {
+                    seconds = (seconds < 0) ? 59 : seconds;
+                    seconds = (seconds < 10) ? '0' + seconds : seconds;
+                    $('.countdown').html(minutes + ':' + seconds);
+                    timer2 = minutes + ':' + seconds;
+                    localStorage.setItem('timer', timer2);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

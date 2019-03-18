@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductForPageClientViewModel>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <img src="@item.Image" class="img-responsive" alt="" style="margin: auto" width="100" height="150" />
+            <div class="text-center">
+                <small class="text-danger">
+                    <b id='@("time" + item.Products_Id)'></b>
+                </small>
+                <span>850$</span>
+            </div>
+            <a class="btn btn-default text-center" style="margin: auto;display: block; width: 50px;" href="#">
+                <i style="font-size:18px;" class="fas fa-gavel"></i>
+            </a>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+            var items = @Html.Raw(Json.Encode(Model));
+            items.forEach(function (item) {
+                //var fiveMinutes = 60 * item.AuctionTime;
+                var id = "#time" + item.Products_Id;
+                //var display = document.querySelector('' + id + '');
+                //startTimer(fiveMinutes, display);
+                var timer2 = localStorage.getItem('timer');
+                if (timer2 === null) timer2 = item.AuctionTime;
+                $('' + id + '').html(timer2);
+
+                var interval = setInterval(function () {
+                    var timer = timer2.split(':');
+                    var minutes = parseInt(timer[0], 10);
+                    var seconds = parseInt(timer[1], 10);
+                    --seconds;
+                    minutes = (seconds < 0) ? --minutes : minutes;
+                    if (minutes < 0) {
+                        clearInterval(interval);
+                        localStorage.removeItem('timer');
+                        //remove item product
+                        var list = document.getElementsByClassName("col-md-3");
+                        console.log(list.innerHTML)
+                    } else {
+                        seconds = (seconds < 0) ? 59 : seconds;
+                        seconds = (seconds < 10) ? '0' + seconds : seconds;
+                        $('' + id + '').html(minutes + ':' + seconds);
+                        timer2 = minutes + ':' + seconds;
+                        localStorage.setItem('timer', timer2);
+                    }
+                }, 1000);
+            });
+    })
+</script>

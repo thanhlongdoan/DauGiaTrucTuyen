@@ -1,0 +1,72 @@
+﻿@model DauGiaTrucTuyen.Areas.Admin.Models.DetailCategoryViewModel
+
+@{
+    ViewBag.Title = "Chi tiết danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Chi tiết danh mục sản phẩm</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CategoryName)
+            </dd>
+            <p>
+                @Html.ActionLink("Quay lại", "Index")
+                <a href="@Url.Action("Edit",new { id = Model.Categorys_Id })" class="btn btn-primary">Cập nhật</a>
+                <a id="js_btnDelete" href="javascript:;" data-id="@Model.Categorys_Id" class="btn btn-danger">Xóa</a>
+            </p>
+        </dl>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#js_btnDelete").on('click', function () {
+                var id = $(this).attr('data-id');
+                swal({
+                    title: "Xóa tài khoản?",
+                    text: "Bạn có chắc chắn muốn xóa danh mục sản phẩm này không?",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: "Đồng ý",
+                    cancelButtonText: 'Không',
+                    confirmButtonColor: "#ec6c62",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (result) {
+                    if (result) {
+                        $.ajax(
+                            {
+                                url: "/Admin/Category/Delete?id=" + id,
+                                type: "GET",
+                                success: function (data) {
+                                    if (data) {
+                                        swal({
+                                            title: "Đã xóa thành công",
+                                            type: "success",
+                                            confirmButtonClass: "btn-primary",
+                                            confirmButtonText: "OK",
+                                            closeOnConfirm: false
+                                        }, function () {
+                                            window.location.href = "/Admin/Category/Index";
+                                        });
+                                    }
+                                    else {
+                                        swal("Xóa thất bại", ":(", "error");
+                                    }
+                                }
+                            }
+                        )
+                    }
+                });
+            })
+        })
+    </script>
+}

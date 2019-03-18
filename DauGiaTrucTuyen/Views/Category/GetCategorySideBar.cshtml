@@ -1,0 +1,12 @@
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListCategoryViewModel>
+<div class=" top-nav rsidebar span_1_of_left">
+    <h3 class="cate">
+        DANH MỤC SẢN PHẨM
+    </h3>
+    <ul class="menu">
+        @foreach (var item in Model)
+        {
+            <li><a href="">@item.CategoryName</a></li>
+        }
+    </ul>
+</div>

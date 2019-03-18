@@ -9,7 +9,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Đăng ký</title>
-    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 </head>
 <body class="hold-transition login-page">
@@ -17,7 +16,6 @@
         <div class="login-logo">
             <a href="@Url.Action("Index","Home")"><b>ĐẤU GIÁ TRỰC TUYẾN</b></a>
         </div>
-        <!-- /.login-logo -->
         <div class="login-box-body">
             <h4 class="login-box-msg">Đăng ký</h4>
             @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -39,32 +37,15 @@
                 </div>
                 @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                 <div class="row">
-                    <div class="col-xs-8">
-
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-xs-4">
+                    <div class="col-xs-6 col-xs-offset-3">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng ký</button>
                     </div>
-                    <!-- /.col -->
                 </div>
             }
-            <div class="social-auth-links text-center">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
-                    <i class="fab fa-facebook-f"></i> Đăng ký với
-                    Facebook
-                </a>
-                <a href="#" class="btn btn-block btn-social btn-google btn-flat">
-                    <i class="fab fa-google-plus-g"></i> Đăng ký với
-                    Google+
-                </a>
-            </div>
-            <!-- /.social-auth-links -->
+            <br />
             <a id="js_btnForgotPassword" href="javascript:;">Quên mật khẩu?</a><br>
             <a id="js_btnLogin" href="javascript:;" class="text-center">Đăng nhập</a>
         </div>
-        <!-- /.login-box-body -->
     </div>
 </body>
 </html>
