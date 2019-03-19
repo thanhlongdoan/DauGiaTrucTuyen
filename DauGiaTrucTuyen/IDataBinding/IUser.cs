@@ -8,7 +8,8 @@ namespace DauGiaTrucTuyen.IDataBinding
 {
     public interface IUser
     {
-        DetailUserViewModel Detail(string id);
-        bool Delete(string id);
+        List<ListUserViewModel> GetListUser();
+        DetailUserViewModel DetailUser(string id);
+        bool DeleteUser(string id);
     }
 }

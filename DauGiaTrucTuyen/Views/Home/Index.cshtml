@@ -143,8 +143,16 @@
 <div class="modal fade" id="modal-register" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 70%; margin: auto">
+            <div class="bs-example bs-example-tabs">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class=""><a href="#buoc1" data-toggle="tab">Bước 1</a></li>
+                    <li class=""><a href="#buoc2" style="pointer-events: none;" data-toggle="tab">Bước 2</a></li>
+                </ul>
+            </div>
             <div class="modal-body">
-                @Html.Partial("~/Views/Account/Register.cshtml")
+                <div id="myTabContent" class="tab-content">
+                    @Html.Partial("~/Views/Account/Register.cshtml")
+                </div>
             </div>
         </div>
     </div>

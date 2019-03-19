@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DauGiaTrucTuyen.Areas.Admin.Models
 {
@@ -36,6 +37,15 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         public decimal PriceStart { get; set; }
     }
+
+    public enum AuctionTime
+    {
+        One = '1',
+        Two = '2',
+        Three = '3',
+        Four = '4'
+    }
+
     public class AddProductViewModel
     {
         public string Products_Id { get; set; }
@@ -48,13 +58,14 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         //[Required(ErrorMessage = "Hình ảnh là bắt buộc")]
         public string Image { get; set; }
 
+        [AllowHtml]
         [DisplayName("Mô tả")]
         [Required(ErrorMessage = "Mô tả là bắt buộc")]
         public string Description { get; set; }
 
         [DisplayName("Thời gian đấu giá")]
         [Required(ErrorMessage = "Thời gian đấu giá là bắt buộc")]
-        public string AuctionTime { get; set; }
+        public AuctionTime AuctionTime { get; set; }
 
         [DisplayName("Giá khởi điểm")]
         [Required(ErrorMessage = "Giá khởi điểm là bắt buộc")]
@@ -72,5 +83,35 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string Category_Id { get; set; }
 
         public string User_Id { get; set; }
+    }
+
+    public class DetailProductViewModel
+    {
+        public string Products_Id { get; set; }
+
+        [DisplayName("Tên sản phẩm")]
+        public string ProductName { get; set; }
+
+        [DisplayName("Hình ảnh")]
+        public string Image { get; set; }
+
+        [AllowHtml]
+        [DisplayName("Mô tả")]
+        public string Description { get; set; }
+
+        [DisplayName("Thời gian đấu giá")]
+        public string AuctionTime { get; set; }
+
+        [DisplayName("Giá khởi điểm")]
+        public decimal? PriceStart { get; set; }
+
+        [DisplayName("Bước giá")]
+        public int? StepPrice { get; set; }
+
+        [DisplayName("Tên danh mục sản phẩm")]
+        public string Category_Id { get; set; }
+
+        //[DisplayName("Người tạo")]
+        //public string User_Id { get; set; }
     }
 }
