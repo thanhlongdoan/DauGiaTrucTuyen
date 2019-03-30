@@ -16,6 +16,14 @@
             <dd>
                 @Html.DisplayFor(model => model.CategoryName)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StatusCategory)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StatusCategory)
+            </dd>
             <p>
                 @Html.ActionLink("Quay lại", "Index")
                 <a href="@Url.Action("Edit",new { id = Model.Categorys_Id })" class="btn btn-primary">Cập nhật</a>

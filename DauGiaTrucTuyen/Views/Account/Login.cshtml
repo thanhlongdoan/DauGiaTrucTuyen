@@ -1,8 +1,10 @@
 ﻿@using DauGiaTrucTuyen.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
-    Layout = null;
+                /**/
+
+                ViewBag.Title = "Log in";
+                Layout = null;
 }
 <!DOCTYPE html>
 <html>
@@ -23,10 +25,10 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="form-group has-feedback">
-                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email", @autofocus = "autofocus" })
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Tên đăng nhập", @autofocus = "autofocus" })
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                 <div class="form-group has-feedback">
                     @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>

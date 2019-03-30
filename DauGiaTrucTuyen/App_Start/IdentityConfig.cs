@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using DauGiaTrucTuyen.Models;
+using System.Net.Mail;
+using System.Net;
+using System.Configuration;
 
 namespace DauGiaTrucTuyen
 {
@@ -18,6 +21,30 @@ namespace DauGiaTrucTuyen
     {
         public Task SendAsync(IdentityMessage message)
         {
+            string email = ConfigurationManager.AppSettings["EmailSendMail"];
+            string pwd = ConfigurationManager.AppSettings["PwdSendMail"];
+
+            var client = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                UseDefaultCredentials = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Credentials = new NetworkCredential(email, pwd),
+                EnableSsl = true,
+            };
+
+            var from = new MailAddress(email, "Hệ thống đấu giá trực tuyến");
+            var to = new MailAddress(message.Destination);
+
+            var mail = new MailMessage(from, to)
+            {
+                Subject = message.Subject,
+                Body = message.Body,
+                IsBodyHtml = true,
+            };
+
+            client.Send(mail);
             // Plug in your email service here to send an email.
             return Task.FromResult(0);
         }
@@ -40,7 +67,7 @@ namespace DauGiaTrucTuyen
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
@@ -54,10 +81,10 @@ namespace DauGiaTrucTuyen
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                //RequireNonLetterOrDigit = true,
+                //RequireDigit = true,
+                //RequireLowercase = true,
+                //RequireUppercase = true,
             };
 
             // Configure user lockout defaults
@@ -81,7 +108,7 @@ namespace DauGiaTrucTuyen
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;

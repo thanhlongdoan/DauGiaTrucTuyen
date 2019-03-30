@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
-using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.IDataBinding;
 using DauGiaTrucTuyen.Models;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using static DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel;
 
 namespace DauGiaTrucTuyen.DataBinding

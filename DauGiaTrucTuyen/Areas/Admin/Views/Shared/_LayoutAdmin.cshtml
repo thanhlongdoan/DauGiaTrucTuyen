@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Admin</title>
+    <link href="~/Content/Client/images/img_452250.png" type="image/png" rel="shortcut icon" />
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="~/Content/Admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome 5.5.0 -->
@@ -21,6 +22,10 @@
     <script src="~/Content/Admin/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Sweetalert  CSS-->
     <link href="~/Content/Admin/sweetalert/css/sweetalert.css" rel="stylesheet" />
+    <!-- Load-page  CSS-->
+    <link href="~/Content/Client/css/loadpage.css" rel="stylesheet" />
+    <!-- Upload img CSS -->
+    <link href="~/Content/Admin/dist/css/upload-img.css" rel="stylesheet" />
     <!-- Section css-->
     @RenderSection("css", required: false)
 </head>
@@ -28,9 +33,9 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a href="@Url.Action("Index")" class="logo">
-                <span class="logo-mini"><b>A</b>LT</span>
-                <span class="logo-lg"><b>Admin</b>LTE</span>
+            <a href="@Url.Action("Index","Home", new { area = "admin" })" class="logo">
+                <span class="logo-mini"><b>ĐG</b></span>
+                <span class="logo-lg"><b>ĐẤU GIÁ</b></span>
             </a>
             <nav class="navbar navbar-static-top">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -186,8 +191,8 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="#"><i class="fas fa-circle-notch"></i> Danh sách tổng số sản phẩm</a></li>
-                            <li><a href="@Url.Action("GetListProductStatus1","Product", new { status = "1" })"><i class="fas fa-circle-notch"></i> Danh sách sản phẩm đang chờ phê duyệt</a></li>
-                            <li><a href="@Url.Action("Index","Product", new { status = "2" })"><i class="fas fa-circle-notch"></i> Danh sách sản phẩm đang đấu giá</a></li>
+                            <li><a href="@Url.Action("GetListProductStatusReView","Product", new { status = "Đang chờ duyệt" })"><i class="fas fa-circle-notch"></i> Danh sách sản phẩm đang chờ phê duyệt</a></li>
+                            <li><a href="@Url.Action("Index","Product", new { status = "Đã duyệt" })"><i class="fas fa-circle-notch"></i> Danh sách sản phẩm đang đấu giá</a></li>
                             <li><a href="@Url.Action("Create","Product")"><i class="fas fa-circle-notch"></i> Thêm mới sản phẩm</a></li>
                         </ul>
                     </li>
@@ -216,10 +221,9 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>Version</b> 2.4.0
+                <b>Version</b> 1.0.1
             </div>
-            <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-            reserved.
+            <strong>Bản quyền &copy; 2019 <a href="https://adminlte.io">Nhóm đồ án tốt nghiệm</a>.</strong> By: Thanh Long
         </footer>
     </div>
     <!-- ./wrapper -->
@@ -238,6 +242,7 @@
     <!-- Validate JS -->
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+   
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/ckeditor")
 </body>

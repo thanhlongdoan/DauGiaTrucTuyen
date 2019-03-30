@@ -33,11 +33,24 @@ namespace DauGiaTrucTuyen.Controllers
             return PartialView(_iProduct.GetListProductForPageClient());
         }
 
+        //Danh sách sản phẩm cho trang người dùng
+        public ActionResult GetListProductFromCategory(string id)
+        {
+            return View(_iProduct.GetListProductFromCategory(id));
+        }
+
         //Chi tiết sản phẩm trang người dùng
         public ActionResult ProductDetail(string productId)
         {
             var result = _iProduct.DetailProduct(productId);
             return View(result);
+        }
+
+        //kiểm tra số tiền nhập vào đấu giá
+        [AllowAnonymous]
+        public JsonResult CheckPriceAuction(decimal auctionPrice, string productId)
+        {
+            return Json(_iProduct.CheckPrice(auctionPrice, productId) == true ? false : true, JsonRequestBehavior.AllowGet);
         }
     }
 }

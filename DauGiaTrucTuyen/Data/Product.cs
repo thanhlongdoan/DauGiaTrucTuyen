@@ -28,6 +28,9 @@ namespace DauGiaTrucTuyen.Data
         [StringLength(50)]
         public string UpdateBy { get; set; }
 
+        [StringLength(30)]
+        public string StatusProduct { get; set; }
+
         [StringLength(128)]
         public string Category_Id { get; set; }
 
@@ -38,6 +41,8 @@ namespace DauGiaTrucTuyen.Data
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
+
+        public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }

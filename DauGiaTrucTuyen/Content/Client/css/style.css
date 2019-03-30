@@ -1,10 +1,3 @@
-/*--A Design by W3layouts 
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
---*/
-
 body {
     background: #fff;
     font-family: 'Open Sans', sans-serif;
@@ -17,6 +10,66 @@ body {
         -ms-transition: 0.5s all;
         -moz-transition: 0.5s all;
     }
+
+.menu-login {
+    margin: auto;
+    text-align: center;
+    width: 100% !important;
+}
+
+.login-page {
+    background: #fff !important;
+}
+
+.navbar {
+    margin-bottom: 5px !important;
+}
+
+.navbar-nav > li > a {
+    color: black !important;
+}
+
+#view-detail-product {
+    background: #18a083 !important;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.btn-dau-gia {
+    background: #18a083;
+    color: #fff;
+}
+
+.navbar-brand {
+    color: black !important;
+}
+
+    .navbar-brand img {
+        width: 70px;
+    }
+
+.navbar-nav .navbar-link:hover {
+    background: #18a083 !important;
+    border-radius: 80px !important;
+    color: #fff !important;
+}
+
+.dropdown-menu .dropdown-item {
+    color: black !important;
+}
+
+.content-home {
+    margin-top: 10%;
+}
+
+    .content-home .box-item-product {
+        padding: 2%;
+    }
+
+.header {
+    background: #fff;
+    border-bottom: 4px solid #18a083;
+}
 
 .top-header {
     background: #F97E76;
@@ -70,7 +123,7 @@ ul.support {
 /*----*/
 .bottom-header {
     border-bottom: 1px solid #ddd;
-    padding: 0.7em 0 1em;
+    padding: 0.7em 1em 0em 1em;
 }
 
 .header-bottom-left {
@@ -188,9 +241,9 @@ ul.login {
 /*----*/
 h3.cate {
     color: #fff;
-    font-size: 1.7em;
+    font-size: 1.4em;
     padding: 0.6em;
-    background: #000;
+    background: #18a083;
     margin: 0;
 }
 /*----*/
@@ -244,7 +297,7 @@ ul {
     }
 
 .menu > li > a:hover, .menu > li > a.active {
-    background: #fff;
+    background: #ddd;
 }
 
 .menu ul.kid-menu li a {
@@ -290,23 +343,12 @@ ul.cute li {
     border: 1px solid #ddd;
 }
 
-.sub-cate {
-    width: 27%;
-    margin: 2em 2em 0 0;
-}
-
 .banner-off {
     padding: 6em 0em 6em 2em;
 }
 
 .banner-matter {
     padding: 4em 2em;
-}
-
-.shoes-grid {
-    padding-top: 2%;
-    width: 70%;
-    float: right;
 }
 
 .slide-grid {
@@ -744,7 +786,7 @@ p.m_text {
 /*--product--*/
 /*-- start w_content --*/
 .women-product, .account_grid, .register, .single_top, .main {
-    width: 70%;
+    width: 100%;
     float: right;
 }
 

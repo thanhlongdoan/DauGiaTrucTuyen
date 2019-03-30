@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListCategoryViewModel>
 
 @{
+    /**/
+
     ViewBag.Title = "Danh sách danh mục sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -17,6 +19,10 @@
                     <th>
                         @Html.DisplayNameFor(model => model.CategoryName)
                     </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.StatusCategory)
+                    </th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -26,6 +32,9 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StatusCategory)
                         </td>
                         <td>
                             <a href="@Url.Action("Edit", new { id = item.Categorys_Id })"><i class="fas fa-edit"></i></a>
@@ -46,9 +55,7 @@
                 stateSave: true
             });
             new $.fn.dataTable.FixedHeader(table);
-        });
-        $(document).ready(function () {
-            $("#js_btnDelete").on('click', function () {
+            $("#example").on("click", "#js_btnDelete", function () {
                 var id = $(this).attr('data-id');
                 swal({
                     title: "Xóa tài khoản?",

@@ -21,39 +21,50 @@
             </div>
             <div class="login-box-body">
                 <h4 class="login-box-msg">Đăng ký</h4>
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", @id = "form-register", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group has-feedback">
-                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email", @autofocus = "autofocus" })
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Tên đăng nhập", @autofocus = "autofocus" })
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                     <div class="form-group has-feedback">
-                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email xác thực tài khoản" })
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    <div class="form-group has-feedback">
+                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", @placeholder = "Số điện thoại xác thực tài khoản" })
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    <div class="form-group has-feedback">
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     <div class="form-group has-feedback">
-                        @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @placeholder = "Mật khẩu" })
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    <label class="text-center" style="width: 100%">--Vui lòng chọn hình thức xác thực tài khoản--</label>
+                    <div class="form-group has-feedback">
+                        @Html.DropDownListFor(model => model.Select, new SelectList(ViewBag.SelectedItems, "Value", "Text", ViewBag.SelectedDefault), htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Select, "", new { @class = "text-danger" })
                     <div class="row">
                         <div class="col-xs-6 col-xs-offset-3">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng ký</button>
+                            <button type="submit" id="submit-register" class="btn btn-primary btn-block btn-flat">Đăng ký</button>
                         </div>
                     </div>
+                    <br />
+                    <a id="js_btnForgotPassword" href="javascript:;">Quên mật khẩu?</a><br>
+                    <a id="js_btnLogin" href="javascript:;" class="text-center">Đăng nhập</a>
                 }
-                <br />
-                <a id="js_btnForgotPassword" href="javascript:;">Quên mật khẩu?</a><br>
-                <a id="js_btnLogin" href="javascript:;" class="text-center">Đăng nhập</a>
             </div>
         </div>
-    </div>
-    <div class="tab-pane fade in" id="buoc2">
-        <p>We need this information so that you can receive access to the site and its content. Rest assured your information will not be sold, traded, or given to anyone.</p>
-        <p></p><br> Please contact <a mailto:href="JoeSixPack@Sixpacksrus.com"></a>JoeSixPack@Sixpacksrus.com</a> for any other inquiries.</p>
     </div>
 </body>
 </html>

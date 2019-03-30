@@ -6,7 +6,7 @@
     <ul class="menu">
         @foreach (var item in Model)
         {
-            <li><a href="">@item.CategoryName</a></li>
+            <li><a href="@Url.Action("GetListProductFromCategory","Product", new { id = item.Categorys_Id })" data-id="@item.Categorys_Id">@item.CategoryName</a></li>
         }
     </ul>
 </div>

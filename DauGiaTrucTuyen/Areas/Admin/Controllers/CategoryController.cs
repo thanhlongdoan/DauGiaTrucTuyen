@@ -3,6 +3,7 @@ using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
 using DauGiaTrucTuyen.IDataBinding;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 
@@ -73,6 +74,12 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "Mở", Value = "Mở" });
+            items.Add(new SelectListItem { Text = "Đóng", Value = "Đóng" });
+            ViewBag.SelectedDefault = category.StatusCategory;
+            ViewBag.SelectedItems = items;
             return View(model);
         }
 

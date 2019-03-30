@@ -1,14 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using DauGiaTrucTuyen.DataBinding;
+using DauGiaTrucTuyen.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using DauGiaTrucTuyen.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace DauGiaTrucTuyen.Controllers
 {
@@ -17,15 +17,17 @@ namespace DauGiaTrucTuyen.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IDataBinding.IUser _iUser { get; set; }
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IDataBinding.IUser iUser)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _iUser = iUser;
         }
 
         public ApplicationSignInManager SignInManager
@@ -72,15 +74,15 @@ namespace DauGiaTrucTuyen.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindAsync(model.Email, model.Password);
+            var user = await UserManager.FindAsync(model.UserName, model.Password);
             if (user != null && user.EmailConfirmed == false && user.PhoneNumberConfirmed == false)
             {
                 ModelState.AddModelError("", "Tài khoản của bạn chưa được xác nhận !");
-                return View("~/Views/Home/Index.cshtml");
+                return View(model);
             }
             else
             {
-                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
                 switch (result)
                 {
                     case SignInStatus.Success:
@@ -96,14 +98,14 @@ namespace DauGiaTrucTuyen.Controllers
                             await UserManager.UpdateAsync(user);
                             ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa tạm thời. Vùi lòng thử lại sau ít phút !");
                         }
-                        return View("~/Views/Home/Index.cshtml");
+                        return View(model);
                     //return View("Lockout");
                     case SignInStatus.RequiresVerification:
                         return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Đăng nhập không đúng !");
-                        return View("~/Views/Home/Index.cshtml");
+                        return View(model);
                 }
             }
         }
@@ -156,6 +158,11 @@ namespace DauGiaTrucTuyen.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "Email", Value = "Email" });
+            items.Add(new SelectListItem { Text = "Số điện thoại", Value = "Phone" });
+            ViewBag.SelectedDefault = "Email";
+            ViewBag.SelectedItems = items;
             return View();
         }
 
@@ -164,29 +171,32 @@ namespace DauGiaTrucTuyen.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<JsonResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, CreateDate = DateTime.Now };
+                var user = new ApplicationUser { UserName = model.UserName, CreateDate = DateTime.Now, Email = model.Email, PhoneNumber = model.PhoneNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    //if (model.Select.Equals("Email"))
+                    //{
+                    //    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //    await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản 'Đấu giá trực tuyến'", "Vui lòng click vào  <a href=\"" + callbackUrl + "\">đây để xác thực tài khoản</a>");
+                    //}
+                    return Json(true);
                 }
-                AddErrors(result);
+                else
+                {
+                    AddErrors(result);
+                    return Json(false);
+                }
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            else
+            {
+                return Json(false);
+            }
         }
 
         //
@@ -199,7 +209,10 @@ namespace DauGiaTrucTuyen.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            if (result.Succeeded)
+                return RedirectToAction("Index", "Home");
+            return View("Error");
+            //return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //
@@ -219,7 +232,7 @@ namespace DauGiaTrucTuyen.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByNameAsync(model.UserName);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -439,6 +452,42 @@ namespace DauGiaTrucTuyen.Controllers
             base.Dispose(disposing);
         }
 
+        [AllowAnonymous]
+        public async Task<JsonResult> CheckUserNameExist(string userName)
+        {
+            var result = await UserManager.FindByNameAsync(userName);
+            if (result != null)
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        public async Task<JsonResult> CheckEmailExist(string email)
+        {
+            var result = await UserManager.FindByEmailAsync(email);
+            if (result != null)
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        public JsonResult CheckNumberPhoneExist(string numberPhone)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var result = db.Users.Any(x => x.PhoneNumber.Equals(numberPhone));
+            if (result == true)
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> InformationUser()
+        {
+            UserService user = new UserService();
+            var result = user.DetailUser(User.Identity.GetUserId());
+            if (result != null)
+                return View(result);
+            return HttpNotFound();
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

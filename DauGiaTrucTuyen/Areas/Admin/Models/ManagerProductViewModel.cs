@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -13,14 +14,14 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Thời gian đấu giá")]
         [Required(ErrorMessage = "Thời gian đấu giá là bắt buộc")]
-        public string AuctionTime { get; set; }
+        public TimeSpan? AuctionTime { get; set; }
 
         [DisplayName("Giá khởi điểm")]
         [Required(ErrorMessage = "Giá khởi điểm là bắt buộc")]
         public decimal PriceStart { get; set; }
 
         [DisplayName("Trạng thái")]
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         [DisplayName("Tên danh mục sản phẩm")]
         [Required(ErrorMessage = "Tên danh mục sản phẩm là bắt buộc")]
@@ -31,19 +32,11 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
     {
         public string Products_Id { get; set; }
 
-        public string AuctionTime { get; set; }
+        public TimeSpan? AuctionTime { get; set; }
 
         public string Image { get; set; }
 
         public decimal PriceStart { get; set; }
-    }
-
-    public enum AuctionTime
-    {
-        One = '1',
-        Two = '2',
-        Three = '3',
-        Four = '4'
     }
 
     public class AddProductViewModel
@@ -65,7 +58,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Thời gian đấu giá")]
         [Required(ErrorMessage = "Thời gian đấu giá là bắt buộc")]
-        public AuctionTime AuctionTime { get; set; }
+        public long AuctionTime { get; set; }
 
         [DisplayName("Giá khởi điểm")]
         [Required(ErrorMessage = "Giá khởi điểm là bắt buộc")]
@@ -100,7 +93,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string Description { get; set; }
 
         [DisplayName("Thời gian đấu giá")]
-        public string AuctionTime { get; set; }
+        public TimeSpan? AuctionTime { get; set; }
 
         [DisplayName("Giá khởi điểm")]
         public decimal? PriceStart { get; set; }
@@ -109,9 +102,11 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public int? StepPrice { get; set; }
 
         [DisplayName("Tên danh mục sản phẩm")]
-        public string Category_Id { get; set; }
+        public string CategoryName { get; set; }
 
-        //[DisplayName("Người tạo")]
-        //public string User_Id { get; set; }
+        public string Transaction_Id { get; set; }
+
+        [Remote("CheckPriceAuction", "Product", AdditionalFields = "Products_Id", ErrorMessage = "Giá tiền phải lớn hơn giá tiền hiện tại !")]
+        public decimal? AuctionPrice { get; set; }
     }
 }

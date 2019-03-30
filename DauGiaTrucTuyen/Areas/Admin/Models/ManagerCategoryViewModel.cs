@@ -13,6 +13,9 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Tên danh mục")]
         public string CategoryName { get; set; }
+
+        [DisplayName("Trạng thái")]
+        public string StatusCategory { get; set; }
     }
     public class DetailCategoryViewModel
     {
@@ -20,6 +23,9 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Tên danh mục")]
         public string CategoryName { get; set; }
+
+        [DisplayName("Trạng thái")]
+        public string StatusCategory { get; set; }
     }
 
     public class AddCategoryViewModel
@@ -35,5 +41,8 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [DisplayName("Tên danh mục")]
         [Required(ErrorMessage = "Tên danh mục là bắt buộc")]
         public string CategoryName { get; set; }
+
+        [DisplayName("Trạng thái")]
+        public string StatusCategory { get; set; }
     }
 }

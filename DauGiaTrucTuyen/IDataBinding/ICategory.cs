@@ -11,6 +11,8 @@ namespace DauGiaTrucTuyen.IDataBinding
     {
         List<ListCategoryViewModel> GetListCategory();
 
+        List<ListCategoryViewModel> GetListCategoryForClient();
+
         bool AddCategory(AddCategoryViewModel model);
 
         bool EditCategory(EditCategoryViewModel model);

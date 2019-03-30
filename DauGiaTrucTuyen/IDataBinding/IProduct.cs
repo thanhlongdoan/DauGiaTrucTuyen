@@ -10,14 +10,24 @@ namespace DauGiaTrucTuyen.IDataBinding
 {
     public interface IProduct
     {
-        List<ListProductViewModel> GetListProduct(int status);
+        List<ListProductViewModel> GetListProduct(string status);
+
+        List<ListProductViewModel> GetListProductForClient(string sessionUserId);
 
         bool Create(AddProductViewModel model, HttpPostedFileBase file, string sessionUserId);
+
+        bool CreateForClient(AddProductViewModel model, HttpPostedFileBase file, string sessionUserId);
 
         bool ApprovedProduct(string product_Id);
 
         List<ListProductForPageClientViewModel> GetListProductForPageClient();
 
         DetailProductViewModel DetailProduct(string productId);
+
+        bool CheckPrice(decimal price, string productId);
+
+        bool AuctionProduct(decimal price, string transactionId, string sessionUserId);
+
+        List<ListProductForPageClientViewModel> GetListProductFromCategory(string categoryId);
     }
 }

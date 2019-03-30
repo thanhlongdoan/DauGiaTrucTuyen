@@ -21,7 +21,22 @@ namespace DauGiaTrucTuyen.DataBinding
                        select new ListCategoryViewModel
                        {
                            Categorys_Id = category.Categorys_Id,
-                           CategoryName = category.CategoryName
+                           CategoryName = category.CategoryName,
+                           StatusCategory = category.StatusCategory
+                       };
+            return list.ToList();
+        }
+
+        //Danh sách danh mục cho người dùng
+        public List<ListCategoryViewModel> GetListCategoryForClient()
+        {
+            var list = from category in db.Categorys
+                       where category.StatusCategory.Equals(StatusCategory.Opened)
+                       select new ListCategoryViewModel
+                       {
+                           Categorys_Id = category.Categorys_Id,
+                           CategoryName = category.CategoryName,
+                           StatusCategory = category.StatusCategory
                        };
             return list.ToList();
         }
@@ -31,6 +46,7 @@ namespace DauGiaTrucTuyen.DataBinding
         {
             var category = Mapper.Map<Data.Category>(model);
             category.Categorys_Id = Guid.NewGuid().ToString();
+            category.StatusCategory = StatusCategory.Opened;
             db.Categorys.Add(category);
             db.SaveChanges();
             return true;

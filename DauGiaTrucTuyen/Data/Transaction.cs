@@ -17,15 +17,13 @@ namespace DauGiaTrucTuyen.Data
         [Key]
         public string Transaction_Id { get; set; }
 
-        public string AuctionTime { get; set; }
+        public TimeSpan? AuctionTime { get; set; }
 
         public DateTime? AuctionDate { get; set; }
 
         public decimal? PriceStart { get; set; }
 
         public int? StepPrice { get; set; }
-
-        public int? Status { get; set; }
 
         [StringLength(128)]
         public string Product_Id { get; set; }

@@ -71,7 +71,7 @@
             new $.fn.dataTable.FixedHeader(table);
         });
         $(document).ready(function () {
-            $("#js_btnDelete").on('click', function () {
+            $("#example").on("click", "#js_btnDelete", function () {
                 var id = $(this).attr('data-id');
                 swal({
                     title: "Xóa tài khoản?",

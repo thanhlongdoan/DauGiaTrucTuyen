@@ -2,12 +2,10 @@
 using DauGiaTrucTuyen.Common;
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.IDataBinding;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Web;
 
 namespace DauGiaTrucTuyen.DataBinding
@@ -21,20 +19,44 @@ namespace DauGiaTrucTuyen.DataBinding
         /// </summary>
         /// <param name="status">trạng thái sản phẩm</param>
         /// <returns></returns>
-        public List<ListProductViewModel> GetListProduct(int status)
+        public List<ListProductViewModel> GetListProduct(string status)
         {
             var list = from product in db.Products
                        join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                       where transaction.Status == status
+                       where product.StatusProduct.Equals(status)
                        select new ListProductViewModel
                        {
                            Products_Id = product.Products_Id,
                            ProductName = productDetail.ProductName,
                            AuctionTime = transaction.AuctionTime,
                            PriceStart = (decimal)transaction.PriceStart,
-                           Status = (int)transaction.Status,
+                           Status = product.StatusProduct,
+                           CategoryName = productDetail.ProductName
+                       };
+            return list.ToList();
+        }
+
+        /// <summary>
+        /// Trả về danh sách sản phẩm đấu giá
+        /// </summary>
+        /// <param name="status">trạng thái sản phẩm cho người dùng ( trạng thái chưa duyệt và duyệt rồi )</param>
+        /// <returns></returns>
+        public List<ListProductViewModel> GetListProductForClient(string sessionUserId)
+        {
+            var list = from product in db.Products
+                       join category in db.Categorys on product.Category_Id equals category.Categorys_Id
+                       join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
+                       join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
+                       where product.User_Id == sessionUserId && product.StatusProduct.Equals(StatusProduct.Approved) || product.StatusProduct.Equals(StatusProduct.Review)
+                       select new ListProductViewModel
+                       {
+                           Products_Id = product.Products_Id,
+                           ProductName = productDetail.ProductName,
+                           AuctionTime = transaction.AuctionTime,
+                           PriceStart = (decimal)transaction.PriceStart,
+                           Status = product.StatusProduct,
                            CategoryName = productDetail.ProductName
                        };
             return list.ToList();
@@ -43,7 +65,6 @@ namespace DauGiaTrucTuyen.DataBinding
         //Tạo mới sản phẩm đấu giá ( dành cho admin )
         public bool Create(AddProductViewModel model, HttpPostedFileBase file, string sessionUserId)
         {
-
             try
             {
                 Upload upload = new Upload();
@@ -52,8 +73,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 product.Products_Id = Guid.NewGuid().ToString();
                 product.CreateDate = DateTime.Now;
                 product.CreateBy = "admin";
-                product.UpdateDate = null;
-                product.UpdateBy = null;
+                product.StatusProduct = StatusProduct.Approved;
                 product.Category_Id = model.Category_Id;
                 product.User_Id = sessionUserId;
                 db.Products.Add(product);
@@ -68,11 +88,60 @@ namespace DauGiaTrucTuyen.DataBinding
 
                 Transaction transaction = new Transaction();
                 transaction.Transaction_Id = Guid.NewGuid().ToString();
-                transaction.AuctionTime = "";
+                transaction.AuctionTime = TimeSpan.FromTicks(model.AuctionTime);
                 transaction.AuctionDate = DateTime.Now;
                 transaction.PriceStart = model.PriceStart;
                 transaction.StepPrice = model.StepPrice;
-                transaction.Status = 2;
+                transaction.Product_Id = product.Products_Id;
+                db.Transactions.Add(transaction);
+
+                TransactionAuction transactionAuction = new TransactionAuction();
+                transactionAuction.Transaction_Id = transaction.Transaction_Id;
+                transactionAuction.User_Id = sessionUserId;
+                transactionAuction.AuctionDate = DateTime.Now;
+                transactionAuction.AuctionPrice = transaction.PriceStart;
+                db.TransactionAuctions.Add(transactionAuction);
+
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        //Tạo mới sản phẩm đấu giá ( dành cho client )
+        public bool CreateForClient(AddProductViewModel model, HttpPostedFileBase file, string sessionUserId)
+        {
+            try
+            {
+                Upload upload = new Upload();
+
+                Data.Product product = new Data.Product();
+                product.Products_Id = Guid.NewGuid().ToString();
+                product.CreateDate = DateTime.Now;
+                product.CreateBy = "admin";
+                product.StatusProduct = StatusProduct.Review;
+                product.Category_Id = model.Category_Id;
+                product.User_Id = sessionUserId;
+                db.Products.Add(product);
+
+                ProductDetail productDetail = new ProductDetail();
+                productDetail.ProductDetails_Id = Guid.NewGuid().ToString();
+                productDetail.ProductName = model.ProductName;
+                productDetail.Image = upload.UploadImg(file);
+                productDetail.Description = model.Description;
+                productDetail.Product_Id = product.Products_Id;
+                db.ProductDetails.Add(productDetail);
+
+                Transaction transaction = new Transaction();
+                transaction.Transaction_Id = Guid.NewGuid().ToString();
+                transaction.AuctionTime = TimeSpan.FromTicks(model.AuctionTime);
+                transaction.AuctionDate = DateTime.Now;
+                transaction.PriceStart = model.PriceStart;
+                transaction.StepPrice = model.StepPrice;
                 transaction.Product_Id = product.Products_Id;
                 db.Transactions.Add(transaction);
 
@@ -89,10 +158,19 @@ namespace DauGiaTrucTuyen.DataBinding
         //Phê duyệt sản phẩm người dùng đăng ký
         public bool ApprovedProduct(string product_Id)
         {
-            var product = db.Transactions.Where(x => x.Product_Id == product_Id).FirstOrDefault();
+            var product = db.Products.Where(x => x.Products_Id == product_Id).FirstOrDefault();
+            var transaction = db.Transactions.Where(x => x.Product_Id == product.Products_Id).FirstOrDefault();
             if (product != null)
             {
-                product.Status = 2;
+                product.StatusProduct = StatusProduct.Approved;
+
+                TransactionAuction transactionAuction = new TransactionAuction();
+                transactionAuction.Transaction_Id = transaction.Transaction_Id;
+                transactionAuction.User_Id = product.User_Id;
+                transactionAuction.AuctionDate = DateTime.Now;
+                transactionAuction.AuctionPrice = transaction.PriceStart; ;
+                db.TransactionAuctions.Add(transactionAuction);
+
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return true;
@@ -107,7 +185,27 @@ namespace DauGiaTrucTuyen.DataBinding
                        join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                       where transaction.Status == 2
+                       orderby transaction.AuctionTime ascending
+                       where product.StatusProduct.Equals(StatusProduct.Approved)
+                       select new ListProductForPageClientViewModel
+                       {
+                           Products_Id = product.Products_Id,
+                           AuctionTime = transaction.AuctionTime,
+                           PriceStart = (decimal)transaction.PriceStart,
+                           Image = productDetail.Image
+                       };
+            return list.ToList();
+        }
+
+        //Danh sách danh sách sản phẩm đấu giá theo danh mục
+        public List<ListProductForPageClientViewModel> GetListProductFromCategory(string categoryId)
+        {
+            var list = from product in db.Products
+                       join category in db.Categorys on product.Category_Id equals category.Categorys_Id
+                       join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
+                       join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
+                       orderby transaction.AuctionTime ascending
+                       where product.StatusProduct.Equals(StatusProduct.Approved) && product.Category_Id == categoryId
                        select new ListProductForPageClientViewModel
                        {
                            Products_Id = product.Products_Id,
@@ -125,7 +223,8 @@ namespace DauGiaTrucTuyen.DataBinding
                          join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                          join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                          join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                         where transaction.Status == 2 && product.Products_Id == productId
+                         join transactionAuction in db.TransactionAuctions on transaction.Transaction_Id equals transactionAuction.Transaction_Id
+                         where product.Products_Id == productId
                          select new DetailProductViewModel
                          {
                              Products_Id = product.Products_Id,
@@ -135,9 +234,31 @@ namespace DauGiaTrucTuyen.DataBinding
                              AuctionTime = transaction.AuctionTime,
                              PriceStart = transaction.PriceStart,
                              StepPrice = transaction.StepPrice,
-                             Category_Id = category.CategoryName
+                             CategoryName = category.CategoryName,
+                             AuctionPrice = transactionAuction.AuctionPrice,
+                             Transaction_Id = transactionAuction.Transaction_Id
                          };
             return result.FirstOrDefault();
+        }
+
+        //Kiểm tra tiền nhập vào đấu giá
+        public bool CheckPrice(decimal price, string productId)
+        {
+            var result = db.TransactionAuctions.Where(x => x.AuctionPrice <= price).FirstOrDefault();
+            if (result != null)
+                return true;
+            return false;
+        }
+
+        //Đấu giá sản phẩm
+        public bool AuctionProduct(decimal price, string transactionId, string sessionUserId)
+        {
+            TransactionAuction transactionAuction = new TransactionAuction();
+            transactionAuction.Transaction_Id = transactionId;
+            transactionAuction.User_Id = sessionUserId;
+            transactionAuction.AuctionDate = DateTime.Now;
+            transactionAuction.AuctionPrice = price;
+            return true;
         }
     }
 }

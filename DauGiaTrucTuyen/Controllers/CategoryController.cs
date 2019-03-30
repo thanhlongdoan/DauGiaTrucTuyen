@@ -27,13 +27,13 @@ namespace DauGiaTrucTuyen.Controllers
         //Trả về danh mục sản phẩm ra slide bar
         public ActionResult GetCategorySideBar()
         {
-            return PartialView(_iCategory.GetListCategory());
+            return PartialView(_iCategory.GetListCategoryForClient());
         }
 
-        //Trả vềdanh mục sản phẩm ra footer
+        //Trả về danh mục sản phẩm ra footer
         public ActionResult GetCategoryFooter()
         {
-            return PartialView(_iCategory.GetListCategory());
+            return PartialView(_iCategory.GetListCategoryForClient());
         }
     }
 }

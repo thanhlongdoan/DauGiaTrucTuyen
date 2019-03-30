@@ -3,4 +3,13 @@
     ViewBag.Title = "Quản trị viên";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div id="loadpage"></div>
+<script>
+    $(window).on('load', function () {
+        var pre_loader = $('#loadpage');
+        pre_loader.fadeOut('slow', function () {
+            $(this).remove();
+        });
+    });
+</script>
 

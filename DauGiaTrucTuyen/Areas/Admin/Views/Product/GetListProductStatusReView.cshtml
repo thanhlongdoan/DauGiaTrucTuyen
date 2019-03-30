@@ -51,6 +51,7 @@
                             @Html.DisplayFor(modelItem => item.CategoryName)
                         </td>
                         <td>
+                            <a id="js_btn-approved" href="javascript:;" data-id="@item.Products_Id">Duyệt</a>
                             <a href="@Url.Action("Edit", new { id = item.Products_Id })"><i class="fas fa-edit"></i></a>
                             <a href="@Url.Action("Details", new { id = item.Products_Id })"><i class="fas fa-info-circle"></i></a>
                             <a id="js_btnDelete" href="javascript:;" data-id="@item.Products_Id"><i class="fas fa-trash text-danger"></i></a>
@@ -111,7 +112,34 @@
                     }
                 });
             })
-        })
+
+            $("#js_btn-approved").on('click', function () {
+                var id = $(this).attr('data-id');
+                $.ajax(
+                    {
+                        url: "/Admin/Product/Approved?id=" + id,
+                        type: "GET",
+                        success: function (data) {
+                            if (data) {
+                                swal({
+                                    title: "Đã duyệt thành công",
+                                    type: "success",
+                                    confirmButtonClass: "btn-primary",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: false
+                                }, function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                swal("Duyệt thất bại", ":(", "error");
+                            }
+                        }
+                    }
+                )
+            }
+            )
+        });
     </script>
 }
 

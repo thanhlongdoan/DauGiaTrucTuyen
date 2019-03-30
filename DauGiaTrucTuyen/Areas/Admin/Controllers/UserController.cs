@@ -9,7 +9,6 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
     public class UserController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-        //private User _iUser = new User();
         private readonly IUser _iUser;
         public UserController() : this(new UserService())
         {
