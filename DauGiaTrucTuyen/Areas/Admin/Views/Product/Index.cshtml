@@ -1,0 +1,116 @@
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductViewModel>
+@{
+    ViewBag.Title = "Danh sách sản phẩm đang đấu giá";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Danh sách sản phẩm đang đấu giá</div>
+    <div class="panel-body">
+        <a href="@Url.Action("Create")" class="btn btn-success">Thêm mới sản phẩm đấu giá</a>
+    </div>
+    <div class="panel-body">
+        <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AuctionTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PriceStart)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryName)
+                    </th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuctionTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriceStart)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.Products_Id })"><i class="fas fa-edit"></i></a>
+                            <a href="@Url.Action("Details", new { id = item.Products_Id })"><i class="fas fa-info-circle"></i></a>
+                            <a id="js_btnDelete" href="javascript:;" data-id="@item.Products_Id"><i class="fas fa-trash text-danger"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+            new $.fn.dataTable.FixedHeader(table);
+        });
+        $(document).ready(function () {
+            $("#example").on("click", "#js_btnDelete", function () {
+                var id = $(this).attr('data-id');
+                swal({
+                    title: "Xóa tài khoản?",
+                    text: "Bạn có chắc chắn muốn xóa sản phẩm đấu giá này không?",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: "Đồng ý",
+                    cancelButtonText: 'Không',
+                    confirmButtonColor: "#ec6c62",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (result) {
+                    if (result) {
+                        $.ajax(
+                            {
+                                url: "/Admin/Category/Delete?id=" + id,
+                                type: "GET",
+                                success: function (data) {
+                                    if (data) {
+                                        swal({
+                                            title: "Đã xóa thành công",
+                                            type: "success",
+                                            confirmButtonClass: "btn-primary",
+                                            confirmButtonText: "OK",
+                                            closeOnConfirm: false
+                                        }, function () {
+                                            location.reload();
+                                        });
+                                    }
+                                    else {
+                                        swal("Xóa thất bại", ":(", "error");
+                                    }
+                                }
+                            }
+                        )
+                    }
+                });
+            })
+        })
+    </script>
+}

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel.ListUserViewModel>
 
 @{
-    ViewBag.Title = "Người dùng";
+    ViewBag.Title = "Danh sách người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -20,7 +20,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.CreateDate)
                     </th>
-                    <th>Hành động</th>
+                    <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,11 +57,11 @@
             new $.fn.dataTable.FixedHeader(table);
         });
         $(document).ready(function () {
-            $("td").on('click', '#js_btnDelete', function () {
+            $("#example").on("click", "#js_btnDelete", function () {
                 var id = $(this).attr('data-id');
                 swal({
                     title: "Xóa tài khoản?",
-                    text: "Bạn có chắc chắn muốn xóa tài khoản này không?",
+                    text: "Bạn có chắc chắn muốn xóa người dùng này không?",
                     type: "warning",
                     showCancelButton: true,
                     closeOnConfirm: false,

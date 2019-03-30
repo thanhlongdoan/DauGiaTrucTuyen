@@ -26,7 +26,7 @@ namespace DauGiaTrucTuyen.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("Db_DauGiaTrucTuyen", throwIfV1Schema: false)
         {
         }
 

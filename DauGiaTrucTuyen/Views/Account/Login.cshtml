@@ -1,8 +1,10 @@
 ﻿@using DauGiaTrucTuyen.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
-    Layout = null;
+                /**/
+
+                ViewBag.Title = "Log in";
+                Layout = null;
 }
 <!DOCTYPE html>
 <html>
@@ -10,7 +12,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Đăng nhập</title>
-    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 </head>
 <body class="hold-transition login-page">
@@ -18,17 +19,16 @@
         <div class="login-logo">
             <a href="@Url.Action("Index","Home")"><b>ĐẤU GIÁ TRỰC TUYẾN</b></a>
         </div>
-        <!-- /.login-logo -->
         <div class="login-box-body">
             <h4 class="login-box-msg">Đăng nhập</h4>
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <div class="form-group has-feedback">
-                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email", @autofocus = "autofocus" })
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Tên đăng nhập", @autofocus = "autofocus" })
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                 <div class="form-group has-feedback">
                     @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -36,29 +36,15 @@
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                @Html.CheckBoxFor(x => x.RememberMe)
-                            </label>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-xs-4">
+                    <div class="col-xs-6 col-xs-offset-3">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
                     </div>
-                    <!-- /.col -->
                 </div>
             }
-            <div class="social-auth-links text-center">
-                <p>- OR -</p>
-                @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </div>
-            <!-- /.social-auth-links -->
+            <br />
             <a id="js_btnForgotPassword" href="javascript:;">Quên mật khẩu?</a><br>
             <a id="js_btnRegister" href="javascript:;" class="text-center">Đăng ký</a>
         </div>
-        <!-- /.login-box-body -->
     </div>
 </body>
 </html>

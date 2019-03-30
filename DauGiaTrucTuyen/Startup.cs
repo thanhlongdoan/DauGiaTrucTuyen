@@ -15,6 +15,7 @@ namespace DauGiaTrucTuyen
         {
             ConfigureAuth(app);
             createRolesandUsersDefault();
+            app.MapSignalR();
         }
         public void createRolesandUsersDefault()
         {

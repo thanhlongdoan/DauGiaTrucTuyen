@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Đấu giá của tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css {
+    <link href="~/Content/Client/css/my-auction.css" rel="stylesheet" />
+    <!-- Css datatable.net-->
+    <link href="~/Content/Admin/dist/css/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Admin/dist/css/datatables/fixedHeader.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Admin/dist/css/datatables/responsive.bootstrap.css" rel="stylesheet" />
+}
+<h3 class="text-center">ĐẤU GIÁ CỦA TÔI</h3>
+<br />
+<div class="nav-tabs-custom">
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#aucting" data-toggle="tab">Phiên đấu giá hiện tại</a></li>
+        <li><a href="#update-information-user" data-toggle="tab">Đấu giá đã thắng</a></li>
+        <li><a href="#change-pass" data-toggle="tab">Đấu giá thua</a></li>
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="aucting">
+        <div class="box">
+            <div class="box-body">
+                <table id="example" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Rendering engine</th>
+                            <th>Browser</th>
+                            <th>Platform(s)</th>
+                            <th>Engine version</th>
+                            <th>CSS grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Misc</td>
+                            <td>IE Mobile</td>
+                            <td>Windows Mobile 6</td>
+                            <td>-</td>
+                            <td>C</td>
+                        </tr>
+                        <tr>
+                            <td>Misc</td>
+                            <td>PSP browser</td>
+                            <td>PSP</td>
+                            <td>-</td>
+                            <td>C</td>
+                        </tr>
+                        <tr>
+                            <td>Other browsers</td>
+                            <td>All others</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>U</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <!-- Js datatable.net -->
+    <script src="~/Scripts/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.fixedHeader.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/datatable/responsive.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+            new $.fn.dataTable.FixedHeader(table);
+        });
+    </script>
+}
+

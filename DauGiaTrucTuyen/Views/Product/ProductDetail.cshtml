@@ -1,0 +1,124 @@
+﻿@model DauGiaTrucTuyen.Areas.Admin.Models.DetailProductViewModel
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm đấu giá";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/Client/css/etalage.css" type="text/css" media="all" />
+    <link href="~/Content/Client/css/product-detail.css" rel="stylesheet" />
+}
+<div class="shoes-grid col-md-8 col-sm-12">
+    <div class=" single_top">
+        <div class="single_grid">
+            <div class="grid images_3_of_2">
+                <ul id="etalage">
+                    <li>
+                        <a href="#">
+                            <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
+                            <img class="etalage_source_image img-responsive" src="@Model.Image" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="desc1 span_3_of_2">
+                <h4>@Model.ProductName</h4>
+                <div class="cart-b">
+                    <h4 style="color: brown" id="counter-time">@Model.AuctionTime</h4>
+                    <h3>@Model.AuctionPrice</h3>
+                    <div class="clearfix"></div>
+                </div>
+                <br />
+                @Html.TextBoxFor(x => x.AuctionPrice, new { @class = "form-control", @autofocus = "autofocus" })
+                <input type="hidden" name="name" value="@Model.Transaction_Id" />
+                @Html.ValidationMessageFor(model => model.AuctionPrice, "", new { @class = "text-danger" })
+                <br />
+                <button class="btn btn-dau-gia">Đấu giá</button>
+            </div>
+        </div>
+    </div>
+    <div class="products">
+        <h5 class="latest-product">Mô tả chi tiết sản phẩm</h5>
+    </div>
+    <p>@Html.Raw(Model.Description)</p>
+    <div class="modal fade" id="modal-register" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 70%; margin: auto">
+                <div class="modal-body">
+                    <div id="myTabContent" class="tab-content">
+                        <h3>Phiên đấu giá này đã hết thời gian</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-4 col-sm-12">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Danh sách đấu giá sản phẩm</h3>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table table-condensed">
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Tài khoản</th>
+                    <th>Số tiền</th>
+                </tr>
+                <tr>
+                    <td>1.</td>
+                    <td>Update software</td>
+                    <td><span class="badge bg-red">100k</span></td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td>Clean database</td>
+                    <td><span class="badge bg-yellow">150k</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/Client/js/jquery.etalage.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#etalage').etalage({
+                thumb_image_width: 300,
+                thumb_image_height: 400,
+                source_image_width: 420,
+                source_image_height: 650,
+                show_hint: true
+            });
+
+            //Đếm thời gian
+            @*var timer2 = localStorage.getItem('timer');
+            if (timer2 === null) timer2 = "@Model.AuctionTime";
+            $('#counter-time').html(timer2);
+
+            var interval = setInterval(function () {
+                var timer = timer2.split(':');
+                var hour = parseInt(timer[0], 10);
+                var minutes = parseInt(timer[1], 10);
+                var seconds = parseInt(timer[2], 10);
+                --seconds;
+                minutes = (seconds < 0) ? --minutes : minutes;
+                if (minutes < 0) {
+                    clearInterval(interval);
+                    localStorage.removeItem('timer');
+                    $("#modal-register").modal("show");
+                } else {
+                    seconds = (seconds < 0) ? 59 : seconds;
+                    seconds = (seconds < 10) ? '0' + seconds : seconds;
+                    $('#counter-time').html( hour + ':' + minutes + ':' + seconds);
+                    timer2 = hour + ':' + minutes + ':' + seconds;
+                    console.log(timer2)
+                    localStorage.setItem('timer', timer2);
+                }
+            }, 1000);*@
+        });
+    </script>
+}

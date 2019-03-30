@@ -1,0 +1,10 @@
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListCategoryViewModel>
+<div class="footer-bottom-cate">
+    <h6>Danh mục sản phẩm</h6>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li><a href="#">@item.CategoryName</a></li>
+        }
+    </ul>
+</div>

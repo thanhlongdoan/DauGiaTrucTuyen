@@ -1,0 +1,100 @@
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductViewModel>
+@{
+
+    ViewBag.Title = "Quản lý đấu giá";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    <link href="~/Content/Client/css/manager-auction.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/Admin/dist/css/AdminLTE.min.css">
+    <!-- Css datatable.net-->
+    <link href="~/Content/Admin/dist/css/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Admin/dist/css/datatables/fixedHeader.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Admin/dist/css/datatables/responsive.bootstrap.css" rel="stylesheet" />
+}
+<div class="shoes-grid col-md-8 col-sm-12">
+    <div class="container bootstrap snippet information-user">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="box" style="border-top: #fff;">
+                    <div class="panel">
+                        <div class="panel-heading" style="background: #18a083; color: #fff;">Quản lý đấu giá</div>
+                        <div class="list-group">
+                            <a href="@Url.Action("Index","ManagerAuction")" class="list-group-item">Danh sách sản phẩm</a>
+                            <a href="@Url.Action("Create","ManagerAuction")" class="list-group-item">Đăng ký sản phẩm đấu giá</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="panel panel-success">
+                    <div class="panel-heading" style="background: #18a083; color: #fff;">Đăng ký sản phẩm đấu giá</div>
+                    <div class="panel-body">
+                        <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PriceStart)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Status)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CategoryName)
+                                    </th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PriceStart)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CategoryName)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", new { id = item.Products_Id })"><i class="fas fa-edit"></i></a>
+                                            <a href="@Url.Action("Details", new { id = item.Products_Id })"><i class="fas fa-info-circle"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <!-- Js datatable.net -->
+    <script src="~/Scripts/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.fixedHeader.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/datatable/responsive.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+            new $.fn.dataTable.FixedHeader(table);
+        });
+    </script>
+}

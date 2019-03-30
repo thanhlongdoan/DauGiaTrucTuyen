@@ -1,6 +1,6 @@
 ﻿@model DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel.DetailUserViewModel
 @{
-    ViewBag.Title = "Người dùng";
+    ViewBag.Title = "Chi tiết người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="panel panel-primary">
@@ -47,12 +47,33 @@
                 <dd>
                     @Html.DisplayFor(model => model.PhoneNumberConfirmed)
                 </dd>
+
                 <dt>
                     @Html.DisplayNameFor(model => model.CreateDate)
                 </dt>
-
                 <dd>
                     @Html.DisplayFor(model => model.CreateDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Address)
                 </dd>
             </dl>
         </div>

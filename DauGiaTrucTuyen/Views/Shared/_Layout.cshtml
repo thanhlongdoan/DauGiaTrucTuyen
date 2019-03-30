@@ -4,52 +4,34 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Client/images/img_452250.png" type="image/png" rel="shortcut icon" />
     <!--Bootstrap v.3.3.7-->
     <link href="~/Content/Admin/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome-->
     <link href="~/Content/Admin/bower_components/font-awesome/css/all.css" rel="stylesheet" />
     <!-- CSS-->
     <link href="~/Content/Client/css/style.css" rel="stylesheet" />
-
+    <!-- Sweetalert  CSS-->
+    <link href="~/Content/Admin/sweetalert/css/sweetalert.css" rel="stylesheet" />
+    <!-- Load-page  CSS-->
+    <link href="~/Content/Client/css/loadpage.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/Admin/dist/css/AdminLTE.min.css">
+    <!-- Upload img CSS -->
+    <link href="~/Content/Client/css/upload-img.css" rel="stylesheet" />
     @RenderSection("css", required: false)
 
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
     <!--Header-->
-    <div class="header">
-        <div class="top-header">
-            <div class="container">
-                <div class="top-header-left">
-                    <ul class="support">
-                        <li><a href="#"><label> </label></a></li>
-                        <li><a href="#">24x7 live<span class="live"> support</span></a></li>
-                    </ul>
-                    <ul class="support">
-                        <li class="van"><a href="#"><label> </label></a></li>
-                        <li><a href="#">Free shipping <span class="live">on order over 500</span></a></li>
-                    </ul>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="top-header-right">
-                    <div class="down-top">
-                        <select class="in-drop">
-                            <option value="English" class="in-of">Tiếng Anh</option>
-                            <option value="VietNam" class="in-of">Tiếng Việt</option>
-                        </select>
-                    </div>
-                    <!---->
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
+    <div class="header navbar-fixed-top">
         <div class="bottom-header">
             <div class="container">
-                <nav class="navbar">
+                <nav class="navbar text-uppercase">
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -58,27 +40,38 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#">ĐẤU GIÁ TRỰC TUYẾN</a>
+                            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                                ĐẤU GIÁ TRỰC TUYẾN
+                                @*<img src="~/Content/Client/images/l.png" class="img-responsive" />*@
+                            </a>
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Trang chủ</a></li>
-                                <li><a href="#">Liên hệ</a></li>
+                                <li class="active"><a class="navbar-link" href="@Url.Action("Index","Home")">Trang chủ</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="../navbar-static-top/">Đấu giá của tôi</a></li>
-                                <li><a href="../navbar-static-top/">Quản lý đấu giá</a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.GetUserName() <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#"><i class="fas fa-user"></i> Cá nhân</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="@Url.Action("LogOff","Account")"><i class="fas fa-lock-open"></i> Đăng xuất</a></li>
-                                    </ul>
-                                </li>
+                                <li><a class="navbar-link" href="#">Báo cáo người dùng</a></li>
+                                <li><a class="navbar-link" href="@Url.Action("Index","MyAuction")">Đấu giá của tôi</a></li>
+                                <li><a class="navbar-link" href="@Url.Action("Index","ManagerAuction")">Quản lý đấu giá</a></li>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.GetUserName() <span class="caret"></span></a>
+                                        <div class="dropdown-menu menu-login">
+                                            <a class="dropdown-item" href="@Url.Action("InformationUser","Account")"><i class="fas fa-user"></i> Tài khoản</a>
+                                            <div class="divider"></div>
+                                            <a class="dropdown-item" href="@Url.Action("LogOff", "Account")"><i class="fas fa-lock-open"></i> Đăng xuất</a>
+                                        </div>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li><a class="navbar-link" href="@Url.Action("Index","Home")">Đăng nhập</a></li>
+                                }
+
                             </ul>
-                        </div><!--/.nav-collapse -->
-                    </div><!--/.container-fluid -->
+                        </div>
+                    </div>
                 </nav>
             </div>
         </div>
@@ -86,64 +79,11 @@
     <!--End_Header-->
     <!--Container-->
     <div class="container">
-        @RenderBody()
-        <!--Slidebar-->
-        <div class="sub-cate">
-            <div class=" top-nav rsidebar span_1_of_left">
-                <h3 class="cate">
-                    DANH MỤC
-                </h3>
-                <ul class="menu">
-                    <li class="item1">
-                        <a href="#">Curabitur sapien<img class="arrow-img" src="~/Content/Client/images/arrow1.png" alt="" /></a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="product.html">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="product.html">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="product.html">Automatic Fails </a></li>
-                        </ul>
-                    </li>
-                    <li class="item2">
-                        <a href="#">Dignissim purus <img class="arrow-img " src="~/Content/Client/images/arrow1.png" alt="" /></a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="product.html">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="product.html">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="product.html">Automatic Fails </a></li>
-                        </ul>
-                    </li>
-                    <li class="item3">
-                        <a href="#">Ultrices id du<img class="arrow-img img-arrow" src="~/Content/Client/images/arrow1.png" alt="" /> </a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="product.html">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="product.html">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="product.html">Automatic Fails</a></li>
-                        </ul>
-                    </li>
-                    <li class="item4">
-                        <a href="#">Cras iacaus rhone <img class="arrow-img img-left-arrow" src="~/Content/Client/images/arrow1.png" alt="" /></a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="product.html">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="product.html">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="product.html">Automatic Fails </a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="kid-menu">
-                            <li><a href="product.html">Tempus pretium</a></li>
-                            <li><a href="product.html">Dignissim neque</a></li>
-                            <li><a href="product.html">Ornared id aliquet</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="product.html">Commodo sit</a></li>
-                    <li><a href="product.html">Urna ac tortor sc</a></li>
-                    <li><a href="product.html">Ornared id aliquet</a></li>
-                    <li><a href="product.html">Urna ac tortor sc</a></li>
-                    <li><a href="product.html">Eget nisi laoreet</a></li>
-                    <li><a href="product.html">Faciisis ornare</a></li>
-                    <li class="menu-kid-left"><a href="contact.html">Contact us</a></li>
-                </ul>
+        <div class="row content-home">
+            <div class="sub-cate col-md-3 col-sm-0">
+                @{Html.RenderAction("GetCategorySideBar", "Category");}
             </div>
-            <!--initiate accordion-->
-
+            @RenderBody()
         </div>
     </div>
     <!--End_Container-->
@@ -151,18 +91,8 @@
     <div class="footer">
         <div class="footer-top">
             <div class="container">
-                <div class="latter">
-                    <h6>NEWS-LETTER</h6>
-                    <div class="sub-left-right">
-                        <form>
-                            <input type="text" value="Enter email here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter email here';}" />
-                            <input type="submit" value="SUBSCRIBE" />
-                        </form>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
                 <div class="latter-right">
-                    <p>FOLLOW US</p>
+                    <p>Thông tin về chúng tôi</p>
                     <ul class="face-in-to">
                         <li><a href="#"><span> </span></a></li>
                         <li><a href="#"><span class="facebook-in"> </span></a></li>
@@ -174,62 +104,28 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <div class="footer-bottom-cate">
-                    <h6>Danh mục</h6>
-                    <ul>
-                        <li><a href="#">Curabitur sapien</a></li>
-                        <li><a href="#">Dignissim purus</a></li>
-                        <li><a href="#">Tempus pretium</a></li>
-                        <li><a href="#">Dignissim neque</a></li>
-                        <li><a href="#">Ornared id aliquet</a></li>
-                        <li><a href="#">Ultrices id du</a></li>
-                        <li><a href="#">Commodo sit</a></li>
-                        <li><a href="#">Urna ac tortor sc</a></li>
-                        <li><a href="#">Ornared id aliquet</a></li>
-                        <li><a href="#">Urna ac tortor sc</a></li>
-                        <li><a href="#">Eget nisi laoreet</a></li>
-                        <li><a href="#">Faciisis ornare</a></li>
-                    </ul>
-                </div>
+                @{Html.RenderAction("GetCategoryFooter", "Category");}
                 <div class="footer-bottom-cate bottom-grid-cat">
                     <h6>Chính sách</h6>
                     <ul>
-                        <li><a href="#">Curabitur sapien</a></li>
-                        <li><a href="#">Dignissim purus</a></li>
-                        <li><a href="#">Tempus pretium</a></li>
-                        <li><a href="#">Dignissim neque</a></li>
-                        <li><a href="#">Ornared id aliquet</a></li>
-                        <li><a href="#">Ultrices id du</a></li>
-                        <li><a href="#">Commodo sit</a></li>
+                        <li><a href="#">Thông tin đấu giá</a></li>
+                        <li><a href="#">Thông tin bảo mật</a></li>
+                        <li><a href="#">Thông tin giao dịch</a></li>
                     </ul>
                 </div>
                 <div class="footer-bottom-cate">
                     <h6>Liên hệ</h6>
                     <ul>
-                        <li><a href="#">Curabitur sapien</a></li>
-                        <li><a href="#">Dignissim purus</a></li>
-                        <li><a href="#">Tempus pretium</a></li>
-                        <li><a href="#">Dignissim neque</a></li>
-                        <li><a href="#">Ornared id aliquet</a></li>
-                        <li><a href="#">Ultrices id du</a></li>
-                        <li><a href="#">Commodo sit</a></li>
-                        <li><a href="#">Urna ac tortor sc</a></li>
-                        <li><a href="#">Ornared id aliquet</a></li>
-                        <li><a href="#">Urna ac tortor sc</a></li>
-                        <li><a href="#">Eget nisi laoreet</a></li>
-                        <li><a href="#">Faciisis ornare</a></li>
+                        <li><a href="#">Liên hệ với chúng tôi</a></li>
                     </ul>
                 </div>
                 <div class="footer-bottom-cate cate-bottom">
                     <h6>Kết nối</h6>
                     <ul>
-                        <li>Aliquam metus  dui. </li>
-                        <li>orci, ornareidquet</li>
-                        <li> ut,DUI.</li>
-                        <li>nisi, dignissim</li>
-                        <li>gravida at.</li>
-                        <li class="phone">PH : 6985792466</li>
-                        <li class="temp"> <p class="footer-class">Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p></li>
+                        <li><a href="#">FaceBook</a> </li>
+                        <li><a href="#">Google</a></li>
+                        <li class="phone">SDT : 012345678</li>
+                        <li class="temp">Email: daugiatructuyen@gmail.com</li>
                     </ul>
                 </div>
             </div>
@@ -238,25 +134,19 @@
     <!--End_Footer-->
 
     @Scripts.Render("~/bundles/bootstrap")
+    <!-- Js RealTime-Hub-->
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <!-- Sweetalert JS -->
+    <script src="~/Content/Admin/sweetalert/js/sweetalert.min.js"></script>
+    <!-- Scroll -->
+    <script src="~/Content/Client/js/scroll.js"></script>
     @RenderSection("scripts", required: false)
-    <!--Js Click of slidebar-->
-    <script type="text/javascript">
-        $(function () {
-            var menu_ul = $('.menu > li > ul'),
-                menu_a = $('.menu > li > a');
-            menu_ul.hide();
-            menu_a.click(function (e) {
-                e.preventDefault();
-                if (!$(this).hasClass('active')) {
-                    menu_a.removeClass('active');
-                    menu_ul.filter(':visible').slideUp('normal');
-                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
-                } else {
-                    $(this).removeClass('active');
-                    $(this).next().stop(true, true).slideUp('normal');
-                }
-            });
-        });
-    </script>
+    <!-- Upload img JS -->
+    <script src="~/Content/Client/js/upload-img.js"></script>
+    <!-- Validation Js -->
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    @Scripts.Render("~/bundles/ckeditor")
 </body>
 </html>
