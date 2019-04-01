@@ -47,7 +47,7 @@
                                         @*<input type="file" name="file" id="file" />*@
                                         <div class="imagePreview"></div>
                                         <label class="btn" style="background: #18a083; width: 100%">
-                                            Upload<input type="file" name="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                            Upload<input type="file" name="file" id="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
                                         </label>
                                         @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                                     </div>
@@ -95,6 +95,7 @@
                                 <div class="form-group">
                                     <div class="col-md-offset-3 col-md-9">
                                         <input type="submit" value="Đăng ký" class="btn btn-success" />
+                                        <a href="javascripts:;" id="add">content</a>
                                     </div>
                                 </div>
                             </div>
@@ -111,4 +112,42 @@
 
 @section scripts {
     <script src="~/Content/Client/js/upload-img.js"></script>
+    <script>
+        $('#add').click(function (e) {
+            var formdata = new FormData();
+            var file = $("#file").get(0).files;
+            if (file.length > 0) {
+                formdata.append('file', file[0]);
+
+                var modelAdd = {};
+                modelAdd.Products_Id = '102';
+                modelAdd.ProductName = $("#ProductName").val();
+                modelAdd.Image = null;
+                modelAdd.Description = $("#Description").val();
+                modelAdd.AuctionTime = $("#AuctionTime").val();
+                modelAdd.PriceStart = $("#PriceStart").val();
+                modelAdd.StepPrice = $("#StepPrice").val();
+                modelAdd.Category_Id = $("#Category_Id").val();
+                modelAdd.Status = 1;
+                modelAdd.User_Id = '1-10';
+
+
+
+                var dataParam = '{' + '"model": "' + JSON.stringify(modelAdd) + '", "file": "' + JSON.stringify(formdata) + '"' + '}';
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Create", "ManagerAuction")',
+                    data: dataParam,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text JSON",
+                    success: function (result) {
+                        console.log(result)
+                    },
+                    error: function () {
+                        alert('Error occured');
+                    }
+                });
+            }
+        })
+    </script>
 }
