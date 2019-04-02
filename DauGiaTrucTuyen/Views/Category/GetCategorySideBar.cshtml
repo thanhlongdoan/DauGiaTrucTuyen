@@ -1,12 +1,6 @@
 ﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListCategoryViewModel>
-<div class=" top-nav rsidebar span_1_of_left">
-    <h3 class="cate">
-        DANH MỤC SẢN PHẨM
-    </h3>
-    <ul class="menu">
-        @foreach (var item in Model)
-        {
-            <li><a href="@Url.Action("GetListProductFromCategory","Product", new { id = item.Categorys_Id })" data-id="@item.Categorys_Id">@item.CategoryName</a></li>
-        }
-    </ul>
-</div>
+
+@foreach (var item in Model)
+{
+    <li><a href="@Url.Action("GetListProductFromCategory","Product", new { id = item.Categorys_Id })" data-id="@item.Categorys_Id">@item.CategoryName</a></li>
+}

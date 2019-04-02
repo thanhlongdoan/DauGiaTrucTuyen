@@ -1,25 +1,22 @@
 ﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductForPageClientViewModel>
 @{
     ViewBag.Title = "Danh sách sản phẩm";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
-<ul class="row" id="listProduct">
-    @foreach (var item in Model)
-    {
-        <li class="col-md-2 box-item-product" style="width: auto">
-            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })"><img src="@item.Image" class="img-responsive" alt="" style="margin: auto; width: 100px; height: 140px;" /></a>
-            <div class="text-center">
-                <small class="text-danger" style="padding-right: 5%;">
-                    <b>@item.AuctionTime</b>
-                </small>
-                <span> @item.PriceStart </span>
+@foreach (var item in Model)
+{
+    <div class="col-md-2 agile_ecommerce_tab_left">
+        <div class="hs-wrapper">
+            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })"><img src="@item.Image" alt="NO" class="img-responsive" /></a>
+            <div class="w3_hs_bottom">
             </div>
-            <a class="btn btn-default text-center" id="view-detail-product" style="margin: auto;display: block; width: 50px;" href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })">
-                <i style="font-size:18px;" class="fas fa-gavel"></i>
-            </a>
-        </li>
-    }
-</ul>
+        </div>
+        <div class="simpleCart_shelfItem">
+            <p><span>@item.AuctionTime</span> <i class="item_price">@item.PriceStart</i></p>
+            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary">Đấu giá</a>
+        </div>
+    </div>
+}
 @*<script>
         $(document).ready(function () {
             $(function () {

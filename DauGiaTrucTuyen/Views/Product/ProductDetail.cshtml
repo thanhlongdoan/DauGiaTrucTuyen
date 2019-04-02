@@ -2,11 +2,11 @@
 
 @{
     ViewBag.Title = "Chi tiết sản phẩm đấu giá";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 @section css{
     <link rel="stylesheet" href="~/Content/Client/css/etalage.css" type="text/css" media="all" />
-    <link href="~/Content/Client/css/product-detail.css" rel="stylesheet" />
+    <link href="~/Content/ClientTemplate/css/product-detail.css" rel="stylesheet" />
 }
 <div class="shoes-grid col-md-8 col-sm-12">
     <div class=" single_top">
@@ -30,17 +30,17 @@
                     <div class="clearfix"></div>
                 </div>
                 <br />
-                @Html.TextBoxFor(x => x.AuctionPrice, new { @class = "form-control", @autofocus = "autofocus" })
+                @Html.TextBoxFor(x => x.AuctionPrice, new { @autofocus = "autofocus" })
                 <input type="hidden" name="name" value="@Model.Transaction_Id" />
                 @Html.ValidationMessageFor(model => model.AuctionPrice, "", new { @class = "text-danger" })
                 <br />
-                <button class="btn btn-dau-gia">Đấu giá</button>
+                <br />
+                <button class="btn btn-primary">Đấu giá</button>
             </div>
         </div>
     </div>
-    <div class="products">
-        <h5 class="latest-product">Mô tả chi tiết sản phẩm</h5>
-    </div>
+    <hr />
+    <h5 class="text-uppercase">Mô tả chi tiết sản phẩm</h5>
     <p>@Html.Raw(Model.Description)</p>
     <div class="modal fade" id="modal-register" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

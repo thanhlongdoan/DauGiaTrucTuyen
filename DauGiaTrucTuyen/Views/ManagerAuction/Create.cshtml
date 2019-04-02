@@ -1,22 +1,22 @@
 ﻿@model DauGiaTrucTuyen.Areas.Admin.Models.AddProductViewModel
 @{
     ViewBag.Title = "Đăng ký sản phẩm đấu giá";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 
 @section css{
-    <link href="~/Content/Client/css/manager-auction.css" rel="stylesheet" />
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/Content/Admin/dist/css/AdminLTE.min.css">
-    <link href="~/Content/Client/css/upload-img.css" rel="stylesheet" />
+    <link href="~/Content/ClientTemplate/css/manager-auction.css" rel="stylesheet" />
+    <link href="~/Content/ClientTemplate/css/upload-img.css" rel="stylesheet" />
 }
+<h3 class="text-center">QUẢN LÝ ĐẤU GIÁ</h3>
+<br />
 <div class="shoes-grid col-md-8 col-sm-12">
     <div class="container bootstrap snippet information-user">
         <div class="row">
             <div class="col-sm-3">
-                <div class="box" style="border-top: #fff;">
-                    <div class="panel">
-                        <div class="panel-heading" style="background: #18a083; color: #fff;">Quản lý đấu giá</div>
+                <div class="box box-primary">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading panel-primary">Quản lý đấu giá</div>
                         <div class="list-group">
                             <a href="@Url.Action("Index","ManagerAuction")" class="list-group-item">Danh sách sản phẩm</a>
                             <a href="@Url.Action("Create","ManagerAuction")" class="list-group-item">Đăng ký sản phẩm đấu giá</a>
@@ -25,9 +25,9 @@
                 </div>
             </div>
             <div class="col-sm-9">
-                <div class="panel panel-success">
-                    <div class="panel-heading" style="background: #18a083; color: #fff;">Đăng ký sản phẩm đấu giá</div>
-                    <div class="panel-body">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Đăng ký sản phẩm đấu giá</div>
+                    <div class="panel-body panel-primary">
                         @using (Html.BeginForm("Create", "ManagerAuction", FormMethod.Post, new { area = "admin", enctype = "multipart/form-data" }))
                         {
                             @Html.AntiForgeryToken()
@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-3" })
                                     <div class="col-md-9">
-                                        @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.ProductName)
                                         @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -46,8 +46,8 @@
                                     <div class="col-md-9 imgUp">
                                         @*<input type="file" name="file" id="file" />*@
                                         <div class="imagePreview"></div>
-                                        <label class="btn" style="background: #18a083; width: 100%">
-                                            Upload<input type="file" name="file" id="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                        <label class="btn btn-primary">
+                                            Chọn ảnh<input type="file" name="file" id="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
                                         </label>
                                         @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                                     </div>
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.AuctionTime, htmlAttributes: new { @class = "control-label col-md-3" })
                                     <div class="col-md-9">
-                                        @Html.DropDownListFor(model => model.AuctionTime, new SelectList(ViewBag.SelectedItems, "Value", "Text", null), htmlAttributes: new { @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.AuctionTime, new SelectList(ViewBag.SelectedItems, "Value", "Text", null))
                                         @Html.ValidationMessageFor(model => model.AuctionTime, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.PriceStart, htmlAttributes: new { @class = "control-label col-md-3" })
                                     <div class="col-md-9">
-                                        @Html.EditorFor(model => model.PriceStart, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.PriceStart)
                                         @Html.ValidationMessageFor(model => model.PriceStart, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.StepPrice, htmlAttributes: new { @class = "control-label col-md-3" })
                                     <div class="col-md-9">
-                                        @Html.EditorFor(model => model.StepPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.StepPrice)
                                         @Html.ValidationMessageFor(model => model.StepPrice, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -94,14 +94,13 @@
 
                                 <div class="form-group">
                                     <div class="col-md-offset-3 col-md-9">
-                                        <input type="submit" value="Đăng ký" class="btn btn-success" />
-                                        <a href="javascripts:;" id="add">content</a>
+                                        <input type="submit" value="Đăng ký" class="btn btn-primary" />
                                     </div>
                                 </div>
                             </div>
                         }
                         <div>
-                            @Html.ActionLink("Quay lại", "Index")
+                            <a href="@Url.Action("Index")"><i class="fas fa-long-arrow-alt-left"></i>Quay lại</a>
                         </div>
                     </div>
                 </div>

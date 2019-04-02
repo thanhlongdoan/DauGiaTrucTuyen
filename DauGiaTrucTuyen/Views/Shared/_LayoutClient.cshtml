@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Trang chủ</title>
+    <link href="~/Content/ClientTemplate/images/img_452250.png" type="image/png" rel="shortcut icon" />
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Electronic Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+	SmartPhone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <!-- Custom Theme files -->
+    <link href="~/Content/ClientTemplate/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/ClientTemplate/css/style.css" rel="stylesheet" />
+    <link href="~/Content/ClientTemplate/css/fasthover.css" rel="stylesheet" />
+    <link href="~/Content/ClientTemplate/css/popuo-box.css" rel="stylesheet" />
+    <!-- //Custom Theme files -->
+    <!-- Custom Theme files -->
+    <link href="~/Content/ClientTemplate/css/loadpage.css" rel="stylesheet" />
+    <!-- Font Awesome 5.5.0 -->
+    <link href="~/Content/Admin/bower_components/font-awesome/css/all.css" rel="stylesheet" />
+    <!-- //font-awesome icons -->
+    @RenderSection("css", required: false)
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+    <div class="header" id="home1">
+        <div class="container">
+            <div class="w3l_logo">
+                <h1><a href="@Url.Action("Index","Home")">ĐẤU GIÁ TRỰC TUYẾN<span>Duy Tan University</span></a></h1>
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                <div class="w3l_login">
+                    <a href="@Url.Action("InformationUser","Account")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+                </div>
+                <div class="w3l_login">
+                    <a href="@Url.Action("LogOff","Account")"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+                </div>
+            }
+            else
+            {
+                <div class="w3l_login">
+                    <a href="@Url.Action("InformationUser","Account")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+                </div>
+            }
+
+        </div>
+    </div>
+    <!-- //header -->
+    <!-- navigation -->
+    <div class="navigation">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header nav_2">
+                    <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("Index","Home")" class="act">Trang chủ</a></li>
+                        <!-- Mega Menu -->
+                        <li class="w3pages">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Danh mục <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                @{Html.RenderAction("GetCategorySideBar", "Category"); }
+                            </ul>
+                        </li>
+                        <li><a href="#">Báo cáo người dùng</a></li>
+                        <li><a href="@Url.Action("Index","MyAuction")">Đấu giá của tôi</a></li>
+                        <li><a href="@Url.Action("Index","ManagerAuction")">Quản lý đấu giá</a></li>
+                        <li><a href="" class="contact">Liên hệ</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- //navigation -->
+    <!-- banner-bottom -->
+    <div class="banner-bottom">
+        <div class="container">
+            <div class="row wthree_banner_bottom_right">
+                <div class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                    <div class="agile_ecommerce_tabs">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //top-brands -->
+    <!-- newsletter -->
+    <div class="newsletter">
+        <div class="container">
+            <div class="col-md-12 w3agile_newsletter_left">
+                <marquee><i id="js-load-ngaygio"></i></marquee>
+            </div>
+        </div>
+    </div>
+    <!-- //newsletter -->
+    <!-- footer -->
+    <div class="footer" id="footer-croll">
+        <div class="container">
+            <div class="w3_footer_grids">
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Liên hệ</h3>
+                    <p>Nhóm sinh viên Đại Học Duy Tân</p>
+                    <ul class="address">
+                        <li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>K7/25 Quang Trung<span>Tp. Đà Nẵng</span></li>
+                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">doanthanhlong1801@gmail.com</a></li>
+                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Thông tin</h3>
+                    <ul class="info">
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Hướng dẫn giao dịch</a></li>
+                        <li><a href="#">Chính sách trả phí</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>DANH MỤC</h3>
+                    <ul class="info">
+                        @{Html.RenderAction("GetCategoryFooter", "Category"); }
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Menu</h3>
+                    <ul class="info">
+                        <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                        <li><a href="#">Báo cáo người dùng</a></li>
+                        <li><a href="@Url.Action("Index","MyAuction")">Đấu giá của tôi</a></li>
+                        <li><a href="@Url.Action("Index","ManagerAuction")">Quản lý đấu giá</a></li>
+                    </ul>
+                    <h4>Theo dõi chúng tôi</h4>
+                    <div class="agileits_social_button">
+                        <ul>
+                            <li><a href="#" class="facebook"> </a></li>
+                            <li><a href="#" class="google"> </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <div class="footer-copy1">
+                <div class="footer-copy-pos">
+                    <a href="#home1" class="scroll"><img src="~/Content/ClientTemplate/images/arrow.png" alt=" " class="img-responsive" /></a>
+                </div>
+            </div>
+            <div class="container">
+                <p>&copy; Bản quyền thuộc nhóm sinh viên Đại Học Duy Tân | Design by <a href="https://www.facebook.com/thanhlong1801">Thanh Long</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- //footer -->
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <!-- countdown -->
+    <link href="~/Content/ClientTemplate/css/jquery.countdown.css" rel="stylesheet" />
+    <!-- //js -->
+    <!-- scrolling -->
+    <script src="~/Content/ClientTemplate/js/scroll.js"></script>
+    <!-- load ngay gio -->
+    <script src="~/Content/ClientTemplate/js/jsNgayGio.js"></script>
+    <script src="~/Content/ClientTemplate/js/jquery.flexisel.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <!-- Js RealTime-Hub-->
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <!-- Sweetalert JS -->
+    <script src="~/Content/Admin/sweetalert/js/sweetalert.min.js"></script>
+    <!-- Load page -->
+    <script src="~/Content/ClientTemplate/js/loadpage.js"></script>
+    @RenderSection("scripts", required: false)
+    <!-- Upload img JS -->
+    <script src="~/Content/ClientTemplate/js/upload-img.js"></script>
+    <!-- Validation Js -->
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    @Scripts.Render("~/bundles/ckeditor")
+</body>
+</html>

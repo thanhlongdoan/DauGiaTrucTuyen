@@ -1,50 +1,58 @@
 ﻿@using DauGiaTrucTuyen.Models
 @model LoginViewModel
 @{
-                /**/
-
-                ViewBag.Title = "Log in";
-                Layout = null;
+    ViewBag.Title = "";
+    Layout = null;
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Đăng nhập</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-</head>
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="@Url.Action("Index","Home")"><b>ĐẤU GIÁ TRỰC TUYẾN</b></a>
-        </div>
-        <div class="login-box-body">
-            <h4 class="login-box-msg">Đăng nhập</h4>
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="form-group has-feedback">
-                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Tên đăng nhập", @autofocus = "autofocus" })
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                <div class="form-group has-feedback">
-                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="row">
-                    <div class="col-xs-6 col-xs-offset-3">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        &times;
+    </button>
+    <h4 class="modal-title" id="myModalLabel">Đăng nhập để truy cập Website!</h4>
+</div>
+<div class="modal-body modal-body-sub">
+    <div class="row">
+        <div class="col-md-12 modal_body_left modal_body_left1" style="border-right: 1px dotted #C2C2C2;padding-right:3em;">
+            <div class="sap_tabs">
+                <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+                    <ul>
+                        <li class="resp-tab-item" id="js_btnLogin"><span>Đăng nhập</span></li>
+                        <li class="resp-tab-item" id="js_btnRegister"><span>Đăng ký</span></li>
+                        <li class="resp-tab-item" id="js_btnForgotPassword"><span>Quên mật khẩu ?</span></li>
+                    </ul>
+                    <div class="tab-1">
+                        <div class="facts">
+                            <div class="register">
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.TextBoxFor(x => x.UserName, new { @placeholder = "Tên đăng nhập", @autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+
+                                    @Html.PasswordFor(x => x.Password, new { @placeholder = "Mật khẩu" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="sign-up">
+                                        <input type="submit" value="Đăng nhập" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
-            }
-            <br />
-            <a id="js_btnForgotPassword" href="javascript:;">Quên mật khẩu?</a><br>
-            <a id="js_btnRegister" href="javascript:;" class="text-center">Đăng ký</a>
+            </div>
+            <script src="~/Content/ClientTemplate/js/easyResponsiveTabs.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#horizontalTab').easyResponsiveTabs({
+                        type: 'default', //Types: default, vertical, accordion
+                        width: 'auto', //auto or any width like 600px
+                        fit: true   // 100% fit in a container
+                    });
+                });
+            </script>
         </div>
     </div>
-</body>
-</html>
+</div>
