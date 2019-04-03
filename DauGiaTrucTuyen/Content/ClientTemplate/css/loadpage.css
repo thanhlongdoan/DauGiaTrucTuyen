@@ -6,5 +6,5 @@
     width: 100%;
     height: 100%;
     overflow: visible;
-    background: #fff url('../images/icon-load-page/page-loading.gif') no-repeat center center;
+    background: #fff url('../images/loading.gif') no-repeat center center;
 }

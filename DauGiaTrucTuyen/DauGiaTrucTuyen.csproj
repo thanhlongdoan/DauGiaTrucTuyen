@@ -223,7 +223,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HubRealTime\ProductHub.cs" />
+    <Compile Include="HubRealTime\AuctionHub.cs" />
     <Compile Include="IDataBinding\ICategory.cs" />
     <Compile Include="IDataBinding\IProduct.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
@@ -1998,6 +1998,7 @@
     <Content Include="Content\ClientTemplate\images\img-sp.png" />
     <Content Include="Content\ClientTemplate\images\img_452250.png" />
     <Content Include="Content\ClientTemplate\images\left-arrow.png" />
+    <Content Include="Content\ClientTemplate\images\loading.gif" />
     <Content Include="Content\ClientTemplate\images\p1.jpg" />
     <Content Include="Content\ClientTemplate\images\p10.jpg" />
     <Content Include="Content\ClientTemplate\images\p11.jpg" />
