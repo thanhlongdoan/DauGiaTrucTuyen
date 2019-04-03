@@ -1,81 +1,70 @@
 ﻿@model DauGiaTrucTuyen.Models.RegisterViewModel
 @{
     ViewBag.Title = "";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-        &times;
-    </button>
-    <h4 class="modal-title" id="myModalLabel">Đăng ký để truy cập Website!</h4>
-</div>
-<div class="modal-body modal-body-sub">
-    <div class="row">
-        <div class="col-md-12 modal_body_left modal_body_left1" style="border-right: 1px dotted #C2C2C2;padding-right:3em;">
-            <div class="sap_tabs">
-                <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
-                    <ul>
-                        <li class="resp-tab-item" id="js_btnLogin"><span>Đăng nhập</span></li>
-                        <li class="resp-tab-item" id="js_btnRegister"><span>Đăng ký</span></li>
-                        <li class="resp-tab-item" id="js_btnForgotPassword"><span>Quên mật khẩu ?</span></li>
-                    </ul>
-                    <div class="tab-1">
-                        <div class="facts">
-                            <div class="register">
-                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", @id = "form-register", role = "form" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <div class="col-md-6">
-                                        @Html.TextBoxFor(model => model.UserName, new { @placeholder = "Tên đăng nhập", @autofocus = "autofocus" })
-                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email xác thực tài khoản" })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @placeholder = "Số điện thoại xác thực tài khoản" })
-                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        @Html.PasswordFor(model => model.Password, new { @placeholder = "Mật khẩu" })
-                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        @Html.PasswordFor(model => model.ConfirmPassword, new { @placeholder = "Mật khẩu" })
-                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        @Html.DropDownListFor(model => model.Select, new SelectList(ViewBag.SelectedItems, "Value", "Text", ViewBag.SelectedDefault))
-                                        @Html.ValidationMessageFor(model => model.Select, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-6 col-xs-offset-6">
-                                            <input type="submit" id="submit-register" value="Đăng ký" />
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<h3 class="text-center">ĐĂNG KÝ TÀI KHOẢN</h3>
+<br />
+<div class="register">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", @id = "form-register", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.TextBoxFor(x => x.UserName, new { @placeholder = "Tên đăng nhập", @autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
-        <script src="~/Content/ClientTemplate/js/easyResponsiveTabs.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#horizontalTab').easyResponsiveTabs({
-                    type: 'default', //Types: default, vertical, accordion
-                    width: 'auto', //auto or any width like 600px
-                    fit: true   // 100% fit in a container
-                });
-            });
-        </script>
-    </div>
+
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.TextBoxFor(x => x.Email, new { @placeholder = "Email", @autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.TextBoxFor(x => x.PhoneNumber, new { @placeholder = "Số điện thoại", @autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.PasswordFor(x => x.Password, new { @placeholder = "Mật khẩu" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.PasswordFor(x => x.ConfirmPassword, new { @placeholder = "Mật khẩu nhập lại" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-4">
+                <label class="text-center" style="width: 100%; font-family: serif">Vui lòng chọn hình thức xác thực tài khoản</label>
+                @Html.DropDownListFor(model => model.Select, new SelectList(ViewBag.SelectedItems, "Value", "Text", ViewBag.SelectedDefault))
+                @Html.ValidationMessageFor(model => model.Select, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger text-center" })
+        <div class="sign-up form-group">
+            <div class="col-md-4 col-md-offset-4">
+                <input type="submit" value="Đăng ký" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-4">
+                <a href="@Url.Action("Login","Account")">Đăng nhập</a>
+                <br />
+                <a href="@Url.Action("ForgotPassword","Account")">Quên mật khẩu ?</a>
+            </div>
+        </div>
+    }
 </div>

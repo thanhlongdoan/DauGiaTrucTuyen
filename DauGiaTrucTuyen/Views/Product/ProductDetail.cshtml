@@ -11,36 +11,35 @@
 <div class="shoes-grid col-md-8 col-sm-12">
     <div class=" single_top">
         <div class="single_grid">
-            <div class="grid images_3_of_2">
-                <ul id="etalage">
-                    <li>
-                        <a href="#">
-                            <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
-                            <img class="etalage_source_image img-responsive" src="@Model.Image" />
-                        </a>
-                    </li>
-                </ul>
-                <div class="clearfix"> </div>
-            </div>
-            <div class="desc1 span_3_of_2">
-                <h4>@Model.ProductName</h4>
-                <div class="cart-b">
-                    <h4 style="color: brown" id="counter-time">@Model.AuctionTime</h4>
-                    <h3>@Model.AuctionPrice</h3>
-                    <div class="clearfix"></div>
+            <div class="row">
+                <div class="grid images_3_of_2 col-md-6">
+                    <a href="#">
+                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
+                    </a>
+                    <div class="clearfix"> </div>
                 </div>
-                <br />
-                @Html.TextBoxFor(x => x.AuctionPrice, new { @autofocus = "autofocus" })
-                <input type="hidden" name="name" value="@Model.Transaction_Id" />
-                @Html.ValidationMessageFor(model => model.AuctionPrice, "", new { @class = "text-danger" })
-                <br />
-                <br />
-                <button class="btn btn-primary">Đấu giá</button>
+                <div class="desc1 span_3_of_2 col-md-6">
+                    <h3>@Model.ProductName</h3>
+                    <br />
+                    <div class="cart-b">
+                        <h4 style="color: brown" id="counter-time">@Model.AuctionTime s</h4>
+                        <br />
+                        <h3>@Model.AuctionPrice K</h3>
+                        <div class="clearfix"></div>
+                    </div>
+                    <br />
+                    @Html.TextBoxFor(x => x.AuctionPrice, new { @autofocus = "autofocus" })
+                    <input type="hidden" name="name" value="@Model.Transaction_Id" />
+                    @Html.ValidationMessageFor(model => model.AuctionPrice, "", new { @class = "text-danger" })
+                    <br />
+                    <br />
+                    <button class="btn btn-primary">Đấu giá</button>
+                </div>
             </div>
         </div>
     </div>
     <hr />
-    <h5 class="text-uppercase">Mô tả chi tiết sản phẩm</h5>
+    <h3 class="text-uppercase">Mô tả chi tiết sản phẩm</h3>
     <p>@Html.Raw(Model.Description)</p>
     <div class="modal fade" id="modal-register" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

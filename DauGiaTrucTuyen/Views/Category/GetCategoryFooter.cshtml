@@ -2,5 +2,5 @@
 
 @foreach (var item in Model)
 {
-    <li><a href="products.html">@item.CategoryName</a></li>
+    <li><a href="@Url.Action("GetListProductFromCategory","Product", new { id = item.Categorys_Id })">@item.CategoryName</a></li>
 }
