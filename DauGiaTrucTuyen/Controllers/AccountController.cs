@@ -203,9 +203,8 @@ namespace DauGiaTrucTuyen.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             if (result.Succeeded)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
             return View("Error");
-            //return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //
