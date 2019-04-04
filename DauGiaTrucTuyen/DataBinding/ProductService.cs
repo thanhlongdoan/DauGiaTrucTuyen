@@ -186,7 +186,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
                        orderby transaction.AuctionTime ascending
-                       where product.StatusProduct.Equals(StatusProduct.Approved)
+                       where product.StatusProduct.Equals(StatusProduct.Auctioning)
                        select new ListProductForPageClientViewModel
                        {
                            Products_Id = product.Products_Id,
@@ -205,7 +205,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
                        orderby transaction.AuctionTime ascending
-                       where product.StatusProduct.Equals(StatusProduct.Approved) && product.Category_Id == categoryId
+                       where product.StatusProduct.Equals(StatusProduct.Auctioning) && product.Category_Id == categoryId
                        select new ListProductForPageClientViewModel
                        {
                            Products_Id = product.Products_Id,

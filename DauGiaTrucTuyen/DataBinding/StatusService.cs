@@ -10,8 +10,9 @@ namespace DauGiaTrucTuyen.DataBinding
     {
         public const string Review = "Đang chờ duyệt";
         public const string Approved = "Đã duyệt";
-        public const string Transactioning = "Đang giao dịch";
-        public const string Transaction = "Đã giao dịch";
+        public const string Auctioning = "Đang đấu giá";
+        public const string Transactioning = "Đang giao dich";
+        public const string Transactioned = "Đã giao dich";
     }
 
     public static class StatusCategory
