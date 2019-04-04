@@ -1,12 +1,9 @@
 ﻿using DauGiaTrucTuyen.Areas.Admin.Models;
-using DauGiaTrucTuyen.Common;
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
 using DauGiaTrucTuyen.IDataBinding;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
