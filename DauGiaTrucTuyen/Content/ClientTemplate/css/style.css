@@ -783,7 +783,7 @@ li.w3pages .dropdown-menu > li > a:hover {
     .simpleCart_shelfItem p span {
         color: #999;
         font-size: .8em;
-        text-decoration: line-through;
+        font-weight: bold;
         padding-right: 1em;
         font-weight: 300;
     }
@@ -4250,7 +4250,6 @@ td.invert-image a img {
     }
 
     .register input[type="submit"] {
-        width: 50%;
         font-size: 14px;
     }
 
@@ -4853,10 +4852,6 @@ td.invert-image a img {
 
     .social {
         width: 9.5em;
-    }
-
-    .register input[type="submit"] {
-        width: 70%;
     }
 
     .nav > li > a {
@@ -5801,7 +5796,6 @@ td.invert-image a img {
     }
 
     .register input[type="submit"] {
-        width: 100%;
         margin: 1em 0 0;
     }
 

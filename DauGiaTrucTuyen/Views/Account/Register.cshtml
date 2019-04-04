@@ -68,3 +68,17 @@
         </div>
     }
 </div>
+<script>
+    $(document).ready(function () {
+        if (@ViewBag.Result == "Email")
+            swal({
+                title: "Xác nhận đăng ký tài khoản !",
+                text: "Vui lòng truy cập Email của bạn để xác thực tài khoản",
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Đồng ý",
+                closeOnConfirm: false
+            }, function () {
+                location.href = @Url.Action("Login","Account");
+            });
+    })
+</script>

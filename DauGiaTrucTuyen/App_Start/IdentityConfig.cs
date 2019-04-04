@@ -96,12 +96,12 @@ namespace DauGiaTrucTuyen
             // You can write your own provider and plug it in here.
             manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
             {
-                MessageFormat = "Your security code is {0}"
+                MessageFormat = "Mã xác thực của bạn là {0}"
             });
             manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
             {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
+                Subject = "Xác thực tài khoản",
+                BodyFormat = "Mã xác thực của bạn là {0}"
             });
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();

@@ -33,13 +33,14 @@ namespace DauGiaTrucTuyen.HubRealTime
 
         public void JoinAuction(string productId, string userId, decimal? price)
         {
-            var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Approved)).FirstOrDefault();
+            var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).FirstOrDefault();
 
             decimal? priceing = db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice);
 
             if (price > priceing && transaction != null)
             {
                 TransactionAuction transactionAuction = new TransactionAuction();
+                transactionAuction.TracsactionAuction_Id = Guid.NewGuid().ToString();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = userId;
                 transactionAuction.AuctionDate = DateTime.Now;
@@ -51,11 +52,13 @@ namespace DauGiaTrucTuyen.HubRealTime
 
                 Clients.Group(transaction.Transaction_Id).Auctioning(price);
             }
+            else
+                Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại");
         }
 
         private void InitializeAuction()
         {
-            auction = new Auction(0, 10, DateTime.Now.AddSeconds(30), 0);
+            auction = new Auction(0, 10, DateTime.Now.AddSeconds(180), 0);
 
             timer = new Timer(TimerExpired, null, secs_10, 0);
 

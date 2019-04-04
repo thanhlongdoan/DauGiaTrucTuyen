@@ -88,6 +88,19 @@
             var userId = "@User.Identity.GetUserId()";
             var productId = "@Model.Products_Id";
 
+            //nhập giá tiền nhỏ hơn giá tiền hiện tại
+            auctionHub.client.auctionError = function (error) {
+                swal({
+                    title: error,
+                    confirmButtonClass: "btn-primary",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: false
+                    }, function () {
+                       location.reload();
+                    });
+            }
+
+            //get giá tiền khi đấu giá
             auctionHub.client.auctioning = function (price) {
                 document.getElementById("pricing").innerHTML = price + "<span> K</span>";
             }
@@ -96,6 +109,7 @@
                 document.getElementById("counter-time").innerHTML = time + " s";
             }
 
+            //phiên đấu giá kết thúc
             auctionHub.client.addMessage = function (msg) {
                 console.log(msg);
                 if (msg == "End") {
@@ -105,7 +119,7 @@
                         confirmButtonText: "OK",
                         closeOnConfirm: false
                     }, function () {
-                        location.reload();
+                        location.href = "@Url.Action("Index","Home")";
                     });
                 }
             }
@@ -124,12 +138,13 @@
                                     confirmButtonText: "OK",
                                     closeOnConfirm: false
                                 }, function () {
-                                    location.reload();
+                                    location.href = "@Url.Action("Index","Home")";
                                 });
                             }
                         }
                     }
-                    //auctionHub.server.joinAuction(productId, userId, price)
+                    //tham gia phiên đấu giá
+                    auctionHub.server.joinAuction(productId, userId, price)
                 });
             });
         })

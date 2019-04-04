@@ -163,6 +163,7 @@ namespace DauGiaTrucTuyen.Controllers
             items.Add(new SelectListItem { Text = "Số điện thoại", Value = "Phone" });
             ViewBag.SelectedDefault = "Email";
             ViewBag.SelectedItems = items;
+            ViewBag.Result = null;
             return View();
         }
 
@@ -184,8 +185,22 @@ namespace DauGiaTrucTuyen.Controllers
                         string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản 'Đấu giá trực tuyến'", "Vui lòng click vào  <a href=\"" + callbackUrl + "\">đây để xác thực tài khoản</a>");
+                        return ViewBag.Result = "Email";
                     }
-                    return RedirectToAction("Login", "Account");
+                    else
+                    {
+                        var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.PhoneNumber);
+                        if (UserManager.SmsService != null)
+                        {
+                            var message = new IdentityMessage
+                            {
+                                Destination = model.PhoneNumber,
+                                Body = "Mã xác nhận tài khoản Đấu Giá Trực Tuyến của bạn là: " + code
+                            };
+                            await UserManager.SmsService.SendAsync(message);
+                        }
+                        return RedirectToAction("VerifyPhoneNumber", "Manage", new { PhoneNumber = model.PhoneNumber });
+                    }
                 }
                 AddErrors(result);
             }

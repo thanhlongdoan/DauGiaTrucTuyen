@@ -216,11 +216,9 @@
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\ProductDetail.cs" />
     <Compile Include="Data\Report.cs" />
-    <Compile Include="Data\Role.cs" />
     <Compile Include="Data\StatusUser.cs" />
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\TransactionAuction.cs" />
-    <Compile Include="Data\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

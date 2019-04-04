@@ -96,6 +96,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 db.Transactions.Add(transaction);
 
                 TransactionAuction transactionAuction = new TransactionAuction();
+                transactionAuction.TracsactionAuction_Id = Guid.NewGuid().ToString();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = sessionUserId;
                 transactionAuction.AuctionDate = DateTime.Now;
@@ -165,6 +166,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 product.StatusProduct = StatusProduct.Approved;
 
                 TransactionAuction transactionAuction = new TransactionAuction();
+                transactionAuction.TracsactionAuction_Id = Guid.NewGuid().ToString();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = product.User_Id;
                 transactionAuction.AuctionDate = DateTime.Now;
@@ -191,7 +193,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        {
                            Products_Id = product.Products_Id,
                            AuctionTime = transaction.AuctionTime,
-                           PriceStart = (decimal)transaction.PriceStart,
+                           PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                            Image = productDetail.Image
                        };
             return list.ToList();
@@ -210,7 +212,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        {
                            Products_Id = product.Products_Id,
                            AuctionTime = transaction.AuctionTime,
-                           PriceStart = (decimal)transaction.PriceStart,
+                           PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                            Image = productDetail.Image
                        };
             return list.ToList();

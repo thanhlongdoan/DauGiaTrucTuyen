@@ -20,11 +20,10 @@ namespace DauGiaTrucTuyen.Data
         [StringLength(50)]
         public string CreateBy { get; set; }
 
-        public bool? Status { get; set; }
+        [StringLength(30)]
+        public string Status { get; set; }
 
         [StringLength(128)]
         public string User_Id { get; set; }
-
-        public virtual User User { get; set; }
     }
 }
