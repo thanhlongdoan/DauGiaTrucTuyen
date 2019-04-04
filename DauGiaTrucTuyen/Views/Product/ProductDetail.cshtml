@@ -21,7 +21,7 @@
                     <h3>@Model.ProductName</h3>
                     <br />
                     <div class="cart-b">
-                        <h4 style="color: brown" id="counter-time">@Model.AuctionTime s</h4>
+                        <h4 style="color: brown" id="counter-time">@*@Model.AuctionTime s*@</h4>
                         <br />
                         <h3 id="pricing">@Model.AuctionPrice<span> K</span></h3>
                         <div class="clearfix"></div>
@@ -92,9 +92,13 @@
                 document.getElementById("pricing").innerHTML = price + "<span> K</span>";
             }
 
+            auctionHub.client.getTimeAuction = function (time) {
+                document.getElementById("counter-time").innerHTML = time + " s";
+            }
+
             auctionHub.client.addMessage = function (msg) {
                 console.log(msg);
-                if (msg == "end") {
+                if (msg == "End") {
                     swal({
                         title: "Phiên đấu giá đã kết thúc !",
                         confirmButtonClass: "btn-primary",

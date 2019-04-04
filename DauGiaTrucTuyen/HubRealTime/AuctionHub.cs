@@ -69,11 +69,10 @@ namespace DauGiaTrucTuyen.HubRealTime
 
         public void TimerExpired(object state)
         {
-
             if (auction.TimeRemaining > 0)
             {
                 AddMessage(string.Format("Push message from server {0} - {1:hh\\:mm\\:ss} - {2}", counter++, auction.GetTimeRemaining(), auction.TimeRemaining));
-
+                Clients.All.GetTimeAuction(string.Format("{0:hh\\:mm\\:ss}", auction.GetTimeRemaining()));
                 timer.Change(secs_10, 0);
             }
             else
