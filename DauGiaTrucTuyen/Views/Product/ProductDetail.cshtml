@@ -21,7 +21,7 @@
                     <h3>@Model.ProductName</h3>
                     <br />
                     <div class="cart-b">
-                        <h4 style="color: brown" id="counter-time">@Model.AuctionTime s</h4>
+                        <h4 style="color: brown" id="counter-time">@*@Model.AuctionTime s*@</h4>
                         <br />
                         <h3 id="pricing">@Model.AuctionPrice<span> K</span></h3>
                         <div class="clearfix"></div>
@@ -39,7 +39,8 @@
     </div>
     <hr />
     <h3 class="text-uppercase">Mô tả chi tiết sản phẩm</h3>
-    <p>@Html.Raw(Model.Description)</p>
+    <br />
+    @Html.Raw(Model.Description)
     <div class="modal fade" id="modal-register" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 70%; margin: auto">
@@ -88,15 +89,46 @@
             var productId = "@Model.Products_Id";
 
             auctionHub.client.auctioning = function (price) {
-                console.log(price)
                 document.getElementById("pricing").innerHTML = price + "<span> K</span>";
+            }
+
+            auctionHub.client.getTimeAuction = function (time) {
+                document.getElementById("counter-time").innerHTML = time + " s";
+            }
+
+            auctionHub.client.addMessage = function (msg) {
+                console.log(msg);
+                if (msg == "End") {
+                    swal({
+                        title: "Phiên đấu giá đã kết thúc !",
+                        confirmButtonClass: "btn-primary",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: false
+                    }, function () {
+                        location.reload();
+                    });
+                }
             }
 
             $.connection.hub.start().done(function () {
                 auctionHub.server.timerExpired();
+
                 $("#btn-auction").click(function () {
                     var price = $("#AuctionPrice").val();
-                    console.log(price)
+                    auctionHub.client.auctioning = function (price) {
+                        auctionHub.client.addMessage = function (msg) {
+                            if (msg == "end") {
+                                swal({
+                                    title: "Phiên đấu giá đã kết thúc !",
+                                    confirmButtonClass: "btn-primary",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: false
+                                }, function () {
+                                    location.reload();
+                                });
+                            }
+                        }
+                    }
                     //auctionHub.server.joinAuction(productId, userId, price)
                 });
             });

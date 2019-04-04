@@ -1,21 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Timers;
-using System.Web;
-using System.Web.Script.Serialization;
-using DauGiaTrucTuyen.Data;
+﻿using DauGiaTrucTuyen.Data;
+using DauGiaTrucTuyen.DataBinding;
 using Microsoft.AspNet.SignalR;
+using System;
+using System.Linq;
+using System.Threading;
 
 namespace DauGiaTrucTuyen.HubRealTime
 {
     public class AuctionHub : Hub
     {
         Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
+        public static bool initialized = false;
+        public static object initLock = new object();
+        static private Timer timer;
+        static private int counter = 0;
+        static public Auction auction;
+        public static int secs_10 = 1000;
+
+        public AuctionHub()
+        {
+            if (initialized)
+                return;
+
+            lock (initLock)
+            {
+                if (initialized)
+                    return;
+
+                InitializeAuction();
+            }
+        }
 
         public void JoinAuction(string productId, string userId, decimal? price)
         {
-            var transaction = db.Transactions.Where(x => x.Product_Id == productId).FirstOrDefault();
+            var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Approved)).FirstOrDefault();
 
             decimal? priceing = db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice);
 
@@ -35,11 +53,33 @@ namespace DauGiaTrucTuyen.HubRealTime
             }
         }
 
-        public void TimerExpired()
+        private void InitializeAuction()
         {
-            var time = new Timer(10000);
-            time.Start();
-            Clients.All.a();
+            auction = new Auction(0, 10, DateTime.Now.AddSeconds(30), 0);
+
+            timer = new Timer(TimerExpired, null, secs_10, 0);
+
+            initialized = true;
+        }
+
+        public void AddMessage(string msg)
+        {
+            Clients.All.addMessage(msg);
+        }
+
+        public void TimerExpired(object state)
+        {
+            if (auction.TimeRemaining > 0)
+            {
+                AddMessage(string.Format("Push message from server {0} - {1:hh\\:mm\\:ss} - {2}", counter++, auction.GetTimeRemaining(), auction.TimeRemaining));
+                Clients.All.GetTimeAuction(string.Format("{0:hh\\:mm\\:ss}", auction.GetTimeRemaining()));
+                timer.Change(secs_10, 0);
+            }
+            else
+            {
+                timer.Dispose();
+                AddMessage("End");
+            }
         }
     }
 }
