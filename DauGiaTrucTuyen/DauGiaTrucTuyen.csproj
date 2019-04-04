@@ -2028,6 +2028,7 @@
     <Content Include="Content\ClientTemplate\images\tb4.jpg" />
     <Content Include="Content\ClientTemplate\images\tb5.jpg" />
     <Content Include="Content\ClientTemplate\js\bootstrap-3.1.1.min.js" />
+    <Content Include="Content\ClientTemplate\js\config-etalage.js" />
     <Content Include="Content\ClientTemplate\js\customize-flexisel.js" />
     <Content Include="Content\ClientTemplate\js\easyResponsiveTabs.js" />
     <Content Include="Content\ClientTemplate\js\imagezoom.js" />

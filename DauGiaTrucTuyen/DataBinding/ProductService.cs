@@ -223,7 +223,6 @@ namespace DauGiaTrucTuyen.DataBinding
                          join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                          join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                          join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                         join transactionAuction in db.TransactionAuctions on transaction.Transaction_Id equals transactionAuction.Transaction_Id
                          where product.Products_Id == productId
                          select new DetailProductViewModel
                          {
@@ -235,9 +234,10 @@ namespace DauGiaTrucTuyen.DataBinding
                              PriceStart = transaction.PriceStart,
                              StepPrice = transaction.StepPrice,
                              CategoryName = category.CategoryName,
-                             AuctionPrice = transactionAuction.AuctionPrice,
-                             Transaction_Id = transactionAuction.Transaction_Id
+                             AuctionPrice = db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
+                             Transaction_Id = transaction.Transaction_Id
                          };
+
             return result.FirstOrDefault();
         }
 
@@ -248,17 +248,6 @@ namespace DauGiaTrucTuyen.DataBinding
             if (result != null)
                 return true;
             return false;
-        }
-
-        //Đấu giá sản phẩm
-        public bool AuctionProduct(decimal price, string transactionId, string sessionUserId)
-        {
-            TransactionAuction transactionAuction = new TransactionAuction();
-            transactionAuction.Transaction_Id = transactionId;
-            transactionAuction.User_Id = sessionUserId;
-            transactionAuction.AuctionDate = DateTime.Now;
-            transactionAuction.AuctionPrice = price;
-            return true;
         }
     }
 }
