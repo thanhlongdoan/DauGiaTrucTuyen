@@ -2032,9 +2032,6 @@
     <Content Include="Content\ClientTemplate\js\customize-flexisel.js" />
     <Content Include="Content\ClientTemplate\js\easyResponsiveTabs.js" />
     <Content Include="Content\ClientTemplate\js\imagezoom.js" />
-    <Content Include="Content\ClientTemplate\js\jquery.countdown.js" />
-    <Content Include="Content\ClientTemplate\js\jquery.flexisel.js" />
-    <Content Include="Content\ClientTemplate\js\jquery.flexslider.js" />
     <Content Include="Content\ClientTemplate\js\jquery.magnific-popup.js" />
     <Content Include="Content\ClientTemplate\js\jquery.min.js" />
     <Content Include="Content\ClientTemplate\js\jquery.wmuSlider.js" />
