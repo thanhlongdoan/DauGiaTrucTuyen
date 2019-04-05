@@ -29,7 +29,7 @@ namespace DauGiaTrucTuyen.HubRealTime
             if (transaction != null)
             {
                 Groups.Add(Context.ConnectionId, transaction.Transaction_Id);
-                
+
                 if (initialized)
                     return;
 

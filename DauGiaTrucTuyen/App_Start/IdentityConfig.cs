@@ -14,6 +14,7 @@ using DauGiaTrucTuyen.Models;
 using System.Net.Mail;
 using System.Net;
 using System.Configuration;
+using Twilio.Clients;
 
 namespace DauGiaTrucTuyen
 {
@@ -54,6 +55,8 @@ namespace DauGiaTrucTuyen
     {
         public Task SendAsync(IdentityMessage message)
         {
+            var Twilio = new TwilioRestClient(ConfigurationManager.AppSettings[""],
+                ConfigurationManager.AppSettings[""]);
             // Plug in your SMS service here to send a text message.
             return Task.FromResult(0);
         }
