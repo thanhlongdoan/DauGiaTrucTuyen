@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace DauGiaTrucTuyen.Controllers
 {
+    [Authorize]
     public class ManagerAuctionController : Controller
     {
         private Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();

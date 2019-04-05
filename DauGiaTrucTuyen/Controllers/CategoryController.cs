@@ -9,6 +9,7 @@ using DauGiaTrucTuyen.IDataBinding;
 
 namespace DauGiaTrucTuyen.Controllers
 {
+
     public class CategoryController : Controller
     {
         private Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();

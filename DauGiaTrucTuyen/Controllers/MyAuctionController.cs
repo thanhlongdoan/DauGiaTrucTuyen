@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace DauGiaTrucTuyen.Controllers
 {
+    [Authorize]
     public class MyAuctionController : Controller
     {
         // GET: MyAuction

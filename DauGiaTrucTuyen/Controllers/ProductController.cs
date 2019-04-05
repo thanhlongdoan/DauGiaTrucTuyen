@@ -12,6 +12,7 @@ using DauGiaTrucTuyen.HubRealTime;
 
 namespace DauGiaTrucTuyen.Controllers
 {
+    [System.Web.Mvc.Authorize]
     public class ProductController : Controller
     {
         // GET: Product
@@ -28,13 +29,14 @@ namespace DauGiaTrucTuyen.Controllers
             _iProduct = iProduct;
         }
 
-
+        [AllowAnonymous]
         //Danh sách sản phẩm cho trang người dùng
         public ActionResult GetListProductForPageClient()
         {
             return PartialView(_iProduct.GetListProductForPageClient());
         }
 
+        [AllowAnonymous]
         //Danh sách sản phẩm cho trang người dùng
         public ActionResult GetListProductFromCategory(string id)
         {
