@@ -90,6 +90,7 @@
 
             //nhập giá tiền nhỏ hơn giá tiền hiện tại
             auctionHub.client.auctionError = function (error) {
+                console.log(error)
                 swal({
                     title: error,
                     confirmButtonClass: "btn-primary",
@@ -100,8 +101,21 @@
                     });
             }
 
+            //phiên đấu giá kết thúc khi load
+            @*auctionHub.client.joinGroupError = function (error) {
+                swal({
+                    title: error,
+                    confirmButtonClass: "btn-primary",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: false
+                }, function () {
+                    location.href = "@Url.Action("Index","Home")";
+                });
+            }*@
+
             //get giá tiền khi đấu giá
             auctionHub.client.auctioning = function (price) {
+                console.log(price)
                 document.getElementById("pricing").innerHTML = price + "<span> K</span>";
             }
 
@@ -111,7 +125,7 @@
 
             //phiên đấu giá kết thúc
             auctionHub.client.addMessage = function (msg) {
-                console.log(msg);
+                //console.log(msg);
                 if (msg == "End") {
                     swal({
                         title: "Phiên đấu giá đã kết thúc !",
@@ -146,6 +160,8 @@
                     //tham gia phiên đấu giá
                     auctionHub.server.joinAuction(productId, userId, price)
                 });
+                //tham gia phiên đấu giá khi load trang
+                auctionHub.server.joinGroupAuction(productId)
             });
         })
     </script>

@@ -43,7 +43,7 @@ input[type="submit"], .panel-body ul li a, .checkout-right-basket a, .additional
 .w3l_logo {
     float: left;
     margin-left: 22em;
-    margin-right: 13em;
+    margin-right: 10em;
 }
 
     .w3l_logo h1 a {
@@ -73,9 +73,21 @@ input[type="submit"], .panel-body ul li a, .checkout-right-basket a, .additional
     margin-top: 0.5em;
 }
 
-    .w3l_login a span {
-        top: 1.3em;
-    }
+.w3l_login.logined a {
+    font-size: .8em;
+    color: #3c43a4;
+    width: auto;
+    height: 50px;
+    display: block;
+    border: none !important;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.w3l_login a span {
+    top: .8em;
+    font-size: 1.5em;
+}
 
 a.act {
     color: #ff5063 !important;
@@ -781,7 +793,7 @@ li.w3pages .dropdown-menu > li > a:hover {
 }
 
     .simpleCart_shelfItem p span {
-        color: #999;
+        color: #b30c0c;
         font-size: .8em;
         font-weight: bold;
         padding-right: 1em;

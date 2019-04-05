@@ -19,18 +19,32 @@ namespace DauGiaTrucTuyen.HubRealTime
 
         public AuctionHub()
         {
-            if (initialized)
-                return;
 
-            lock (initLock)
+        }
+
+        public void JoinGroupAuction(string productId)
+        {
+            var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).FirstOrDefault();
+
+            if (transaction != null)
             {
+                Groups.Add(Context.ConnectionId, transaction.Transaction_Id);
+                
                 if (initialized)
                     return;
 
-                InitializeAuction();
-            }
-        }
+                lock (initLock)
+                {
+                    if (initialized)
+                        return;
 
+                    InitializeAuction(transaction.AuctionTime.Value.TotalSeconds);
+                }
+            }
+
+            //else
+            //    Clients.Caller.JoinGroupError("Phiên đấu giá này đã kết thúc !");
+        }
         public void JoinAuction(string productId, string userId, decimal? price)
         {
             var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).FirstOrDefault();
@@ -53,12 +67,12 @@ namespace DauGiaTrucTuyen.HubRealTime
                 Clients.Group(transaction.Transaction_Id).Auctioning(price);
             }
             else
-                Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại");
+                Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại !");
         }
 
-        private void InitializeAuction()
+        private void InitializeAuction(double seconds)
         {
-            auction = new Auction(0, 10, DateTime.Now.AddSeconds(180), 0);
+            auction = new Auction(0, 10, DateTime.Now.AddSeconds(seconds), 0);
 
             timer = new Timer(TimerExpired, null, secs_10, 0);
 

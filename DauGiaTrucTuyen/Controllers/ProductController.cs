@@ -7,6 +7,8 @@ using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
 using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.IDataBinding;
+using Microsoft.AspNet.SignalR;
+using DauGiaTrucTuyen.HubRealTime;
 
 namespace DauGiaTrucTuyen.Controllers
 {
@@ -44,13 +46,6 @@ namespace DauGiaTrucTuyen.Controllers
         {
             var result = _iProduct.DetailProduct(productId);
             return View(result);
-        }
-
-        //kiểm tra số tiền nhập vào đấu giá
-        [AllowAnonymous]
-        public JsonResult CheckPriceAuction(decimal auctionPrice, string productId)
-        {
-            return Json(_iProduct.CheckPrice(auctionPrice, productId) == true ? false : true, JsonRequestBehavior.AllowGet);
         }
     }
 }
