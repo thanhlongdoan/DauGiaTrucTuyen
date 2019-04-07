@@ -96,7 +96,6 @@ namespace DauGiaTrucTuyen.DataBinding
                 db.Transactions.Add(transaction);
 
                 TransactionAuction transactionAuction = new TransactionAuction();
-                transactionAuction.TracsactionAuction_Id = Guid.NewGuid().ToString();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = sessionUserId;
                 transactionAuction.AuctionDate = DateTime.Now;
@@ -166,7 +165,6 @@ namespace DauGiaTrucTuyen.DataBinding
                 product.StatusProduct = StatusProduct.Approved;
 
                 TransactionAuction transactionAuction = new TransactionAuction();
-                transactionAuction.TracsactionAuction_Id = Guid.NewGuid().ToString();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = product.User_Id;
                 transactionAuction.AuctionDate = DateTime.Now;

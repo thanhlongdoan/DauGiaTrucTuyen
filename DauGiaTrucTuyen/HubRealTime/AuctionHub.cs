@@ -54,7 +54,6 @@ namespace DauGiaTrucTuyen.HubRealTime
             if (price > priceing && transaction != null)
             {
                 TransactionAuction transactionAuction = new TransactionAuction();
-                transactionAuction.TracsactionAuction_Id = Guid.NewGuid().ToString();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = userId;
                 transactionAuction.AuctionDate = DateTime.Now;

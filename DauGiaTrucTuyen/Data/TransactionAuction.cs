@@ -10,22 +10,18 @@ namespace DauGiaTrucTuyen.Data
     public partial class TransactionAuction
     {
         [Key]
-        public string TracsactionAuction_Id { get; set; }
-
-        [Required]
-        [StringLength(128)]
+        [Column(Order = 0)]
         public string Transaction_Id { get; set; }
 
-        [Required]
-        [StringLength(128)]
+        [Key]
+        [Column(Order = 1)]
         public string User_Id { get; set; }
 
-        public DateTime? AuctionDate { get; set; }
+        [Key]
+        [Column(Order = 2)]
+        public DateTime AuctionDate { get; set; }
 
         public decimal? AuctionPrice { get; set; }
-
-        [StringLength(250)]
-        public string Connection { get; set; }
 
         [StringLength(30)]
         public string Status { get; set; }

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace DauGiaTrucTuyen.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();

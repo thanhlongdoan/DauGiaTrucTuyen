@@ -18,6 +18,7 @@ namespace DauGiaTrucTuyen.Data
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<StatusUser> StatusUsers { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TransactionAuction> TransactionAuctions { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
 

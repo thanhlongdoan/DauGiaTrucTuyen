@@ -92,7 +92,7 @@
                 swal({
                     title: error,
                     confirmButtonClass: "btn-primary",
-                    confirmButtonText: "OK",
+                    confirmButtonText: "Đồng ý",
                     closeOnConfirm: false
                     }, function () {
                        location.reload();
@@ -128,7 +128,7 @@
                     swal({
                         title: "Phiên đấu giá đã kết thúc !",
                         confirmButtonClass: "btn-primary",
-                        confirmButtonText: "OK",
+                        confirmButtonText: "Đồng ý",
                         closeOnConfirm: false
                     }, function () {
                         location.href = "@Url.Action("Index","Home")";
@@ -140,23 +140,35 @@
                 auctionHub.server.timerExpired();
 
                 $("#btn-auction").click(function () {
-                    var price = $("#AuctionPrice").val();
-                    auctionHub.client.auctioning = function (price) {
-                        auctionHub.client.addMessage = function (msg) {
-                            if (msg == "end") {
-                                swal({
-                                    title: "Phiên đấu giá đã kết thúc !",
-                                    confirmButtonClass: "btn-primary",
-                                    confirmButtonText: "OK",
-                                    closeOnConfirm: false
-                                }, function () {
-                                    location.href = "@Url.Action("Index","Home")";
-                                });
+                    if ("@Request.IsAuthenticated" == "True") {
+                        var price = $("#AuctionPrice").val();
+                        auctionHub.client.auctioning = function (price) {
+                            auctionHub.client.addMessage = function (msg) {
+                                if (msg == "end") {
+                                    swal({
+                                        title: "Phiên đấu giá đã kết thúc !",
+                                        confirmButtonClass: "btn-primary",
+                                        confirmButtonText: "Đồng ý",
+                                        closeOnConfirm: false
+                                    }, function () {
+                                        location.href = "@Url.Action("Index","Home")";
+                                    });
+                                }
                             }
                         }
+                        //tham gia phiên đấu giá
+                        auctionHub.server.joinAuction(productId, userId, price)
                     }
-                    //tham gia phiên đấu giá
-                    auctionHub.server.joinAuction(productId, userId, price)
+                    else {
+                        swal({
+                        title: "Bạn phải đăng nhập để có thể thực hiện chức năng này !",
+                        confirmButtonClass: "btn-primary",
+                        confirmButtonText: "Đồng ý",
+                        closeOnConfirm: false
+                        }, function () {
+                            location.href = "@Url.Action("Login","Account", new { returnUrl = Url.Action("ProductDetail", "Product", new { productId = Model.Products_Id }) })";
+                        });
+                    }
                 });
                 //tham gia phiên đấu giá khi load trang
                 auctionHub.server.joinGroupAuction(productId)

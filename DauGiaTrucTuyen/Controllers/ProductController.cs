@@ -43,6 +43,7 @@ namespace DauGiaTrucTuyen.Controllers
             return View(_iProduct.GetListProductFromCategory(id));
         }
 
+        [AllowAnonymous]
         //Chi tiết sản phẩm trang người dùng
         public ActionResult ProductDetail(string productId)
         {

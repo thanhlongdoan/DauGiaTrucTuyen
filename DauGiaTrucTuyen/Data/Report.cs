@@ -15,6 +15,12 @@ namespace DauGiaTrucTuyen.Data
 
         public string Content { get; set; }
 
+        [StringLength(50)]
+        public string ReportUser { get; set; }
+
+        [StringLength(128)]
+        public string Transaction_Id { get; set; }
+
         public DateTime? CreateDate { get; set; }
 
         [StringLength(50)]
