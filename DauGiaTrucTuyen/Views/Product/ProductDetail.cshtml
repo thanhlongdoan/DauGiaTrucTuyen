@@ -35,10 +35,10 @@
             </div>
         </div>
     </div>
-    <hr />
-    <h3 class="text-uppercase">Mô tả chi tiết sản phẩm</h3>
-    <br />
-    @Html.Raw(Model.Description)
+    <h3 class="text-uppercase page-header">Mô tả chi tiết sản phẩm</h3>
+    <div style="padding-left: 5%;">
+        @Html.Raw(Model.Description)
+    </div>
     <div class="modal fade" id="modal-register" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 70%; margin: auto">

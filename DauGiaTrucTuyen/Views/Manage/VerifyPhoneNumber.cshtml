@@ -13,7 +13,6 @@
         @Html.Hidden("phoneNumber", @Model.PhoneNumber)
         <h4 class="text-center">Vui lòng nhập mã xác nhận để xác thực tài khoản</h4>
         <h5>@ViewBag.Status</h5>
-        <hr />
         <div class="form-group">
             <div class="col-md-4 col-md-offset-4">
                 @Html.TextBoxFor(m => m.Code, new { @placeholder = "Mã xác nhận", @autofocus = "autofocus" })
@@ -32,15 +31,15 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
     $(document).ready(function () {
-        if (@ViewBag.Result == "SendedSms")
+        if ("@ViewBag.Result" == "SendedSms")
             swal({
-                title: "Xác nhận đăng ký tài khoản !",
+                title: "Xác thực tài khoản !",
                 text: "Xác thực tài khoản thành công",
                 confirmButtonClass: "btn-primary",
                 confirmButtonText: "Đồng ý",
                 closeOnConfirm: false
             }, function () {
-                location.href = @Url.Action("Login","Account");
+                location.href = "@Url.Action("Login","Account")";
             });
     })
     </script>

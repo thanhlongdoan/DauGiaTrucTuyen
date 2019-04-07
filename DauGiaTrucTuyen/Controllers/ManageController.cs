@@ -162,6 +162,7 @@ namespace DauGiaTrucTuyen.Controllers
 
         //
         // GET: /Manage/VerifyPhoneNumber
+        [AllowAnonymous]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -173,6 +174,7 @@ namespace DauGiaTrucTuyen.Controllers
         // POST: /Manage/VerifyPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
