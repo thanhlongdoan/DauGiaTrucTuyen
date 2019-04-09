@@ -196,12 +196,14 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\ManagerCategoryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerProductViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ManagerReportViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerUserViewModel.cs" />
     <Compile Include="Common\Upload.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ManagerAuctionController.cs" />
     <Compile Include="Controllers\MyAuctionController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="DataBinding\Auction.cs" />
     <Compile Include="DataBinding\CategoryService.cs" />
     <Compile Include="DataBinding\ProductService.cs" />
@@ -2650,6 +2652,11 @@
     <Content Include="Views\MyAuction\Index.cshtml" />
     <Content Include="Views\ManagerAuction\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
+    <Content Include="Views\Reports\Create.cshtml" />
+    <Content Include="Views\Reports\Delete.cshtml" />
+    <Content Include="Views\Reports\Details.cshtml" />
+    <Content Include="Views\Reports\Edit.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
