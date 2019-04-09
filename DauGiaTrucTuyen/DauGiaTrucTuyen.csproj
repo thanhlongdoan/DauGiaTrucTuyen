@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ManagerAuctionController.cs" />
     <Compile Include="Controllers\MyAuctionController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="DataBinding\Auction.cs" />
     <Compile Include="DataBinding\CategoryService.cs" />
     <Compile Include="DataBinding\ProductService.cs" />
     <Compile Include="DataBinding\StatusService.cs" />
@@ -223,7 +224,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HubRealTime\ProductHub.cs" />
+    <Compile Include="HubRealTime\AuctionHub.cs" />
     <Compile Include="IDataBinding\ICategory.cs" />
     <Compile Include="IDataBinding\IProduct.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
@@ -1998,6 +1999,7 @@
     <Content Include="Content\ClientTemplate\images\img-sp.png" />
     <Content Include="Content\ClientTemplate\images\img_452250.png" />
     <Content Include="Content\ClientTemplate\images\left-arrow.png" />
+    <Content Include="Content\ClientTemplate\images\loading.gif" />
     <Content Include="Content\ClientTemplate\images\p1.jpg" />
     <Content Include="Content\ClientTemplate\images\p10.jpg" />
     <Content Include="Content\ClientTemplate\images\p11.jpg" />
@@ -2027,12 +2029,10 @@
     <Content Include="Content\ClientTemplate\images\tb4.jpg" />
     <Content Include="Content\ClientTemplate\images\tb5.jpg" />
     <Content Include="Content\ClientTemplate\js\bootstrap-3.1.1.min.js" />
+    <Content Include="Content\ClientTemplate\js\config-etalage.js" />
     <Content Include="Content\ClientTemplate\js\customize-flexisel.js" />
     <Content Include="Content\ClientTemplate\js\easyResponsiveTabs.js" />
     <Content Include="Content\ClientTemplate\js\imagezoom.js" />
-    <Content Include="Content\ClientTemplate\js\jquery.countdown.js" />
-    <Content Include="Content\ClientTemplate\js\jquery.flexisel.js" />
-    <Content Include="Content\ClientTemplate\js\jquery.flexslider.js" />
     <Content Include="Content\ClientTemplate\js\jquery.magnific-popup.js" />
     <Content Include="Content\ClientTemplate\js\jquery.min.js" />
     <Content Include="Content\ClientTemplate\js\jquery.wmuSlider.js" />

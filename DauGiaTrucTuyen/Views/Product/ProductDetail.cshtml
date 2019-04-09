@@ -1,11 +1,10 @@
 ﻿@model DauGiaTrucTuyen.Areas.Admin.Models.DetailProductViewModel
-
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Chi tiết sản phẩm đấu giá";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 @section css{
-    <link rel="stylesheet" href="~/Content/Client/css/etalage.css" type="text/css" media="all" />
     <link href="~/Content/ClientTemplate/css/product-detail.css" rel="stylesheet" />
 }
 <div class="shoes-grid col-md-8 col-sm-12">
@@ -22,9 +21,9 @@
                     <h3>@Model.ProductName</h3>
                     <br />
                     <div class="cart-b">
-                        <h4 style="color: brown" id="counter-time">@Model.AuctionTime s</h4>
+                        <h4 style="color: brown" id="counter-time">@*@Model.AuctionTime s*@</h4>
                         <br />
-                        <h3>@Model.AuctionPrice K</h3>
+                        <h3 id="pricing">@Model.AuctionPrice<span> K</span></h3>
                         <div class="clearfix"></div>
                     </div>
                     <br />
@@ -33,14 +32,15 @@
                     @Html.ValidationMessageFor(model => model.AuctionPrice, "", new { @class = "text-danger" })
                     <br />
                     <br />
-                    <button class="btn btn-primary">Đấu giá</button>
+                    <button class="btn btn-primary" id="btn-auction">Đấu giá</button>
                 </div>
             </div>
         </div>
     </div>
     <hr />
     <h3 class="text-uppercase">Mô tả chi tiết sản phẩm</h3>
-    <p>@Html.Raw(Model.Description)</p>
+    <br />
+    @Html.Raw(Model.Description)
     <div class="modal fade" id="modal-register" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 70%; margin: auto">
@@ -54,7 +54,7 @@
     </div>
 </div>
 <div class="col-md-4 col-sm-12">
-    <div class="box">
+    <div class="box" style="padding-top: 0% !important">
         <div class="box-header">
             <h3 class="box-title">Danh sách đấu giá sản phẩm</h3>
         </div>
@@ -80,44 +80,58 @@
     </div>
 </div>
 @section scripts{
-    <script src="~/Content/Client/js/jquery.etalage.min.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script>
-        jQuery(document).ready(function ($) {
-            $('#etalage').etalage({
-                thumb_image_width: 300,
-                thumb_image_height: 400,
-                source_image_width: 420,
-                source_image_height: 650,
-                show_hint: true
-            });
+        $(document).ready(function () {
+            var auctionHub = $.connection.auctionHub;
+            var userId = "@User.Identity.GetUserId()";
+            var productId = "@Model.Products_Id";
 
-            //Đếm thời gian
-            @*var timer2 = localStorage.getItem('timer');
-            if (timer2 === null) timer2 = "@Model.AuctionTime";
-            $('#counter-time').html(timer2);
+            auctionHub.client.auctioning = function (price) {
+                document.getElementById("pricing").innerHTML = price + "<span> K</span>";
+            }
 
-            var interval = setInterval(function () {
-                var timer = timer2.split(':');
-                var hour = parseInt(timer[0], 10);
-                var minutes = parseInt(timer[1], 10);
-                var seconds = parseInt(timer[2], 10);
-                --seconds;
-                minutes = (seconds < 0) ? --minutes : minutes;
-                if (minutes < 0) {
-                    clearInterval(interval);
-                    localStorage.removeItem('timer');
-                    $("#modal-register").modal("show");
-                } else {
-                    seconds = (seconds < 0) ? 59 : seconds;
-                    seconds = (seconds < 10) ? '0' + seconds : seconds;
-                    $('#counter-time').html( hour + ':' + minutes + ':' + seconds);
-                    timer2 = hour + ':' + minutes + ':' + seconds;
-                    console.log(timer2)
-                    localStorage.setItem('timer', timer2);
+            auctionHub.client.getTimeAuction = function (time) {
+                document.getElementById("counter-time").innerHTML = time + " s";
+            }
+
+            auctionHub.client.addMessage = function (msg) {
+                console.log(msg);
+                if (msg == "End") {
+                    swal({
+                        title: "Phiên đấu giá đã kết thúc !",
+                        confirmButtonClass: "btn-primary",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: false
+                    }, function () {
+                        location.reload();
+                    });
                 }
-            }, 1000);*@
-        });
+            }
+
+            $.connection.hub.start().done(function () {
+                auctionHub.server.timerExpired();
+
+                $("#btn-auction").click(function () {
+                    var price = $("#AuctionPrice").val();
+                    auctionHub.client.auctioning = function (price) {
+                        auctionHub.client.addMessage = function (msg) {
+                            if (msg == "end") {
+                                swal({
+                                    title: "Phiên đấu giá đã kết thúc !",
+                                    confirmButtonClass: "btn-primary",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: false
+                                }, function () {
+                                    location.reload();
+                                });
+                            }
+                        }
+                    }
+                    //auctionHub.server.joinAuction(productId, userId, price)
+                });
+            });
+        })
     </script>
 }

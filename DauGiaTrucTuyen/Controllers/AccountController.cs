@@ -171,7 +171,7 @@ namespace DauGiaTrucTuyen.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<JsonResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -179,24 +179,17 @@ namespace DauGiaTrucTuyen.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //if (model.Select.Equals("Email"))
-                    //{
-                    //    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //    await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản 'Đấu giá trực tuyến'", "Vui lòng click vào  <a href=\"" + callbackUrl + "\">đây để xác thực tài khoản</a>");
-                    //}
-                    return Json(true);
+                    if (model.Select.Equals("Email"))
+                    {
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản 'Đấu giá trực tuyến'", "Vui lòng click vào  <a href=\"" + callbackUrl + "\">đây để xác thực tài khoản</a>");
+                    }
+                    return RedirectToAction("Login", "Account");
                 }
-                else
-                {
-                    AddErrors(result);
-                    return Json(false);
-                }
+                AddErrors(result);
             }
-            else
-            {
-                return Json(false);
-            }
+            return View(model);
         }
 
         //
@@ -210,9 +203,8 @@ namespace DauGiaTrucTuyen.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             if (result.Succeeded)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
             return View("Error");
-            //return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //
