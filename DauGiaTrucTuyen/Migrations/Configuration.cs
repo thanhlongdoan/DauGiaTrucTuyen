@@ -5,14 +5,14 @@ namespace DauGiaTrucTuyen.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DauGiaTrucTuyen.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DauGiaTrucTuyen.Data.Db_DauGiaTrucTuyen>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DauGiaTrucTuyen.Models.ApplicationDbContext context)
+        protected override void Seed(DauGiaTrucTuyen.Data.Db_DauGiaTrucTuyen context)
         {
             //  This method will be called after migrating to the latest version.
 

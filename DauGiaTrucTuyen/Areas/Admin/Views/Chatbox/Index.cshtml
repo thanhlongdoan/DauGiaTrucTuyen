@@ -1,0 +1,111 @@
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ChatboxViewModel>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Quản lý trò chuyện trực tuyến";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section css{
+    <link href="~/Content/ClientTemplate/css/chatbox/ManageChat.css" rel="stylesheet" />
+}
+<div class="wrapper-chatbox">
+    <div class="header row">
+        <div class="title col-4">
+            <p>Quản lý tin nhắn</p>
+        </div>
+        <div class="avatar col-8">
+            <div class="dropdown">
+                <div class="bd-highlight dropdown-toggle" data-toggle="dropdown">
+                    <div class="img_cont">
+                        <img src="~/Content/ClientTemplate/images/img-chatbox/administrator.png" class="rounded-circle user_img" style="background: none" />
+                        <span class="online"></span>
+                    </div>
+                    <div class="user_info">
+                        <span>@User.Identity.GetUserName()</span>
+                        <p>Quản trị viên</p>
+                    </div>
+                </div>
+                <div class="dropdown-menu">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item">Đăng xuất</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content1 row">
+        <div class="content-left col-md-4">
+            <div class="box-item content-title total-contact">
+                <p>
+                    <i class="far fa-user"></i> <member></member> <span>Người sử dụng</span> <br />
+                    <i class="fas fa-circle"></i> <online></online>  <span>Đang hoạt động</span>
+                </p>
+            </div>
+            <div class="box-item box-search">
+                <input type="text" name="search" value="" placeholder="Tìm kiếm" class="form-control search" />
+            </div>
+            <ul class="list-contacts">
+                @foreach (var item in Model)
+                {
+                    <li class="box-item contact">
+                        <div class="d-flex bd-highlight w-100">
+                            <div class="img_cont">
+                                <div class="rounded-circle user_img">@item.Email.Substring(0, 2).ToUpper()</div>
+                                <span class="@(item.IsOnline == true ? "online": "")"></span>
+                            </div>
+                            <div class="user_info">
+                                <span class="user-name">@item.Email</span>
+                                <input type="hidden" name="connectionId" value="@item.ConnectionId" />
+                                <p class="@(item.IsRead == false? "new": "")">
+                                    @if (item.LastMsg != null)
+                                    {
+                                        @(item.LastMsg.Length > 20 ? item.LastMsg.Substring(0, 20) + "..." : item.LastMsg)
+                                    }
+                                </p>
+                            </div>
+                            <div class="time">
+                                <p>
+                                    @if (item.DateSend != null)
+                                    {
+                                        @item.DateSend}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="content-right col-md-8">
+            <div class="content-title chat-header row">
+                <div class="col-6">
+                    <span class="user-active"></span>
+                    <i class="onl fas"></i>
+                    <input type="hidden" name="connectionIdActive" value="" />
+                </div>
+                <div class="col-6 text-right">
+                    @*<div class="">
+                            <button type="button" class="btn btn-outline-dark"><i class="fas fa-upload"></i></button>
+                            <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
+                        </div>*@
+                </div>
+            </div>
+            <div class="chat-content">
+                <ul class="list-messages"></ul>
+                <div class="input-group box-group">
+                    <div class="input-group-prepend">
+                        <button class="btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <textarea class="form-control" placeholder="Nhập nội dung tin nhắn"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <!-- Js RealTime-Hub-->
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/chatbox/manageChat.js"></script>
+    <script src="~/Scripts/chatbox/popper.js"></script>
+}

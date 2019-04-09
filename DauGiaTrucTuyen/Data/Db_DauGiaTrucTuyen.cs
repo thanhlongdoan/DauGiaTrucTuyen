@@ -14,13 +14,14 @@ namespace DauGiaTrucTuyen.Data
 
         public virtual DbSet<Category> Categorys { get; set; }
         public virtual DbSet<FeedBack> FeedBacks { get; set; }
+        public virtual DbSet<MessageChat> MessageChats { get; set; }
         public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<StatusUser> StatusUsers { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TransactionAuction> TransactionAuctions { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<UserChat> UserChats { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -51,6 +52,10 @@ namespace DauGiaTrucTuyen.Data
                 .HasMany(e => e.TransactionAuctions)
                 .WithRequired(e => e.Transaction)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<UserChat>()
+                .Property(e => e.Email)
+                .IsFixedLength();
         }
     }
 }

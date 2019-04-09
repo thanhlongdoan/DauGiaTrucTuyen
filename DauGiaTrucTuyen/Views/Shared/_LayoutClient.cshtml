@@ -20,6 +20,8 @@
     <link href="~/Content/ClientTemplate/css/loadpage.css" rel="stylesheet" />
     <!-- Font Awesome 5.5.0 -->
     <link href="~/Content/Admin/bower_components/font-awesome/css/all.css" rel="stylesheet" />
+    <!-- Css chatbox -->
+    <link href="~/Content/ClientTemplate/css/chatbox/chatbox.css" rel="stylesheet" />
     <!-- //font-awesome icons -->
     @RenderSection("css", required: false)
     @Scripts.Render("~/bundles/jquery")
@@ -146,6 +148,37 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="chatbox chatbox-tray">
+            <div class="chatbox-title" value="">
+                <img id="lazo-button" src="~/Content/ClientTemplate/images/img-chatbox/Group 42.png" />
+                <span>Trò chuyện ngay với chúng tôi</span>
+            </div>
+            <form class="customer-info">
+                <p>Vùi lòng nhập Email</p>
+                <input type="email" placeholder="Email" class="form-control mx-auto" required />
+                <input type="hidden" id="txtNameEmail" name="name" value="" />
+                <button id="btnCus" type="submit" class="btn btn-primary mt-2" value="submit">Bắt đầu cuộc trò chuyện</button>
+            </form>
+            <div class="chatbox-body">
+                <ul class="chatbox-body-msg list-unstyled">
+                    <li class="float-left mt-1 chatbox-body-msg-left">
+                        Xin chào. Bạn cần tư vấn gì...
+                    </li>
+                </ul>
+            </div>
+            <div class="chatbox-footer">
+                <div class="chatbox-footer-content">
+                    <textarea type="text" name="name" id="txtMsg" placeholder="Nhập tin nhắn..."></textarea>
+                    <button id="btn-Send">
+                        <img src="~/Content/ClientTemplate/images/img-chatbox/send.png" />
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="chatbox-button">
+        </div>
+    </div>
     <!-- //footer -->
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <!-- scrolling -->
@@ -168,5 +201,6 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     @Scripts.Render("~/bundles/ckeditor")
     <script src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script src="~/Scripts/chatbox/chatbox.js"></script>
 </body>
 </html>

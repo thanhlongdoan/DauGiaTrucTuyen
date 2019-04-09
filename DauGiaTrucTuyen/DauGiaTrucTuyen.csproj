@@ -208,10 +208,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChatboxController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\ManagerCategoryViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ManagerChatboxViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerProductViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerUserViewModel.cs" />
     <Compile Include="Common\Upload.cs" />
@@ -221,6 +223,8 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DataBinding\Auction.cs" />
     <Compile Include="DataBinding\CategoryService.cs" />
+    <Compile Include="DataBinding\ChaterService.cs" />
+    <Compile Include="DataBinding\MessageService.cs" />
     <Compile Include="DataBinding\ProductService.cs" />
     <Compile Include="DataBinding\StatusService.cs" />
     <Compile Include="DataBinding\UserService.cs" />
@@ -230,35 +234,25 @@
     <Compile Include="Data\Category.cs" />
     <Compile Include="Data\Db_DauGiaTrucTuyen.cs" />
     <Compile Include="Data\FeedBack.cs" />
+    <Compile Include="Data\MessageChat.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\ProductDetail.cs" />
     <Compile Include="Data\Report.cs" />
     <Compile Include="Data\StatusUser.cs" />
-    <Compile Include="Data\sysdiagram.cs" />
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\TransactionAuction.cs" />
+    <Compile Include="Data\UserChat.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HubRealTime\AuctionHub.cs" />
+    <Compile Include="HubRealTime\ChatHub.cs" />
     <Compile Include="IDataBinding\ICategory.cs" />
     <Compile Include="IDataBinding\IProduct.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
-    <Compile Include="Migrations\201902280454148_Initial.cs" />
-    <Compile Include="Migrations\201902280454148_Initial.Designer.cs">
-      <DependentUpon>201902280454148_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902280455367_Initial2.cs" />
-    <Compile Include="Migrations\201902280455367_Initial2.Designer.cs">
-      <DependentUpon>201902280455367_Initial2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902280456427_Initial3.cs" />
-    <Compile Include="Migrations\201902280456427_Initial3.Designer.cs">
-      <DependentUpon>201902280456427_Initial3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902280934160_init2222.cs" />
-    <Compile Include="Migrations\201902280934160_init2222.Designer.cs">
-      <DependentUpon>201902280934160_init2222.cs</DependentUpon>
+    <Compile Include="Migrations\201904091819418_Initial.cs" />
+    <Compile Include="Migrations\201904091819418_Initial.Designer.cs">
+      <DependentUpon>201904091819418_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1943,6 +1937,8 @@
     <Content Include="Content\Admin\sweetalert\sweet-alert.css" />
     <Content Include="Content\Admin\sweetalert\thumbs-up.jpg" />
     <Content Include="Content\ClientTemplate\css\bootstrap.css" />
+    <Content Include="Content\ClientTemplate\css\chatbox\chatbox.css" />
+    <Content Include="Content\ClientTemplate\css\chatbox\ManageChat.css" />
     <Content Include="Content\ClientTemplate\css\fasthover.css" />
     <Content Include="Content\ClientTemplate\css\flexslider.css" />
     <Content Include="Content\ClientTemplate\css\font-awesome.css" />
@@ -2012,6 +2008,20 @@
     <Content Include="Content\ClientTemplate\images\c.jpg" />
     <Content Include="Content\ClientTemplate\images\check.png" />
     <Content Include="Content\ClientTemplate\images\close.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\admin.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\administrator.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\Avatar%402x.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\Avatar.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\avatar3.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\avatar5.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\Base.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\Group 41.1.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\Group 41.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\Group 42.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\icon.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\img_325788.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\Rectangle 3.png" />
+    <Content Include="Content\ClientTemplate\images\img-chatbox\send.png" />
     <Content Include="Content\ClientTemplate\images\img-sp.png" />
     <Content Include="Content\ClientTemplate\images\img_452250.png" />
     <Content Include="Content\ClientTemplate\images\left-arrow.png" />
@@ -2257,6 +2267,9 @@
     <Content Include="Content\ClientTemplate\fonts\FontAwesome.otf" />
     <Content Include="Content\ClientTemplate\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\ClientTemplate\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\chatbox\chatbox.js" />
+    <Content Include="Scripts\chatbox\manageChat.js" />
+    <Content Include="Scripts\chatbox\popper.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />
     <Content Include="Scripts\ckeditor\ckeditor.asp" />
@@ -2611,6 +2624,8 @@
     <Content Include="Scripts\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Scripts\ckfinder\userfiles\.htaccess" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
+    <Content Include="fonts\SourceSansPro-Light.otf" />
+    <Content Include="Areas\Admin\Views\Chatbox\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ckfinder\changelog.txt" />
     <Content Include="Scripts\ckfinder\ckfinder.html" />
@@ -3330,17 +3345,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902280454148_Initial.resx">
-      <DependentUpon>201902280454148_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902280455367_Initial2.resx">
-      <DependentUpon>201902280455367_Initial2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902280456427_Initial3.resx">
-      <DependentUpon>201902280456427_Initial3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902280934160_init2222.resx">
-      <DependentUpon>201902280934160_init2222.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904091819418_Initial.resx">
+      <DependentUpon>201904091819418_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
