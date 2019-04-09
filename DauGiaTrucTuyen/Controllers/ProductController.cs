@@ -7,9 +7,12 @@ using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
 using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.IDataBinding;
+using Microsoft.AspNet.SignalR;
+using DauGiaTrucTuyen.HubRealTime;
 
 namespace DauGiaTrucTuyen.Controllers
 {
+    [System.Web.Mvc.Authorize]
     public class ProductController : Controller
     {
         // GET: Product
@@ -26,31 +29,26 @@ namespace DauGiaTrucTuyen.Controllers
             _iProduct = iProduct;
         }
 
-
+        [AllowAnonymous]
         //Danh sách sản phẩm cho trang người dùng
         public ActionResult GetListProductForPageClient()
         {
             return PartialView(_iProduct.GetListProductForPageClient());
         }
 
+        [AllowAnonymous]
         //Danh sách sản phẩm cho trang người dùng
         public ActionResult GetListProductFromCategory(string id)
         {
             return View(_iProduct.GetListProductFromCategory(id));
         }
 
+        [AllowAnonymous]
         //Chi tiết sản phẩm trang người dùng
         public ActionResult ProductDetail(string productId)
         {
             var result = _iProduct.DetailProduct(productId);
             return View(result);
-        }
-
-        //kiểm tra số tiền nhập vào đấu giá
-        [AllowAnonymous]
-        public JsonResult CheckPriceAuction(decimal auctionPrice, string productId)
-        {
-            return Json(_iProduct.CheckPrice(auctionPrice, productId) == true ? false : true, JsonRequestBehavior.AllowGet);
         }
     }
 }

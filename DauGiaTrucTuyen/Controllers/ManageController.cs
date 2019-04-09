@@ -32,9 +32,9 @@ namespace DauGiaTrucTuyen.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -162,6 +162,7 @@ namespace DauGiaTrucTuyen.Controllers
 
         //
         // GET: /Manage/VerifyPhoneNumber
+        [AllowAnonymous]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -173,6 +174,7 @@ namespace DauGiaTrucTuyen.Controllers
         // POST: /Manage/VerifyPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
@@ -187,10 +189,11 @@ namespace DauGiaTrucTuyen.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                ViewBag.Result = "SendedSms";
+                //return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError("", "Xác thực không thành công");
             return View(model);
         }
 
@@ -333,7 +336,7 @@ namespace DauGiaTrucTuyen.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +387,6 @@ namespace DauGiaTrucTuyen.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

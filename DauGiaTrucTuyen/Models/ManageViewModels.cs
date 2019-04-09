@@ -68,7 +68,7 @@ namespace DauGiaTrucTuyen.Models
 
     public class VerifyPhoneNumberViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập mã xác nhận !")]
         [Display(Name = "Code")]
         public string Code { get; set; }
 
