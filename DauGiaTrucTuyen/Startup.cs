@@ -38,7 +38,7 @@ namespace DauGiaTrucTuyen
                 //Here we create a Admin super user who will maintain the website                  
 
                 var user = new ApplicationUser();
-                user.UserName = emailAdmin;
+                user.UserName = "admin";
                 user.Email = emailAdmin;
                 user.CreateDate = DateTime.Now;
                 user.EmailConfirmed = true;

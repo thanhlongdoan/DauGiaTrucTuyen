@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    <div class="w3l_login">
-        <a href="@Url.Action("InformationUser","Account")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+    <div class="w3l_login logined">
+        <a href="@Url.Action("InformationUser","Account")"><span class="glyphicon glyphicon-user" aria-hidden="true">@User.Identity.GetUserName()</span></a>
     </div>
     <div class="w3l_login">
         <a href="@Url.Action("LogOff","Account")"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>

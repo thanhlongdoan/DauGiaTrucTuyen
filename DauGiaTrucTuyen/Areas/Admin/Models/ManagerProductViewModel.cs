@@ -106,7 +106,6 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         public string Transaction_Id { get; set; }
 
-        [Remote("CheckPriceAuction", "Product", AdditionalFields = "Products_Id", ErrorMessage = "Giá tiền phải lớn hơn giá tiền hiện tại !")]
         public decimal? AuctionPrice { get; set; }
     }
 }

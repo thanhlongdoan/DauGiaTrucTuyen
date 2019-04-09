@@ -17,12 +17,15 @@ namespace DauGiaTrucTuyen.Data
         [Column(Order = 1)]
         public string User_Id { get; set; }
 
-        public DateTime? AuctionDate { get; set; }
+        [Key]
+        [Column(Order = 2)]
+        public DateTime AuctionDate { get; set; }
 
         public decimal? AuctionPrice { get; set; }
 
-        public virtual Transaction Transaction { get; set; }
+        [StringLength(30)]
+        public string Status { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Transaction Transaction { get; set; }
     }
 }

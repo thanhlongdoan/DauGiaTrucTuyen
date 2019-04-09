@@ -14,6 +14,7 @@ using DauGiaTrucTuyen.Models;
 using System.Net.Mail;
 using System.Net;
 using System.Configuration;
+using Twilio.Clients;
 
 namespace DauGiaTrucTuyen
 {
@@ -54,6 +55,8 @@ namespace DauGiaTrucTuyen
     {
         public Task SendAsync(IdentityMessage message)
         {
+            var Twilio = new TwilioRestClient(ConfigurationManager.AppSettings[""],
+                ConfigurationManager.AppSettings[""]);
             // Plug in your SMS service here to send a text message.
             return Task.FromResult(0);
         }
@@ -96,12 +99,12 @@ namespace DauGiaTrucTuyen
             // You can write your own provider and plug it in here.
             manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
             {
-                MessageFormat = "Your security code is {0}"
+                MessageFormat = "Mã xác thực của bạn là {0}"
             });
             manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
             {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
+                Subject = "Xác thực tài khoản",
+                BodyFormat = "Mã xác thực của bạn là {0}"
             });
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();

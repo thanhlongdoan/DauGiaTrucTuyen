@@ -191,7 +191,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        {
                            Products_Id = product.Products_Id,
                            AuctionTime = transaction.AuctionTime,
-                           PriceStart = (decimal)transaction.PriceStart,
+                           PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                            Image = productDetail.Image
                        };
             return list.ToList();
@@ -210,7 +210,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        {
                            Products_Id = product.Products_Id,
                            AuctionTime = transaction.AuctionTime,
-                           PriceStart = (decimal)transaction.PriceStart,
+                           PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                            Image = productDetail.Image
                        };
             return list.ToList();

@@ -15,9 +15,9 @@ namespace DauGiaTrucTuyen.Common
             {
                 fileName = Path.GetFileName(file.FileName);
                 string pathFileName = Guid.NewGuid().ToString() + fileName;
-                var path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(@"/Images/ImageProduct"), pathFileName);
+                var path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(@"/Content/Admin/img-product"), pathFileName);
                 file.SaveAs(path);
-                return "/Images/ImageProduct/" + pathFileName;
+                return "/Content/Admin/img-product/" + pathFileName;
             }
             else
             {

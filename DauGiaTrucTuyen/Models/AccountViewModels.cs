@@ -50,6 +50,7 @@ namespace DauGiaTrucTuyen.Models
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập !")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
         [Display(Name = "Tên đăng nhập")]
         public string UserName { get; set; }
 
@@ -65,6 +66,7 @@ namespace DauGiaTrucTuyen.Models
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập !")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
         [Display(Name = "Tên đăng nhập")]
         [Remote("CheckUserNameExist", "Account", ErrorMessage = "Tên đăng nhập đã tồn tại !")]
         public string UserName { get; set; }
@@ -119,6 +121,7 @@ namespace DauGiaTrucTuyen.Models
     public class ForgotPasswordViewModel
     {
         [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập !")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
         [Display(Name = "Tên đăng nhập")]
         public string UserName { get; set; }
     }

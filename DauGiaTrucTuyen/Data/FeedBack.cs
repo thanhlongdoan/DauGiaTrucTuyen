@@ -17,7 +17,5 @@ namespace DauGiaTrucTuyen.Data
 
         [StringLength(128)]
         public string User_Id { get; set; }
-
-        public virtual User User { get; set; }
     }
 }
