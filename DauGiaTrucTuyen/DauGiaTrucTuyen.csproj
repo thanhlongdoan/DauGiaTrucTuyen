@@ -224,6 +224,7 @@
     <Compile Include="DataBinding\Auction.cs" />
     <Compile Include="DataBinding\CategoryService.cs" />
     <Compile Include="DataBinding\ProductService.cs" />
+    <Compile Include="DataBinding\ReportService.cs" />
     <Compile Include="DataBinding\StatusService.cs" />
     <Compile Include="DataBinding\UserService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="HubRealTime\AuctionHub.cs" />
     <Compile Include="IDataBinding\ICategory.cs" />
     <Compile Include="IDataBinding\IProduct.cs" />
+    <Compile Include="IDataBinding\IReport.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
     <Compile Include="Migrations\201902280454148_Initial.cs" />
     <Compile Include="Migrations\201902280454148_Initial.Designer.cs">
