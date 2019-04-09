@@ -9,7 +9,7 @@ CKEDITOR.editorConfig = function (config) {
     // config.uiColor = '#AADC6E';
     config.syntaxhighlight_lang = 'csharp';
     config.syntaxhighlight_hideControls = true;
-    config.language = 'vi';
+        config.language = 'vi';
     config.filebrowserBrowseUrl = '/scripts/ckfinder/ckfinder.html';
     config.filebrowserImageBrowseUrl = '/scripts/ckfinder/ckfinder.html?Type=Images';
     config.filebrowserFlashBrowseUrl = '/scripts/ckfinder/ckfinder.html?Type=Flash';
