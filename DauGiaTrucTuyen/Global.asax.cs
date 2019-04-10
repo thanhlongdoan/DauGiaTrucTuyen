@@ -4,6 +4,7 @@ using System.Web.Routing;
 using static DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel;
 using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.Data;
+using DauGiaTrucTuyen.Models;
 
 namespace DauGiaTrucTuyen
 {
@@ -19,6 +20,7 @@ namespace DauGiaTrucTuyen
                 conf.CreateMap<AddCategoryViewModel, Category>();
                 conf.CreateMap<EditCategoryViewModel, Category>();
                 conf.CreateMap<ListProductViewModel, Product>();
+                conf.CreateMap<UpdateUserViewModel, Microsoft.AspNet.Identity.EntityFramework.IdentityUser>();
             });
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
