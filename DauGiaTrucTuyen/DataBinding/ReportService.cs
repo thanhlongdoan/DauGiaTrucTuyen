@@ -32,15 +32,17 @@ namespace DauGiaTrucTuyen.DataBinding
             db.SaveChanges();
             return true;
         }
-        public DetailCategoryViewModel DetailCategory(string id)
+
+        public List<ListReportViewModel> GetListReport()
         {
-            var category = db.Categorys.Find(id);
-            if (category != null)
-            {
-                var model = Mapper.Map<DetailCategoryViewModel>(category);
-                return model;
-            }
-            return null;
+            var list = from report in db.Reports
+                       select new ListReportViewModel
+                       {
+                           Reports_Id = report.Reports_Id,
+                           Title = report.Title,
+                           Transaction_Id = report.Transaction_Id
+                       };
+            return list.ToList();
         }
     }
 }
