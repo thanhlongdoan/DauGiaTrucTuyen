@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewBag.Title -Đấu Giá Trực Tuyến</title>
@@ -178,6 +179,7 @@
         </div>
         <div class="chatbox-button">
         </div>
+
     </div>
     <!-- //footer -->
     <script src="~/Scripts/jquery-3.3.1.js"></script>
@@ -201,6 +203,15 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     @Scripts.Render("~/bundles/ckeditor")
     <script src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script>
+        if ("@Request.IsAuthenticated" == "False") {
+            $(".customer-info").html('<a href="@Url.Action("Login","Account")">Vui lòng đăng nhập để trò chuyện</a>')
+        }
+        else {
+            var userId = "@User.Identity.GetUserId()";
+            console.log(userId)
+        }
+    </script>
     <script src="~/Scripts/chatbox/chatbox.js"></script>
 </body>
 </html>
