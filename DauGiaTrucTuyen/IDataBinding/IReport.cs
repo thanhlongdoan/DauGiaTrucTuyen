@@ -9,5 +9,6 @@ namespace DauGiaTrucTuyen.IDataBinding
     public interface IReport
     {
         bool AddReport(AddReportViewModel model, string userId);
+        bool DeleteReport(string id);
     }
 }
