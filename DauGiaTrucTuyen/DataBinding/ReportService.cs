@@ -32,5 +32,17 @@ namespace DauGiaTrucTuyen.DataBinding
             db.SaveChanges();
             return true;
         }
+
+        public List<ListReportViewModel> GetListReport()
+        {
+            var list = from report in db.Reports
+                       select new ListReportViewModel
+                       {
+                           Reports_Id = report.Reports_Id,
+                           Title = report.Title,
+                           Transaction_Id = report.Transaction_Id
+                       };
+            return list.ToList();
+        }
     }
 }
