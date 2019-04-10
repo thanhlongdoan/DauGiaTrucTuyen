@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@ViewBag.Title -Đấu Giá Trực Tuyến</title>
+    <title>@ViewBag.Title - Đấu Giá Trực Tuyến</title>
     <link href="~/Content/ClientTemplate/images/img_452250.png" type="image/png" rel="shortcut icon" />
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -211,6 +211,7 @@
         else {
             var userId = "@User.Identity.GetUserId()";
             console.log(userId)
+            $(".customer-info").html('<a href="@Url.Action("Login","Account")">Vui lòng đăng nhập để trò chuyện</a>')
         }
     </script>
     <script src="~/Scripts/chatbox/chatbox.js"></script>

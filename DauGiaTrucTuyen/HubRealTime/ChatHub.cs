@@ -18,10 +18,10 @@ namespace DauGiaTrucTuyen.HubRealTime
         ChaterService chater = new ChaterService();
         string emailAdmin = WebConfigurationManager.AppSettings["EmailAdmin"];
 
-        public string GetEmailFromUserId(string userId)
-        {
-            var email = HttpContext.Current.User.Identity.emai
-        }
+        //public string GetEmailFromUserId(string userId)
+        //{
+        //    var email = HttpContext.Current.User.Identity.emai
+        //}
         public void Connect(string email)
         {
             bool checkExist;
