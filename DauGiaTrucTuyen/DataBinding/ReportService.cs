@@ -32,5 +32,15 @@ namespace DauGiaTrucTuyen.DataBinding
             db.SaveChanges();
             return true;
         }
+        public DetailCategoryViewModel DetailCategory(string id)
+        {
+            var category = db.Categorys.Find(id);
+            if (category != null)
+            {
+                var model = Mapper.Map<DetailCategoryViewModel>(category);
+                return model;
+            }
+            return null;
+        }
     }
 }
