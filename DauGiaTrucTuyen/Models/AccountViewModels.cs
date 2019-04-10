@@ -99,10 +99,10 @@ namespace DauGiaTrucTuyen.Models
 
     public class ResetPasswordViewModel
     {
-        [Required(ErrorMessage = "Vui lòng nhập Email !")]
-        [Display(Name = "Email")]
-        [EmailAddress(ErrorMessage = "Email không đúng định dạng !")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập tài khoản !")]
+        [Display(Name = "Tài khoản")]
+       
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(32, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6-23 kí tự !")]

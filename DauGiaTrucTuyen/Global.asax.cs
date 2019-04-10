@@ -20,6 +20,7 @@ namespace DauGiaTrucTuyen
                 conf.CreateMap<AddCategoryViewModel, Category>();
                 conf.CreateMap<EditCategoryViewModel, Category>();
                 conf.CreateMap<ListProductViewModel, Product>();
+                conf.CreateMap<AddReportViewModel, Report>();
                 conf.CreateMap<UpdateUserViewModel, Microsoft.AspNet.Identity.EntityFramework.IdentityUser>();
             });
             AreaRegistration.RegisterAllAreas();
