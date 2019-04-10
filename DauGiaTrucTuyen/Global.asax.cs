@@ -19,6 +19,7 @@ namespace DauGiaTrucTuyen
                 conf.CreateMap<AddCategoryViewModel, Category>();
                 conf.CreateMap<EditCategoryViewModel, Category>();
                 conf.CreateMap<ListProductViewModel, Product>();
+                conf.CreateMap<AddReportViewModel, Report>();
             });
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
