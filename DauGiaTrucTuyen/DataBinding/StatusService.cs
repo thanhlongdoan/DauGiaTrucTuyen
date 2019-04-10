@@ -20,4 +20,9 @@ namespace DauGiaTrucTuyen.DataBinding
         public const string Opened = "Mở";
         public const string Closed = "Đóng";
     }
+    public static class StatusReport
+    {
+        public const string Responed = "Đã phản hồi";
+        public const string NotResponed = "Chưa Phản Hồi";
+    }
 }

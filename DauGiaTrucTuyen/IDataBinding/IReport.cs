@@ -8,6 +8,6 @@ namespace DauGiaTrucTuyen.IDataBinding
 {
     public interface IReport
     {
-        bool AddReport(AddReportViewModel model);
+        bool AddReport(AddReportViewModel model, string userId);
     }
 }

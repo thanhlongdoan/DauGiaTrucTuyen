@@ -13,14 +13,21 @@ namespace DauGiaTrucTuyen.DataBinding
     {
         Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
 
-        public bool AddReport(AddReportViewModel model)
+        public bool AddReport(AddReportViewModel model, string userId)
         {
-            var report = Mapper.Map<Data.Report>(model);
-            report.Reports_Id = Guid.NewGuid().ToString();
-            report.CreateDate = DateTime.Now;
-            report.CreateBy = "";
-            report.Status = "";
-            report.User_Id = "";
+            var report = new Report
+            {
+                ReportUser = model.ReportUser,
+                Content = model.Content,
+                Title = model.Title,
+                Transaction_Id = model.Transaction_Id,
+                Reports_Id = Guid.NewGuid().ToString(),
+                CreateDate = DateTime.Now,
+                CreateBy = HttpContext.Current.User.Identity.Name,
+                Status = StatusReport.NotResponed,
+                User_Id = userId,
+            };
+
             db.Reports.Add(report);
             db.SaveChanges();
             return true;

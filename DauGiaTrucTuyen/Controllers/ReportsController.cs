@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
@@ -43,8 +44,8 @@ namespace DauGiaTrucTuyen.Controllers
         {
             if (ModelState.IsValid)
             {
-                _iReport.AddReport(model);
-                return RedirectToAction("Index");
+               if(_iReport.AddReport(model,User.Identity.GetUserId()))
+                return RedirectToAction("Index", "home");
             }
             return View(model);
         }
