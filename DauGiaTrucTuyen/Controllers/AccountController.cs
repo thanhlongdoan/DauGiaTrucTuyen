@@ -185,7 +185,8 @@ namespace DauGiaTrucTuyen.Controllers
                         string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản 'Đấu giá trực tuyến'", "Vui lòng click vào  <a href=\"" + callbackUrl + "\">đây để xác thực tài khoản</a>");
-                        return ViewBag.Result = "Email";
+                        //return ViewBag.Result = "Email";
+                        return RedirectToAction("Login");
                     }
                     else
                     {
