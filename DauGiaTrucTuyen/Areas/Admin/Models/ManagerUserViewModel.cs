@@ -7,6 +7,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
     {
         public class DetailUserViewModel
         {
+
             [Display(Name = "Tên đăng nhập")]
             public string UserName { get; set; }
 

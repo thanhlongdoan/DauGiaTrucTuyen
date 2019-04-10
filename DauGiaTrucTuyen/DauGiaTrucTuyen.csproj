@@ -211,6 +211,7 @@
     <Compile Include="Areas\Admin\Controllers\ChatboxController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\ManagerCategoryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerChatboxViewModel.cs" />
@@ -2628,6 +2629,8 @@
     <Content Include="Scripts\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Scripts\ckfinder\userfiles\.htaccess" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
+    <Content Include="Areas\Admin\Views\Report\GetListProductStatusReView.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
     <Content Include="fonts\SourceSansPro-Light.otf" />
     <Content Include="Areas\Admin\Views\Chatbox\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -3334,6 +3337,7 @@
     <Content Include="Views\MyAuction\Index.cshtml" />
     <Content Include="Views\ManagerAuction\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
+    <Content Include="Views\Account\UpdateUser.cshtml" />
     <Content Include="Views\Reports\Create.cshtml" />
     <Content Include="Views\Reports\Delete.cshtml" />
     <Content Include="Views\Reports\Details.cshtml" />

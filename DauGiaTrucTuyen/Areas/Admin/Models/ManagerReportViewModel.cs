@@ -24,4 +24,16 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string Transaction_Id { get; set; }
 
     }
+
+    public class ListReportViewModel
+    {
+        public string Reports_Id { get; set; }
+        [DisplayName("Nhập tiêu đề")]
+        [Required(ErrorMessage = "Tiêu đề là bắt buộc")]
+        public string Title { get; set; }
+        [DisplayName("Nhập mã phiên đấu giá")]
+        [Required(ErrorMessage = "Mã phiên đấu giá là bắt buộc")]
+        public string Transaction_Id { get; set; }
+
+    }
 }
