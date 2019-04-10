@@ -23,23 +23,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         {
             return View(_iUser.GetListUser());
         }
-
-        //Cập nhật người dùng (GET)
-        [HttpGet]
-        public ActionResult Edit(string id)
-        {
-            var user = db.Users.Find(id);
-            if (user != null)
-                return View();
-            return HttpNotFound();
-        }
-
-        //Cập nhật người dùng (POST)
-        [HttpPost]
-        public ActionResult Edit()
-        {
-            return View();
-        }
+        
 
         //Chi tiết người dùng
         public ActionResult Detail(string id)

@@ -3322,6 +3322,7 @@
     <Content Include="Views\MyAuction\Index.cshtml" />
     <Content Include="Views\ManagerAuction\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
+    <Content Include="Views\Account\UpdateUser.cshtml" />
     <Content Include="Views\Reports\Create.cshtml" />
     <Content Include="Views\Reports\Delete.cshtml" />
     <Content Include="Views\Reports\Details.cshtml" />

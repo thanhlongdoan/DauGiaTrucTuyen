@@ -1,4 +1,5 @@
-﻿using DauGiaTrucTuyen.DataBinding;
+﻿using AutoMapper;
+using DauGiaTrucTuyen.DataBinding;
 using DauGiaTrucTuyen.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -554,5 +555,35 @@ namespace DauGiaTrucTuyen.Controllers
             }
         }
         #endregion
+        public ActionResult UpdateUser()
+        {
+            string userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(userId);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var modelUser = Mapper.Map<UpdateUserViewModel>(user);
+            return View(modelUser);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateUser(UpdateUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string userId = User.Identity.GetUserId();
+                var user = UserManager.FindById(userId);
+                user.LastName = model.LastName;
+                user.FirstName = model.FirstName;
+                user.Address = model.Address;
+                UserManager.Update(user);
+                UserManager.UpdateAsync(user);
+                return RedirectToAction("InformationUser");
+            }
+            return View(model);
+        }
     }
 }

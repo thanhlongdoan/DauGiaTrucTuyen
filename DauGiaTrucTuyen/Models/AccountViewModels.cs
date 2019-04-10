@@ -125,4 +125,22 @@ namespace DauGiaTrucTuyen.Models
         [Display(Name = "Tên đăng nhập")]
         public string UserName { get; set; }
     }
+    public class UpdateUserViewModel
+    {
+        [Display(Name = "Tên đăng nhập")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập tên !")]
+        [Display(Name = "Tên")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập họ !")]
+        [Display(Name = "Họ")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ !")]
+        [Display(Name = "Địa chỉ")]
+        public string Address { get; set; }
+    }
+
 }
