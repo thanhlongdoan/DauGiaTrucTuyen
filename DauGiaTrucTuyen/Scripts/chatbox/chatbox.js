@@ -143,8 +143,8 @@
 
 
         //});
-        if (userIdAll != null) {
-            console.log(userIdAll)
+        if (userIdAll != "") {
+            console.log(userIdAll + "1")
             chatHub.server.connect(userIdAll);
             chatHub.server.loadMsgOfClient(userIdAll);
             document.getElementById("txtNameEmail").value = userIdAll;

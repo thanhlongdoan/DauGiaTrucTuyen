@@ -207,11 +207,17 @@
     <script>
         if ("@Request.IsAuthenticated" == "False") {
             $(".customer-info").html('<a href="@Url.Action("Login","Account")">Vui lòng đăng nhập để trò chuyện</a>')
+            var userIdAll = '';
         }
         else {
-            var userIdAll = "@User.Identity.GetUserId()";
-            @*console.log(userId)
-            $(".customer-info").html('<a href="@Url.Action("Login","Account")">Vui lòng đăng nhập để trò chuyện</a>')*@
+            if ('@User.Identity.GetUserName()' == "admin@gmail.com") {
+                $(".chatbox").css("display", "none")
+                $(".chatbox-button").css("display", "none")
+                var userIdAll = "";
+            }
+            else {
+                var userIdAll = "@User.Identity.GetUserId()";
+            }
         }
     </script>
     <script src="~/Scripts/chatbox/chatbox.js"></script>
