@@ -18,69 +18,69 @@ namespace DauGiaTrucTuyen.HubRealTime
         ChaterService chater = new ChaterService();
         string emailAdmin = WebConfigurationManager.AppSettings["EmailAdmin"];
 
-        //public string GetEmailFromUserId(string userId)
-        //{
-        //    var email = HttpContext.Current.User.Identity.emai
-        //}
-        public void Connect(string email)
+        public void Connect(string userId)
         {
-            bool checkExist;
-            /// id = lấy ra chuỗi kết nối hiện tại của trình duyệt
-            var id = Context.ConnectionId;
-            /// lấy ra tài khoản 
-            var item = chater.GetUser(email);
-            /// chưa có tài khoản , tạo mới
-            if (item == null)
+            if (userId != null)
             {
-                listUser.Add(new UserChat
+                var username = HttpContext.Current.User.Identity.Name;
+                bool checkExist;
+                /// id = lấy ra chuỗi kết nối hiện tại của trình duyệt
+                var id = Context.ConnectionId;
+                /// lấy ra tài khoản 
+                var item = chater.GetUser(userId);
+                /// chưa có tài khoản , tạo mới
+                if (item == null)
                 {
-                    UserChat_Id = Guid.NewGuid().ToString(),
-                    ConnectionId = id,
-                    Email = email.ToLower(),
-                    IsOnline = true
-                });
-                chater.AddUser(email, id);
-                checkExist = false;
-                Clients.User(emailAdmin).onConnected(id, email.ToLower(), checkExist);
-                Clients.Client(Context.ConnectionId).SendConnection(id, email.ToLower());
+                    listUser.Add(new UserChat
+                    {
+                        UserChat_Id = Guid.NewGuid().ToString(),
+                        ConnectionId = id,
+                        User_Id = userId,
+                        IsOnline = true
+                    });
+                    chater.AddUser(userId, id);
+                    checkExist = false;
+                    Clients.User(emailAdmin).onConnected(id, username.ToLower(), checkExist);
+                    Clients.Client(Context.ConnectionId).SendConnection(id, userId.ToLower());
 
-            }
-            /// đã có tài khoản
-            else
-            {
-                ///nếu đang đăng nhập vào trình duyệt cũ , bật một tab mới
-                if (item.ConnectionId != id && item.IsOnline == true)
-                {
-                    Clients.Caller.CheckIsOnline();
                 }
+                /// đã có tài khoản
                 else
-                ///có tài khoản email rồi và đang offline
                 {
-                    chater.UpdateConnectionId(email, id);
-                    chater.UpdateIsOnlineOfUser(email, true);
+                    /////nếu đang đăng nhập vào trình duyệt cũ , bật một tab mới
+                    //if (item.ConnectionId != id && item.IsOnline == true)
+                    //{
+                    //    Clients.Caller.CheckIsOnline();
+                    //}
+                    //else
+                    /////có tài khoản email rồi và đang offline
+                    //{
+                    chater.UpdateConnectionId(userId, id);
+                    chater.UpdateIsOnlineOfUser(userId, true);
                     //user.ConnectionId = id;
                     //user.IsOnline = true;
                     //var ModelMsg = db.messages.ToList().Where(x => x.FromEmail == email.ToLower());
                     //foreach (var itemMsg in ModelMsg)
                     //itemMsg.FromConnectionId = id;
-                    messageDb.UpdateFromConnectionId(email, id);
+                    messageDb.UpdateFromConnectionId(userId, id);
                     checkExist = true;
                     //db.SaveChanges();
-                    Clients.User(emailAdmin).onConnected(id, email.ToLower(), checkExist);
-                    Clients.Client(Context.ConnectionId).SendConnection(id, email.ToLower());
+                    Clients.User(emailAdmin).onConnected(id, userId, checkExist);
+                    Clients.Client(Context.ConnectionId).SendConnection(id, userId);
+                    //}
                 }
             }
         }
 
-        public void ChangeTab(string email)
+        public void ChangeTab(string userId)
         {
             var id = Context.ConnectionId;
-            var item = chater.GetUser(email);
+            var item = chater.GetUser(userId);
             //var item = db.account.FirstOrDefault(x => x.Email == email.ToLower());
             //item.ConnectionId = id;
-            chater.UpdateConnectionId(email, id);
+            chater.UpdateConnectionId(userId, id);
             //db.SaveChanges();
-            Clients.User(emailAdmin).onConnected(item.ConnectionId, email.ToLower());
+            Clients.User(emailAdmin).onConnected(item.ConnectionId, userId);
         }
         /// <summary>
         /// 
@@ -88,10 +88,10 @@ namespace DauGiaTrucTuyen.HubRealTime
         /// <param name="fromEmail">tu 1 email nguoi dung nhap vao</param>
         /// <param name="toEmail">gui den email cua admin</param>
         /// <param name="msg">tin nhan nguoi dung nhap vao</param>
-        public void SendMsg(string fromEmail, string toEmail, string msg)
+        public void SendMsg(string fromUserId, string toUserId, string msg)
         {
             var id = Context.ConnectionId;
-            var item = chater.GetUser(fromEmail);
+            var item = chater.GetUser(fromUserId);
             //var item = listUser.FirstOrDefault(x => x.Email == fromEmail);
             //var item = db.account.FirstOrDefault(x => x.Email == fromEmail);
             //kiem tra id ket noi hien tai co dung voi ConnectionId cua 1 email nhap vao khong
@@ -99,9 +99,9 @@ namespace DauGiaTrucTuyen.HubRealTime
             {
                 MessageService messageDb = new MessageService();
                 var createDate = DateTime.Now;
-                messageDb.AddMessage(fromEmail, toEmail, msg, id, createDate);
+                messageDb.AddMessage(fromUserId, toUserId, msg, id, createDate);
                 var connectionId = Context.ConnectionId;
-                Clients.User("admin@gmail.com").SendMsgForAdmin(msg, createDate, connectionId, fromEmail);
+                Clients.User("admin@gmail.com").SendMsgForAdmin(msg, createDate, connectionId, fromUserId);
             }
             //truong hoi Id khong dung voi ConnectionId thi tra ve result va 'thong bao ket noi bi ngat'
             else
@@ -117,29 +117,32 @@ namespace DauGiaTrucTuyen.HubRealTime
         /// <param name="toEmail">email nhận tin nhắn</param>
         /// <param name="msg">nội dung tin nhắn</param>
         /// <param name="connectionId">connectionId nhận tin nhắn</param>
-        public void SendPrivateMessage(string toEmail, string msg, string connectionId)
+        public void SendPrivateMessage(string toUserId, string msg, string connectionId)
         {
             var createDate = DateTime.Now;
-            var fromEmail = "admin@gmail.com";
-            messageDb.AddMessage(fromEmail.ToLower(), toEmail.ToLower(), msg, connectionId, createDate);
+            var fromUserId = "admin@gmail.com";
+            messageDb.AddMessage(fromUserId.ToLower(), toUserId, msg, connectionId, createDate);
             Clients.Client(connectionId).AdminSendMsg(msg);
         }
         /// <summary>
         /// 
         /// </summary>          
         /// <param name="email">email nguoi dung truyen vao</param>
-        public void LoadMsgOfClient(string email)
+        public void LoadMsgOfClient(string userId)
         {
-            string listMsg = messageDb.GetMessagesByEmail(email.ToLower());
-            Clients.Caller.LoadAllMsgOfClient(listMsg);
+            if (userId != null)
+            {
+                string listMsg = messageDb.GetMessagesByUserId(userId.ToLower());
+                Clients.Caller.LoadAllMsgOfClient(listMsg);
+            }
         }
         /// <summary>
         /// Load tất cả các danh sách tin nhắn của email truyền vào và gửi về cho admin
         /// </summary>
         /// <param name="email"></param>
-        public void LoadMsgByEmailOfAdmin(string email)
+        public void LoadMsgByEmailOfAdmin(string userId)
         {
-            string listMsg = messageDb.GetMessagesByEmail(email.ToLower());
+            string listMsg = messageDb.GetMessagesByUserId(userId);
             Clients.User(emailAdmin).loadAllMsgByEmailOfAdmin(listMsg);
         }
 

@@ -48,16 +48,16 @@
         $('.chatbox-body-msg').append('<li class="float-left mt-1 new-message chatbox-body-msg-left ">' + msg + '</li >');
         $('.chatbox-body').animate({ scrollTop: $('.chatbox-body').prop('scrollHeight') });
     };
-    chatHub.client.checkIsOnline = function () {
-        var fromemail = document.getElementById("txtNameEmail").value;
-        if (confirm('Bạn có muốn ngắt kết nối ở trình duyệt cũ không ?')) {
-            chatHub.server.changeTab(fromemail);
-        } else {
-            $('.customer-info').show();
-            $('.chatbox-body').hide();
-            $('.chatbox-footer').hide();
-        }
-    };
+    //chatHub.client.checkIsOnline = function () {
+    //    var fromemail = document.getElementById("txtNameEmail").value;
+    //    if (confirm('Bạn có muốn ngắt kết nối ở trình duyệt cũ không ?')) {
+    //        chatHub.server.changeTab(fromemail);
+    //    } else {
+    //        $('.customer-info').show();
+    //        $('.chatbox-body').hide();
+    //        $('.chatbox-footer').hide();
+    //    }
+    //};
     chatHub.client.sendError = function () {
         alert("Kết nối đã bị ngắt");
     };
@@ -89,12 +89,12 @@
         input.addEventListener("keyup", function (event) {
             if (event.keyCode == 13) {
                 if ($('#txtMsg').val() != false) {
-                    var fromemail = document.getElementById("txtNameEmail").value;
+                    var fromUserId = userIdAll;
                     var toemail = 'admin@gmail.com';
                     var time = new Date();
                     var timeformated2 = formatAMPM(time);
                     $('.chatbox-body-msg').append(AddMsgOfClient($('#txtMsg').val(), timeformated2));
-                    chatHub.server.sendMsg(fromemail, toemail, $('#txtMsg').val());
+                    chatHub.server.sendMsg(fromUserId, toemail, $('#txtMsg').val());
                     $('#txtMsg').val('').focus();
                     $('.chatbox-body').animate({ scrollTop: $('.chatbox-body').prop('scrollHeight') });
                 }
@@ -116,33 +116,43 @@
 
         $('.chatbox-footer-content').on('click', '#btn-Send', function () {
             if ($('#txtMsg').val() != false) {
-                var fromemail = 'long@gmail.com';
+                var fromUserId = userIdAll;
                 var toemail = 'admin@gmail.com';
                 var time = new Date();
                 var timeformated2 = formatAMPM(time);
 
                 $('.chatbox-body-msg').append(AddMsgOfClient($('#txtMsg').val(), timeformated2));
-                chatHub.server.sendMsg(fromemail, toemail, $('#txtMsg').val());
+                chatHub.server.sendMsg(fromUserId, toemail, $('#txtMsg').val());
                 $('#txtMsg').val('').focus();
                 $('.chatbox-body').animate({ scrollTop: $('.chatbox-body').prop('scrollHeight') });
             }
         });
-        $('.customer-info').submit(function (e) {
-            e.preventDefault();
-            var startEmail = $('.customer-info input').val();
-            if (startEmail.length > 0) {
-                email = startEmail;
-                chatHub.server.connect(email);
-                chatHub.server.loadMsgOfClient(email);
-                document.getElementById("txtNameEmail").value = email;
-            }
+        //$('.customer-info').submit(function (e) {
+        //    e.preventDefault();
+        //    var startEmail = $('.customer-info input').val();
+        //    if (startEmail.length > 0) {
+        //        email = startEmail;
+        //        chatHub.server.connect(email);
+        //        chatHub.server.loadMsgOfClient(email);
+        //        document.getElementById("txtNameEmail").value = email;
+        //    }
+        //    $('.chatbox-title span').text(email);
+        //    $('.customer-info').hide();
+        //    $('.chatbox-body').show();
+        //    $('.chatbox-footer').show();
+
+
+        //});
+        if (userIdAll != null) {
+            console.log(userIdAll)
+            chatHub.server.connect(userIdAll);
+            chatHub.server.loadMsgOfClient(userIdAll);
+            document.getElementById("txtNameEmail").value = userIdAll;
             $('.chatbox-title span').text(email);
             $('.customer-info').hide();
             $('.chatbox-body').show();
             $('.chatbox-footer').show();
-
-            //chatHub.connection.connect(email);
-        });
+        }
     });
 
 });

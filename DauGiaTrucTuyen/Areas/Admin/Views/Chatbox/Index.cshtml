@@ -7,97 +7,102 @@
 @section css{
     <link href="~/Content/ClientTemplate/css/chatbox/ManageChat.css" rel="stylesheet" />
 }
-<div class="wrapper-chatbox">
-    <div class="header row">
-        <div class="title col-4">
-            <p>Quản lý tin nhắn</p>
-        </div>
-        <div class="avatar col-8">
-            <div class="dropdown">
-                <div class="bd-highlight dropdown-toggle" data-toggle="dropdown">
-                    <div class="img_cont">
-                        <img src="~/Content/ClientTemplate/images/img-chatbox/administrator.png" class="rounded-circle user_img" style="background: none" />
-                        <span class="online"></span>
-                    </div>
-                    <div class="user_info">
-                        <span>@User.Identity.GetUserName()</span>
-                        <p>Quản trị viên</p>
-                    </div>
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <div class="wrapper-chatbox">
+            <div class="header row">
+                <div class="title col-4">
+                    <p>Quản lý tin nhắn</p>
                 </div>
-                <div class="dropdown-menu">
-                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item">Đăng xuất</a>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="content1 row">
-        <div class="content-left col-md-4">
-            <div class="box-item content-title total-contact">
-                <p>
-                    <i class="far fa-user"></i> <member></member> <span>Người sử dụng</span> <br />
-                    <i class="fas fa-circle"></i> <online></online>  <span>Đang hoạt động</span>
-                </p>
-            </div>
-            <div class="box-item box-search">
-                <input type="text" name="search" value="" placeholder="Tìm kiếm" class="form-control search" />
-            </div>
-            <ul class="list-contacts">
-                @foreach (var item in Model)
-                {
-                    <li class="box-item contact">
-                        <div class="bd-highlight img_cont_box">
+                <div class="avatar col-8">
+                    <div class="dropdown">
+                        <div class="bd-highlight dropdown-toggle" data-toggle="dropdown">
                             <div class="img_cont">
-                                <div class="rounded-circle user_img">@item.Email.Substring(0, 2).ToUpper()</div>
-                                <span class="@(item.IsOnline == true ? "online": "")"></span>
+                                <img src="~/Content/ClientTemplate/images/img-chatbox/administrator.png" class="rounded-circle user_img" style="background: none" />
+                                <span class="online"></span>
                             </div>
                             <div class="user_info">
-                                <span class="user-name">@item.Email</span>
-                                <input type="hidden" name="connectionId" value="@item.ConnectionId" />
-                                <p class="@(item.IsRead == false? "new": "")">
-                                    @if (item.LastMsg != null)
-                                    {
-                                        @(item.LastMsg.Length > 20 ? item.LastMsg.Substring(0, 20) + "..." : item.LastMsg)
-                                    }
-                                </p>
-                            </div>
-                            <div class="time">
-                                <p>
-                                    @if (item.DateSend != null)
-                                    {
-                                        @item.DateSend}
-                                </p>
+                                <span>@User.Identity.GetUserName()</span>
+                                <p>Quản trị viên</p>
                             </div>
                         </div>
-                    </li>
-                }
-            </ul>
-        </div>
-        <div class="content-right col-md-8">
-            <div class="content-title chat-header row">
-                <div class="col-6">
-                    <span class="user-active"></span>
-                    <i class="onl fas"></i>
-                    <input type="hidden" name="connectionIdActive" value="" />
-                </div>
-                <div class="col-6 text-right">
-                    @*<div class="">
-                            <button type="button" class="btn btn-outline-dark"><i class="fas fa-upload"></i></button>
-                            <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
-                        </div>*@
+                        <div class="dropdown-menu">
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item">Đăng xuất</a>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="chat-content">
-                <ul class="list-messages"></ul>
-                <div class="box-group input-group">
-                    <textarea class="form-control" placeholder="Nhập nội dung tin nhắn"></textarea>
-                    @*<div class="input-group-prepend">
-                            <button class="btn"><i class="fas fa-paper-plane"></i></button>
-                        </div>*@
-                    <span class="input-group-addon"><i class="fas fa-paper-plane"></i></span>
+            <div class="content1 row">
+                <div class="content-left col-md-4">
+                    <div class="box-item content-title total-contact">
+                        <p>
+                            <i class="far fa-user"></i> <member></member> <span>Người sử dụng</span> <br />
+                            <i class="fas fa-circle"></i> <online></online>  <span>Đang hoạt động</span>
+                        </p>
+                    </div>
+                    <div class="box-item box-search">
+                        <input type="text" name="search" value="" placeholder="Tìm kiếm" class="form-control search" />
+                    </div>
+                    <ul class="list-contacts">
+                        @foreach (var item in Model)
+                        {
+                            <li class="box-item contact">
+                                <div class="bd-highlight img_cont_box">
+                                    <div class="img_cont">
+                                        <div class="rounded-circle user_img">@(item.UserName.Length < 2 ? item.UserName.ToUpper() : item.UserName.Substring(0, 2).ToUpper())</div>
+                                        <span class="@(item.IsOnline == true ? "online": "")"></span>
+                                    </div>
+                                    <div class="user_info">
+                                        <span class="user-name">@item.UserName</span>
+                                        <span class="user-id hidden">@item.User_Id</span>
+                                        <input type="hidden" name="connectionId" value="@item.ConnectionId" />
+                                        <p class="@(item.IsRead == false? "new": "")">
+                                            @if (item.LastMsg != null)
+                                            {
+                                                @(item.LastMsg.Length > 20 ? item.LastMsg.Substring(0, 20) + "..." : item.LastMsg)
+                                            }
+                                        </p>
+                                    </div>
+                                    <div class="time">
+                                        <p>
+                                            @if (item.DateSend != null)
+                                            {
+                                                @item.DateSend}
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="content-right col-md-8">
+                    <div class="content-title chat-header row">
+                        <div class="col-6">
+                            <span class="user-active"></span>
+                            <i class="onl fas"></i>
+                            <input type="hidden" name="connectionIdActive" value="" />
+                        </div>
+                        <div class="col-6 text-right">
+                            @*<div class="">
+                                    <button type="button" class="btn btn-outline-dark"><i class="fas fa-upload"></i></button>
+                                    <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="chat-content">
+                        <ul class="list-messages"></ul>
+                        <div class="box-group input-group">
+                            <textarea class="form-control" placeholder="Nhập nội dung tin nhắn"></textarea>
+                            @*<div class="input-group-prepend">
+                                    <button class="btn"><i class="fas fa-paper-plane"></i></button>
+                                </div>*@
+                            <span class="input-group-addon"><i class="fas fa-paper-plane"></i></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

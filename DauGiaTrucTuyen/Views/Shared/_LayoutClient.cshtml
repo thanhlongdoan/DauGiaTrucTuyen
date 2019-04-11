@@ -63,7 +63,7 @@
                         <li><a href="@Url.Action("Create","Reports")">Báo cáo người dùng</a></li>
                         <li><a href="@Url.Action("Index","MyAuction")">Đấu giá của tôi</a></li>
                         <li><a href="@Url.Action("Index","ManagerAuction")">Quản lý đấu giá</a></li>
-                        
+
                         <li><a href="" class="contact">Liên hệ</a></li>
                     </ul>
                 </div>
@@ -209,9 +209,9 @@
             $(".customer-info").html('<a href="@Url.Action("Login","Account")">Vui lòng đăng nhập để trò chuyện</a>')
         }
         else {
-            var userId = "@User.Identity.GetUserId()";
-            console.log(userId)
-            $(".customer-info").html('<a href="@Url.Action("Login","Account")">Vui lòng đăng nhập để trò chuyện</a>')
+            var userIdAll = "@User.Identity.GetUserId()";
+            @*console.log(userId)
+            $(".customer-info").html('<a href="@Url.Action("Login","Account")">Vui lòng đăng nhập để trò chuyện</a>')*@
         }
     </script>
     <script src="~/Scripts/chatbox/chatbox.js"></script>

@@ -19,7 +19,20 @@ namespace DauGiaTrucTuyen.HubRealTime
 
         public AuctionHub()
         {
+            //var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
+            //foreach (var item in transactions)
+            //{
+            //    if (initialized)
+            //        return;
 
+            //    lock (initLock)
+            //    {
+            //        if (initialized)
+            //            return;
+
+            //        InitializeAuction(item.AuctionTime.Value.TotalSeconds);
+            //    }
+            //}
         }
 
         public void JoinGroupAuction(string productId)

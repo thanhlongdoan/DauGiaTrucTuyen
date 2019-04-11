@@ -255,9 +255,9 @@
     <Compile Include="IDataBinding\IProduct.cs" />
     <Compile Include="IDataBinding\IReport.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
-    <Compile Include="Migrations\201904100136311_Initial.cs" />
-    <Compile Include="Migrations\201904100136311_Initial.Designer.cs">
-      <DependentUpon>201904100136311_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201904110814322_init.cs" />
+    <Compile Include="Migrations\201904110814322_init.Designer.cs">
+      <DependentUpon>201904110814322_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3339,10 +3339,6 @@
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
     <Content Include="Views\Account\UpdateUser.cshtml" />
     <Content Include="Views\Reports\Create.cshtml" />
-    <Content Include="Views\Reports\Delete.cshtml" />
-    <Content Include="Views\Reports\Details.cshtml" />
-    <Content Include="Views\Reports\Edit.cshtml" />
-    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3358,8 +3354,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904100136311_Initial.resx">
-      <DependentUpon>201904100136311_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904110814322_init.resx">
+      <DependentUpon>201904110814322_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

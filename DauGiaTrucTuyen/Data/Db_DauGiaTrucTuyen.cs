@@ -54,7 +54,7 @@ namespace DauGiaTrucTuyen.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<UserChat>()
-                .Property(e => e.Email)
+                .Property(e => e.User_Id)
                 .IsFixedLength();
         }
     }

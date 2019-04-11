@@ -101,17 +101,17 @@ namespace DauGiaTrucTuyen.Models
     {
         [Required(ErrorMessage = "Vui lòng nhập tài khoản !")]
         [Display(Name = "Tài khoản")]
-       
+
         public string UserName { get; set; }
 
         [Required]
         [StringLength(32, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6-23 kí tự !")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Mật khẩu nhập lại")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Mật khẩu mà mật khẩu nhập lại không đúng")]
         public string ConfirmPassword { get; set; }
 

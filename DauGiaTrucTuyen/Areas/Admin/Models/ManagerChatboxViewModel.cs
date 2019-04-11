@@ -9,7 +9,9 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
     {
         public string ConnectionId { get; set; }
 
-        public string Email { get; set; }
+        public string User_Id { get; set; }
+
+        public string UserName { get; set; }
 
         public bool IsOnline { get; set; }
 

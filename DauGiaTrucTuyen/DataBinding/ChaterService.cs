@@ -13,13 +13,13 @@ namespace DauGiaTrucTuyen.DataBinding
         public static List<UserChat> listUser = new List<UserChat>();
         public Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
 
-        public void AddUser(string email, string id)
+        public void AddUser(string userId, string id)
         {
             UserChat user = new UserChat
             {
                 UserChat_Id = Guid.NewGuid().ToString(),
                 ConnectionId = id,
-                Email = email.ToLower(),
+                User_Id = userId,
                 IsOnline = true,
                 DateOnline = DateTime.Now
             };
@@ -61,19 +61,19 @@ namespace DauGiaTrucTuyen.DataBinding
             return users;
         }
 
-        public UserChat GetUser(string email)
+        public UserChat GetUser(string userId)
         {
             UserChat user;
-            user = listUser.FirstOrDefault(x => x.Email == email.ToLower());
+            user = listUser.FirstOrDefault(x => x.User_Id == userId);
             if (user == null)
-                user = db.UserChats.FirstOrDefault(x => x.Email == email.ToLower());
+                user = db.UserChats.FirstOrDefault(x => x.User_Id == userId);
             return user;
         }
 
-        public void UpdateIsOnlineOfUser(string email, bool isOnline)
+        public void UpdateIsOnlineOfUser(string userId, bool isOnline)
         {
             UserChat user;
-            user = listUser.FirstOrDefault(x => x.Email == email.ToLower());
+            user = listUser.FirstOrDefault(x => x.User_Id == userId);
             if (user != null)
             {
                 user.IsOnline = isOnline;
@@ -81,7 +81,7 @@ namespace DauGiaTrucTuyen.DataBinding
             }
             else
             {
-                user = db.UserChats.FirstOrDefault(x => x.Email == email.ToLower());
+                user = db.UserChats.FirstOrDefault(x => x.User_Id == userId);
                 if (user != null)
                 {
                     user.IsOnline = isOnline;
@@ -92,17 +92,17 @@ namespace DauGiaTrucTuyen.DataBinding
 
         }
 
-        public void UpdateConnectionId(string email, string id)
+        public void UpdateConnectionId(string userId, string id)
         {
             UserChat user;
-            user = listUser.FirstOrDefault(x => x.Email == email.ToLower());
+            user = listUser.FirstOrDefault(x => x.User_Id == userId);
             if (user != null)
             {
                 user.ConnectionId = id;
             }
             else
             {
-                user = db.UserChats.FirstOrDefault(x => x.Email == email.ToLower());
+                user = db.UserChats.FirstOrDefault(x => x.User_Id == userId);
                 if (user != null)
                 {
                     user.ConnectionId = id;

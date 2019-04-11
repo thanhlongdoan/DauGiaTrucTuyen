@@ -46,7 +46,7 @@ namespace DauGiaTrucTuyen.Models
         [Display(Name = "Mật khẩu hiện tại")]
         public string OldPassword { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập mật khẩu cũ !")]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu mới !")]
         [StringLength(32, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6-23 kí tự !")]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu mới")]
@@ -54,7 +54,7 @@ namespace DauGiaTrucTuyen.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Nhập lại mật khẩu")]
-        //[Compare("Password", ErrorMessage = "Mật khẩu mà mật khẩu nhập lại không đúng")]
+        //[Compare("Password", ErrorMessage = "Mật khẩu mới mà mật khẩu nhập lại không đúng")]
         public string ConfirmPassword { get; set; }
     }
 

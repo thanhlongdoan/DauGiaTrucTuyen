@@ -193,7 +193,6 @@
         var showTime = ShowTime(date);
         var codeHtml = '<li class="message row cl">\
                             <div class= "img-user" >\
-                                <div class="rounded-circle user_img">'+ email.substr(0, 2).toUpperCase() + '</div>\
                             <input type="hidden" name="date" value = "'+ date + '" />\
                                         </div>\
                             <div class="msg-user col-9">\
@@ -217,9 +216,6 @@
                                     <li class="msg-content">'+ msg + '</li>\
                                 </ul>\
                             </div >\
-                            <div class="img-user float-right">\
-                                <img src="/Content/ClientTemplate/images/img-chatbox/administrator.png" />\
-                            </div>\
                         </li >';
         $('.list-messages').append(codeHtml);
     }
@@ -294,6 +290,10 @@
             AppendSeenToMessage(date);
         }
         $(".list-messages").animate({ scrollTop: $('.list-messages').prop('scrollHeight') });
+    }
+
+    chatHub.client.sendMsgForAdminTest = function (msg) {
+        console.log("Test" + msg)
     }
 
     //Client gửi tin nhắn cho admin
@@ -388,13 +388,15 @@
 
         //event click a li (a contact) in ul (list contact)
         $('.list-contacts').on('click', 'li', function () {
-            var email = $(this).find('.user_info .user-name').text();
+            var userId = $(this).find('.user_info .user-id').text();
+            var userName = $(this).find('.user_info .user-name').text();
             var connectionId = $(this).find('input[name="connectionId"]').val();
 
+            console.log(userId + "///" + connectionId)
 
             if ($(this).find('.user_info p').hasClass('new-msg') == true) {
                 $(this).find('.user_info p').removeClass('new-msg');
-                chatHub.server.updateIsReadMessage(connectionId, email, true);
+                chatHub.server.updateIsReadMessage(connectionId, userId, true);
             }
 
             if ($(this).hasClass('active') == false) {
@@ -402,21 +404,20 @@
                 $('.list-contacts').children('li').removeClass('active');
                 $(this).addClass('active');
 
-                $('.user-active').text(email);
+                $('.user-active').text(userName);
                 $('input[name="connectionIdActive"]').val(connectionId);
 
                 if ($(this).find('.img_cont span').hasClass('online') == true)
                     $('.chat-header .onl').addClass('fa-circle');
 
                 //var email = $(this).find('.user_info .user-name').text();
-                chatHub.server.loadMsgByEmailOfAdmin(email);
+                chatHub.server.loadMsgByEmailOfAdmin(userId);
             }
 
         });
         $('.chat-content').on('click', function () {
             var email = $('.chat-header .user-active').text();
             var connectionId = $('input[name="connectionIdActive"]').val();
-            console.log(email + ' == ' + connectionId);
             var lastLi = $('.list-messages .message:last-child');
 
             if (lastLi.find('.msg-user .user-name').text() == email) {

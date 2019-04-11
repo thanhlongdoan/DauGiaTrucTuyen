@@ -1,6 +1,7 @@
 ﻿using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
+using DauGiaTrucTuyen.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         public ActionResult Index()
         {
             ChaterService chater = new ChaterService();
+            ApplicationDbContext db = new ApplicationDbContext();
             List<UserChat> list = chater.GetAllUser();
             List<ChatboxViewModel> listUser = new List<ChatboxViewModel>();
             MessageService messageDb = new MessageService();
@@ -23,9 +25,10 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
             {
                 ChatboxViewModel userView = new ChatboxViewModel();
                 userView.ConnectionId = item.ConnectionId;
-                userView.Email = item.Email;
+                userView.User_Id = item.User_Id;
+                userView.UserName = db.Users.Find(item.User_Id).UserName;
                 userView.IsOnline = (bool)item.IsOnline;
-                userView.LastMsg = messageDb.GetLastMessageByEmail(item.Email).Msg;
+                userView.LastMsg = messageDb.GetLastMessageByUserId(item.User_Id).Msg;
                 listUser.Add(userView);
             }
             return View(listUser);

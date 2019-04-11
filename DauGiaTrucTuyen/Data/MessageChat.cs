@@ -16,10 +16,10 @@ namespace DauGiaTrucTuyen.Data
         public string FromConnectionId { get; set; }
 
         [StringLength(50)]
-        public string FromEmail { get; set; }
+        public string FromUser_Id { get; set; }
 
         [StringLength(50)]
-        public string ToEmail { get; set; }
+        public string ToUser_Id { get; set; }
 
         public string Msg { get; set; }
 
