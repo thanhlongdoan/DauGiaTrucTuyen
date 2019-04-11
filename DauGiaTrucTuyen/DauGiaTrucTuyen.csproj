@@ -211,21 +211,25 @@
     <Compile Include="Areas\Admin\Controllers\ChatboxController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\ManagerCategoryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerChatboxViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerProductViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ManagerReportViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerUserViewModel.cs" />
     <Compile Include="Common\Upload.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ManagerAuctionController.cs" />
     <Compile Include="Controllers\MyAuctionController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="DataBinding\Auction.cs" />
     <Compile Include="DataBinding\CategoryService.cs" />
     <Compile Include="DataBinding\ChaterService.cs" />
     <Compile Include="DataBinding\MessageService.cs" />
     <Compile Include="DataBinding\ProductService.cs" />
+    <Compile Include="DataBinding\ReportService.cs" />
     <Compile Include="DataBinding\StatusService.cs" />
     <Compile Include="DataBinding\UserService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -249,6 +253,7 @@
     <Compile Include="HubRealTime\ChatHub.cs" />
     <Compile Include="IDataBinding\ICategory.cs" />
     <Compile Include="IDataBinding\IProduct.cs" />
+    <Compile Include="IDataBinding\IReport.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
     <Compile Include="Migrations\201904100136311_Initial.cs" />
     <Compile Include="Migrations\201904100136311_Initial.Designer.cs">
@@ -2624,6 +2629,8 @@
     <Content Include="Scripts\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Scripts\ckfinder\userfiles\.htaccess" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
+    <Content Include="Areas\Admin\Views\Report\GetListProductStatusReView.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
     <Content Include="fonts\SourceSansPro-Light.otf" />
     <Content Include="Areas\Admin\Views\Chatbox\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -3330,6 +3337,12 @@
     <Content Include="Views\MyAuction\Index.cshtml" />
     <Content Include="Views\ManagerAuction\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
+    <Content Include="Views\Account\UpdateUser.cshtml" />
+    <Content Include="Views\Reports\Create.cshtml" />
+    <Content Include="Views\Reports\Delete.cshtml" />
+    <Content Include="Views\Reports\Details.cshtml" />
+    <Content Include="Views\Reports\Edit.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

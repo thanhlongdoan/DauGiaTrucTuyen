@@ -99,10 +99,10 @@ namespace DauGiaTrucTuyen.Models
 
     public class ResetPasswordViewModel
     {
-        [Required(ErrorMessage = "Vui lòng nhập Email !")]
-        [Display(Name = "Email")]
-        [EmailAddress(ErrorMessage = "Email không đúng định dạng !")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập tài khoản !")]
+        [Display(Name = "Tài khoản")]
+       
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(32, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6-23 kí tự !")]
@@ -125,4 +125,22 @@ namespace DauGiaTrucTuyen.Models
         [Display(Name = "Tên đăng nhập")]
         public string UserName { get; set; }
     }
+    public class UpdateUserViewModel
+    {
+        [Display(Name = "Tên đăng nhập")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập tên !")]
+        [Display(Name = "Tên")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập họ !")]
+        [Display(Name = "Họ")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ !")]
+        [Display(Name = "Địa chỉ")]
+        public string Address { get; set; }
+    }
+
 }

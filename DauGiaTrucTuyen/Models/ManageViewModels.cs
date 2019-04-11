@@ -27,34 +27,34 @@ namespace DauGiaTrucTuyen.Models
 
     public class SetPasswordViewModel
     {
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu cũ !")]
+        [StringLength(32, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6-23 kí tự !")]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Mật Khẩu mới")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Nhập lại mật khẩu")]
+        [Compare("Password", ErrorMessage = "Mật khẩu mà mật khẩu nhập lại không đúng")]
         public string ConfirmPassword { get; set; }
     }
 
     public class ChangePasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu cũ !")]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Mật khẩu hiện tại")]
         public string OldPassword { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu cũ !")]
+        [StringLength(32, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6-23 kí tự !")]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Mật khẩu mới")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Nhập lại mật khẩu")]
+        //[Compare("Password", ErrorMessage = "Mật khẩu mà mật khẩu nhập lại không đúng")]
         public string ConfirmPassword { get; set; }
     }
 

@@ -1,0 +1,74 @@
+﻿@model DauGiaTrucTuyen.Models.UpdateUserViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Cập nhật thông tin tài khoản";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+@section css{
+    <link href="~/Content/ClientTemplate/css/informattion-user.css" rel="stylesheet" />
+}
+<h3 class="text-center">CẬP NHẬT THÔNG TIN TÀI KHOẢN</h3>
+<br />
+<div class="container bootstrap snippet information-user">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="box box-primary">
+                <div class="panel panel-primary">
+                    <br />
+                    <div class="avt-user">
+                        <h1 class="text-uppercase"></h1>
+                    </div>
+                    <br />
+                    <p class="text-center"><strong>@Model.UserName</strong></p>
+                    <br />
+                    <div class="list-group" style="padding-left: 1%;">
+                        <a href="@Url.Action("InformationUser","Account")" class="list-group-item">Thông tin tài khoản</a>
+                        <a href="@Url.Action("UpdateUser","Account")" class="list-group-item">Cập nhật thông tin tài khoản</a>
+                        <a href="#" class="list-group-item">Đổi mật khẩu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("UpdateUser", "Account", new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <!--/col-3-->
+            <div class="col-sm-9">
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <div class="col-xs-12 col-sm-6">
+                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.FirstName)
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.LastName)
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Address)
+                            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger text-center" })
+                    <div class="update form-group">
+                        <div class="col-md-4 col-md-offset-4" style="padding-top:2em;text-align:center;">
+                            <input type="submit" value="Cập nhật" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    console.log('@User.Identity.GetUserName().Substring(0,2)')
+    $(document).ready(function () {
+        $(".avt-user h1").text('@User.Identity.GetUserName().Substring(0,2)');
+    })
+</script>
+
+
