@@ -15,7 +15,7 @@ namespace DauGiaTrucTuyen.Data
         [StringLength(250)]
         public string ConnectionId { get; set; }
 
-        [StringLength(50)]
+        [StringLength(128)]
         public string User_Id { get; set; }
 
         public bool? IsOnline { get; set; }
