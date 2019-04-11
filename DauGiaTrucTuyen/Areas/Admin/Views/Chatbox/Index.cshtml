@@ -49,7 +49,7 @@
                 @foreach (var item in Model)
                 {
                     <li class="box-item contact">
-                        <div class="d-flex bd-highlight w-100">
+                        <div class="bd-highlight img_cont_box">
                             <div class="img_cont">
                                 <div class="rounded-circle user_img">@item.Email.Substring(0, 2).ToUpper()</div>
                                 <span class="@(item.IsOnline == true ? "online": "")"></span>
@@ -92,11 +92,12 @@
             </div>
             <div class="chat-content">
                 <ul class="list-messages"></ul>
-                <div class="input-group box-group">
-                    <div class="input-group-prepend">
-                        <button class="btn"><i class="fas fa-paper-plane"></i></button>
-                    </div>
+                <div class="box-group input-group">
                     <textarea class="form-control" placeholder="Nhập nội dung tin nhắn"></textarea>
+                    @*<div class="input-group-prepend">
+                            <button class="btn"><i class="fas fa-paper-plane"></i></button>
+                        </div>*@
+                    <span class="input-group-addon"><i class="fas fa-paper-plane"></i></span>
                 </div>
             </div>
         </div>

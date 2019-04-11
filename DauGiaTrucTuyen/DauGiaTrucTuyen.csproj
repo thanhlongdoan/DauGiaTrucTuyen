@@ -250,9 +250,9 @@
     <Compile Include="IDataBinding\ICategory.cs" />
     <Compile Include="IDataBinding\IProduct.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
-    <Compile Include="Migrations\201904091819418_Initial.cs" />
-    <Compile Include="Migrations\201904091819418_Initial.Designer.cs">
-      <DependentUpon>201904091819418_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201904100136311_Initial.cs" />
+    <Compile Include="Migrations\201904100136311_Initial.Designer.cs">
+      <DependentUpon>201904100136311_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3345,8 +3345,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904091819418_Initial.resx">
-      <DependentUpon>201904091819418_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904100136311_Initial.resx">
+      <DependentUpon>201904100136311_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

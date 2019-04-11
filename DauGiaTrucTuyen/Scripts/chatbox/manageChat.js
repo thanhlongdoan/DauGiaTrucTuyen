@@ -60,7 +60,7 @@
     //Thêm contact vào list-contacts
     function AddUser(email, connectionId) {
         var code = '<li class="box-item contact">\
-                        <div class="d-flex bd-highlight w-100" >\
+                        <div class="bd-highlight img_cont_box" >\
                             <div class="img_cont">\
                                 <div class="rounded-circle user_img">'+ email.substr(0, 2).toUpperCase() + '</div>\
                                     <span class="online"></span>\
@@ -192,13 +192,13 @@
         var status = isRead == false ? 'new' : '';
         var showTime = ShowTime(date);
         var codeHtml = '<li class="message row cl">\
-                            <div class= "img-user float-left ml-4" >\
+                            <div class= "img-user" >\
                                 <div class="rounded-circle user_img">'+ email.substr(0, 2).toUpperCase() + '</div>\
                             <input type="hidden" name="date" value = "'+ date + '" />\
                                         </div>\
                             <div class="msg-user col-9">\
                                 <span class="user-name">'+ email + '</span> <small>' + showTime + '</small>\
-                                <ul class="list-msg-content p-0">\
+                                <ul class="list-msg-content">\
                                     <li class="msg-content '+ status + '">' + msg + '</li>\
                                 </ul>\
                             </div>\
@@ -218,7 +218,7 @@
                                 </ul>\
                             </div >\
                             <div class="img-user float-right">\
-                                <img src="/Content/images/administrator.png"" />\
+                                <img src="/Content/ClientTemplate/images/img-chatbox/administrator.png" />\
                             </div>\
                         </li >';
         $('.list-messages').append(codeHtml);
