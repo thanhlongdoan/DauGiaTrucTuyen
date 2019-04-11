@@ -30,7 +30,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        {
                            Products_Id = product.Products_Id,
                            ProductName = productDetail.ProductName,
-                           AuctionTime = transaction.AuctionTime,
+                           TimeLine = transaction.TimeLine,
                            PriceStart = (decimal)transaction.PriceStart,
                            Status = product.StatusProduct,
                            CategoryName = productDetail.ProductName
@@ -54,7 +54,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        {
                            Products_Id = product.Products_Id,
                            ProductName = productDetail.ProductName,
-                           AuctionTime = transaction.AuctionTime,
+                           TimeLine = transaction.TimeLine,
                            PriceStart = (decimal)transaction.PriceStart,
                            Status = product.StatusProduct,
                            CategoryName = productDetail.ProductName
@@ -88,8 +88,8 @@ namespace DauGiaTrucTuyen.DataBinding
 
                 Transaction transaction = new Transaction();
                 transaction.Transaction_Id = Guid.NewGuid().ToString();
-                transaction.AuctionTime = TimeSpan.FromTicks(model.AuctionTime);
-                transaction.AuctionDate = DateTime.Now;
+                transaction.TimeLine = TimeSpan.FromTicks(model.TimeLine);
+                transaction.AuctionDateApproved = DateTime.Now;
                 transaction.PriceStart = model.PriceStart;
                 transaction.StepPrice = model.StepPrice;
                 transaction.Product_Id = product.Products_Id;
@@ -98,7 +98,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 TransactionAuction transactionAuction = new TransactionAuction();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = sessionUserId;
-                transactionAuction.AuctionDate = DateTime.Now;
+                transactionAuction.AuctionTime = DateTime.Now;
                 transactionAuction.AuctionPrice = transaction.PriceStart;
                 db.TransactionAuctions.Add(transactionAuction);
 
@@ -138,8 +138,8 @@ namespace DauGiaTrucTuyen.DataBinding
 
                 Transaction transaction = new Transaction();
                 transaction.Transaction_Id = Guid.NewGuid().ToString();
-                transaction.AuctionTime = TimeSpan.FromTicks(model.AuctionTime);
-                transaction.AuctionDate = DateTime.Now;
+                transaction.TimeLine = TimeSpan.FromTicks(model.TimeLine);
+                transaction.AuctionDateApproved = DateTime.Now;
                 transaction.PriceStart = model.PriceStart;
                 transaction.StepPrice = model.StepPrice;
                 transaction.Product_Id = product.Products_Id;
@@ -167,7 +167,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 TransactionAuction transactionAuction = new TransactionAuction();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = product.User_Id;
-                transactionAuction.AuctionDate = DateTime.Now;
+                transactionAuction.AuctionTime = DateTime.Now;
                 transactionAuction.AuctionPrice = transaction.PriceStart; ;
                 db.TransactionAuctions.Add(transactionAuction);
 
@@ -185,12 +185,12 @@ namespace DauGiaTrucTuyen.DataBinding
                        join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                       orderby transaction.AuctionTime ascending
+                       orderby transaction.TimeLine ascending
                        where product.StatusProduct.Equals(StatusProduct.Auctioning)
                        select new ListProductForPageClientViewModel
                        {
                            Products_Id = product.Products_Id,
-                           AuctionTime = transaction.AuctionTime,
+                           TimeLine = transaction.TimeLine,
                            PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                            Image = productDetail.Image
                        };
@@ -204,12 +204,12 @@ namespace DauGiaTrucTuyen.DataBinding
                        join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                       orderby transaction.AuctionTime ascending
+                       orderby transaction.TimeLine ascending
                        where product.StatusProduct.Equals(StatusProduct.Auctioning) && product.Category_Id == categoryId
                        select new ListProductForPageClientViewModel
                        {
                            Products_Id = product.Products_Id,
-                           AuctionTime = transaction.AuctionTime,
+                           TimeLine = transaction.TimeLine,
                            PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                            Image = productDetail.Image
                        };
@@ -230,7 +230,7 @@ namespace DauGiaTrucTuyen.DataBinding
                              ProductName = productDetail.ProductName,
                              Image = productDetail.Image,
                              Description = productDetail.Description,
-                             AuctionTime = transaction.AuctionTime,
+                             TimeLine = transaction.TimeLine,
                              PriceStart = transaction.PriceStart,
                              StepPrice = transaction.StepPrice,
                              CategoryName = category.CategoryName,

@@ -52,10 +52,6 @@ namespace DauGiaTrucTuyen.Data
                 .HasMany(e => e.TransactionAuctions)
                 .WithRequired(e => e.Transaction)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<UserChat>()
-                .Property(e => e.User_Id)
-                .IsFixedLength();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace DauGiaTrucTuyen.Data
 
         [Key]
         [Column(Order = 2)]
-        public DateTime AuctionDate { get; set; }
+        public DateTime AuctionTime { get; set; }
 
         public decimal? AuctionPrice { get; set; }
 

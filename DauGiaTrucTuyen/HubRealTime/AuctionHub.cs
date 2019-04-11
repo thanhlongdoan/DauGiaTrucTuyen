@@ -51,7 +51,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                     if (initialized)
                         return;
 
-                    InitializeAuction(transaction.AuctionTime.Value.TotalSeconds);
+                    InitializeAuction(transaction.TimeLine.Value.TotalSeconds);
                 }
             }
 
@@ -69,7 +69,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                 TransactionAuction transactionAuction = new TransactionAuction();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
                 transactionAuction.User_Id = userId;
-                transactionAuction.AuctionDate = DateTime.Now;
+                transactionAuction.AuctionTime = DateTime.Now;
                 transactionAuction.AuctionPrice = price;
                 db.TransactionAuctions.Add(transactionAuction);
                 db.SaveChanges();

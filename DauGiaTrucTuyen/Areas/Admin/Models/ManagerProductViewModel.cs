@@ -14,7 +14,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Thời gian đấu giá")]
         [Required(ErrorMessage = "Thời gian đấu giá là bắt buộc")]
-        public TimeSpan? AuctionTime { get; set; }
+        public TimeSpan? TimeLine { get; set; }
 
         [DisplayName("Giá khởi điểm")]
         [Required(ErrorMessage = "Giá khởi điểm là bắt buộc")]
@@ -32,7 +32,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
     {
         public string Products_Id { get; set; }
 
-        public TimeSpan? AuctionTime { get; set; }
+        public TimeSpan? TimeLine { get; set; }
 
         public string Image { get; set; }
 
@@ -58,7 +58,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Thời gian đấu giá")]
         [Required(ErrorMessage = "Thời gian đấu giá là bắt buộc")]
-        public long AuctionTime { get; set; }
+        public long TimeLine { get; set; }
 
         [DisplayName("Giá khởi điểm")]
         [Required(ErrorMessage = "Giá khởi điểm là bắt buộc")]
@@ -93,7 +93,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string Description { get; set; }
 
         [DisplayName("Thời gian đấu giá")]
-        public TimeSpan? AuctionTime { get; set; }
+        public TimeSpan? TimeLine { get; set; }
 
         [DisplayName("Giá khởi điểm")]
         public decimal? PriceStart { get; set; }
