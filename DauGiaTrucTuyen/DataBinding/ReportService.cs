@@ -27,11 +27,13 @@ namespace DauGiaTrucTuyen.DataBinding
                 Status = StatusReport.NotResponed,
                 User_Id = userId,
             };
-
             db.Reports.Add(report);
             db.SaveChanges();
             return true;
         }
+
+
+
 
         public List<ListReportViewModel> GetListReport()
         {
@@ -44,6 +46,19 @@ namespace DauGiaTrucTuyen.DataBinding
                        };
             return list.ToList();
         }
+        //Xóa PHÒNG BAN
+        public bool DeleteReport(string id)
+        {
+            var report = db.Reports.Find(id);
+            if (report != null)
+            {
+                db.Reports.Remove(report);
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
 
         public DetailReportViewModel DetailReport(string reports_id)
         {

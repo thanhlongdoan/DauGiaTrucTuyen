@@ -49,5 +49,20 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
                 return View(result);
             return HttpNotFound();
         }
+        public bool Delete(string id)
+        {
+            if (_iReport.DeleteReport(id))
+                return true;
+            return false;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
