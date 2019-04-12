@@ -42,5 +42,12 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         //{
         //    return View();
         //}
+        public ActionResult Details(string reports_id)
+        {
+            var result = _iReport.DetailReport(reports_id);
+            if (result != null)
+                return View(result);
+            return HttpNotFound();
+        }
     }
 }

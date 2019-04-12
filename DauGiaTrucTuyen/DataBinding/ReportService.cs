@@ -44,5 +44,16 @@ namespace DauGiaTrucTuyen.DataBinding
                        };
             return list.ToList();
         }
+
+        public DetailReportViewModel DetailReport(string reports_id)
+        {
+            var report = db.Reports.Find(reports_id);
+            if (report != null)
+            {
+                var model = Mapper.Map<DetailReportViewModel>(report);
+                return model;
+            }
+            return null;
+        }
     }
 }
