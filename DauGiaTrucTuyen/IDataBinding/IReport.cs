@@ -10,5 +10,6 @@ namespace DauGiaTrucTuyen.IDataBinding
     {
         bool AddReport(AddReportViewModel model, string userId);
         bool DeleteReport(string id);
+        List<ListReportViewModel> GetListReport();
     }
 }
