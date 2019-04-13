@@ -32,10 +32,8 @@ namespace DauGiaTrucTuyen.DataBinding
             return true;
         }
 
-            db.Reports.Add(report);
-            db.SaveChanges();
-            return true;
-        }
+
+
 
         public List<ListReportViewModel> GetListReport()
         {

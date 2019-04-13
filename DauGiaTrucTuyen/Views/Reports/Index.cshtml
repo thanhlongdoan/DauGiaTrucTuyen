@@ -33,32 +33,85 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Reports_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Reports_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Reports_Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Reports_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Reports_Id }) |
+                <a id="js_btnDelete" href="javascript:;" data-id="@item.Reports_Id"><i class="fas fa-trash text-danger"></i></a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+            new $.fn.dataTable.FixedHeader(table);
+            $("#example").on("click", "#js_btnDelete", function () {
+                var id = $(this).attr('data-id');
+                swal({
+                    title: "Xóa báo cáo người dùng?",
+                    text: "Bạn có chắc chắn muốn xóa báo cáo người dùng này không?",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: "Đồng ý",
+                    cancelButtonText: 'Không',
+                    confirmButtonColor: "#ec6c62",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (result) {
+                    if (result) {
+                        $.ajax(
+                            {
+                                url: "/Admin/Report/Delete?id=" + id,
+                                type: "GET",
+                                success: function (data) {
+                                    if (data) {
+                                        swal({
+                                            title: "Đã xóa thành công",
+                                            type: "success",
+                                            confirmButtonClass: "btn-primary",
+                                            confirmButtonText: "OK",
+                                            closeOnConfirm: false
+                                        }, function () {
+                                            location.reload();
+                                        });
+                                    }
+                                    else {
+                                        swal("Xóa thất bại", ":(", "error");
+                                    }
+                                }
+                            }
+                        )
+                    }
+                });
+            })
+        })
+    </script>
+}
