@@ -79,6 +79,10 @@
         </div>
         <p>
             @Html.ActionLink("Quay lại", "Index")
+            <a id="js_btnDelete" href="javascript:;" data-id="@Model.Id" class="btn btn-danger">Xóa</a>
         </p>
     </div>
 </div>
+@section scripts{
+    <script src="~/Content/Admin/Scripts/delete/delete-user-detail.js"></script>
+}

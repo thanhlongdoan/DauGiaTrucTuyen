@@ -7,6 +7,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
     {
         public class DetailUserViewModel
         {
+            public string Id { get; set; }
 
             [Display(Name = "Tên đăng nhập")]
             public string UserName { get; set; }
@@ -38,10 +39,13 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public class ListUserViewModel
         {
             public string Id { get; set; }
+
             [Display(Name = "Tên hiển thị")]
             public string UserName { get; set; }
+
             [Display(Name = "SDT")]
             public string PhoneNumber { get; set; }
+
             [Display(Name = "Ngày tạo")]
             public DateTime CreateDate { get; set; }
         }

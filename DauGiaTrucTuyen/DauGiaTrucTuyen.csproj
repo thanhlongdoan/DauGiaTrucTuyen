@@ -1932,8 +1932,11 @@
     <Content Include="Content\Admin\plugins\iCheck\InputIcheck.js" />
     <Content Include="Content\Admin\plugins\iCheck\square\blue.css" />
     <Content Include="Content\Admin\plugins\iCheck\square\blue.png" />
+    <Content Include="Content\Admin\Scripts\delete\delete-category-detail.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-category.js" />
+    <Content Include="Content\Admin\Scripts\delete\delete-report-detail.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-report.js" />
+    <Content Include="Content\Admin\Scripts\delete\delete-user-detail.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-user.js" />
     <Content Include="Content\Admin\Scripts\icheck.js" />
     <Content Include="Content\Admin\Scripts\reponsive-table.js" />
@@ -2635,6 +2638,8 @@
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
     <Content Include="Areas\Admin\Views\Report\GetListProductStatusReView.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Chatbox\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ckfinder\changelog.txt" />
     <Content Include="Scripts\ckfinder\ckfinder.html" />

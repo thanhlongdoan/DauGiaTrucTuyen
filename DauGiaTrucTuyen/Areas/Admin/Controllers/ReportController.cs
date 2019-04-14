@@ -10,6 +10,7 @@ using DauGiaTrucTuyen.DataBinding;
 
 namespace DauGiaTrucTuyen.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ReportController : Controller
     {
 
