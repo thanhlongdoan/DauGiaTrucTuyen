@@ -2618,6 +2618,7 @@
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
     <Content Include="Areas\Admin\Views\Report\GetListProductStatusReView.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Details.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ckfinder\changelog.txt" />
     <Content Include="Scripts\ckfinder\ckfinder.html" />
@@ -3324,10 +3325,6 @@
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
     <Content Include="Views\Account\UpdateUser.cshtml" />
     <Content Include="Views\Reports\Create.cshtml" />
-    <Content Include="Views\Reports\Delete.cshtml" />
-    <Content Include="Views\Reports\Details.cshtml" />
-    <Content Include="Views\Reports\Edit.cshtml" />
-    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

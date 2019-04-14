@@ -54,13 +54,13 @@
                         <li class="w3pages">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Danh mục <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                @{Html.RenderAction("GetCategorySideBar", "Category"); }
+                                @{Html.RenderAction("GetCategorySideBar", "Category", new { area = "" }); }
                             </ul>
                         </li>
                         <li><a href="@Url.Action("Create","Reports")">Báo cáo người dùng</a></li>
                         <li><a href="@Url.Action("Index","MyAuction")">Đấu giá của tôi</a></li>
                         <li><a href="@Url.Action("Index","ManagerAuction")">Quản lý đấu giá</a></li>
-                        
+
                         <li><a href="" class="contact">Liên hệ</a></li>
                     </ul>
                 </div>
@@ -114,7 +114,7 @@
                 <div class="col-md-3 w3_footer_grid">
                     <h3>DANH MỤC</h3>
                     <ul class="info">
-                        @{Html.RenderAction("GetCategoryFooter", "Category"); }
+                        @{Html.RenderAction("GetCategoryFooter", "Category", new { area = "" }); }
                     </ul>
                 </div>
                 <div class="col-md-3 w3_footer_grid">
