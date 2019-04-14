@@ -26,7 +26,7 @@
             </dd>
             <p>
                 @Html.ActionLink("Quay lại", "Index")
-                <a href="@Url.Action("Edit",new { id = Model.Categorys_Id })" class="btn btn-primary">Cập nhật</a>
+                <a href="@Url.Action("Edit",new { id = Model.Categorys_Id })" class="btn btn-primary" style="display: inline-block">Cập nhật</a>
                 <a id="js_btnDelete" href="javascript:;" data-id="@Model.Categorys_Id" class="btn btn-danger">Xóa</a>
             </p>
         </dl>

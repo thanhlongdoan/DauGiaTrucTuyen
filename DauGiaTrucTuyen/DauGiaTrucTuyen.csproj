@@ -1932,7 +1932,11 @@
     <Content Include="Content\Admin\plugins\iCheck\InputIcheck.js" />
     <Content Include="Content\Admin\plugins\iCheck\square\blue.css" />
     <Content Include="Content\Admin\plugins\iCheck\square\blue.png" />
+    <Content Include="Content\Admin\Scripts\delete\delete-category.js" />
+    <Content Include="Content\Admin\Scripts\delete\delete-report.js" />
+    <Content Include="Content\Admin\Scripts\delete\delete-user.js" />
     <Content Include="Content\Admin\Scripts\icheck.js" />
+    <Content Include="Content\Admin\Scripts\reponsive-table.js" />
     <Content Include="Content\Admin\sweetalert\bootstrap-sweetalert.png" />
     <Content Include="Content\Admin\sweetalert\css\sweetalert.css" />
     <Content Include="Content\Admin\sweetalert\css\sweetalert.min.css" />

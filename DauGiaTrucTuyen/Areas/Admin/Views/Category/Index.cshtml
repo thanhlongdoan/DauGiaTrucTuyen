@@ -48,53 +48,6 @@
     </div>
 </div>
 @section scripts{
-    <script>
-        $(document).ready(function () {
-            var table = $('#example').DataTable({
-                responsive: true,
-                stateSave: true
-            });
-            new $.fn.dataTable.FixedHeader(table);
-            $("#example").on("click", "#js_btnDelete", function () {
-                var id = $(this).attr('data-id');
-                swal({
-                    title: "Xóa tài khoản?",
-                    text: "Bạn có chắc chắn muốn xóa danh mục sản phẩm này không?",
-                    type: "warning",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    confirmButtonText: "Đồng ý",
-                    cancelButtonText: 'Không',
-                    confirmButtonColor: "#ec6c62",
-                    closeOnConfirm: false,
-                    closeOnCancel: true
-                }, function (result) {
-                    if (result) {
-                        $.ajax(
-                            {
-                                url: "/Admin/Category/Delete?id=" + id,
-                                type: "GET",
-                                success: function (data) {
-                                    if (data) {
-                                        swal({
-                                            title: "Đã xóa thành công",
-                                            type: "success",
-                                            confirmButtonClass: "btn-primary",
-                                            confirmButtonText: "OK",
-                                            closeOnConfirm: false
-                                        }, function () {
-                                            location.reload();
-                                        });
-                                    }
-                                    else {
-                                        swal("Xóa thất bại", ":(", "error");
-                                    }
-                                }
-                            }
-                        )
-                    }
-                });
-            })
-        })
-    </script>
+    <script src="~/Content/Admin/Scripts/reponsive-table.js"></script>
+    <script src="~/Content/Admin/Scripts/delete/delete-category.js"></script>
 }
