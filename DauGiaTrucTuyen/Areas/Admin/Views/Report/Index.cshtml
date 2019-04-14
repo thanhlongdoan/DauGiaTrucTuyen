@@ -11,6 +11,9 @@
             <thead>
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.Reports_Id)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Title)
                     </th>
                     <th>
@@ -24,15 +27,18 @@
                 {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Reports_Id)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Transaction_Id)
                         </td>
                         <td>
-                            <a href="@Url.Action("Edit", new { id = item.Transaction_Id })"><i class="fas fa-edit"></i></a>
-                            <a href="@Url.Action("Details", new { id = item.Transaction_Id })"><i class="fas fa-info-circle"></i></a>
-                            <a id="js_btnDelete" href="javascript:;" data-id="@item.Transaction_Id"><i class="fas fa-trash text-danger"></i></a>
+                            <a href="#"><i class="fas fa-edit"></i></a>
+                            <a href="@Url.Action("Details", new { reports_id = item.Reports_Id })"><i class="fas fa-info-circle"></i></a>
+                            <a id="js_btnDelete" href="javascript:;" data-id="@item.Reports_Id"><i class="fas fa-trash text-danger"></i></a>
                         </td>
                     </tr>
                 }

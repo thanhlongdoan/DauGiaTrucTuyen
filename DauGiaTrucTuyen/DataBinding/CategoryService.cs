@@ -61,7 +61,7 @@ namespace DauGiaTrucTuyen.DataBinding
             return true;
         }
 
-        //Xóa danh mục
+                                   
         public bool DeleteCategory(string id)
         {
             var category = db.Categorys.Find(id);

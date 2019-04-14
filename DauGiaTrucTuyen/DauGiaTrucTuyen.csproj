@@ -2635,8 +2635,6 @@
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
     <Content Include="Areas\Admin\Views\Report\GetListProductStatusReView.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
-    <Content Include="fonts\SourceSansPro-Light.otf" />
-    <Content Include="Areas\Admin\Views\Chatbox\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ckfinder\changelog.txt" />
     <Content Include="Scripts\ckfinder\ckfinder.html" />
