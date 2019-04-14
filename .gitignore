@@ -8,3 +8,7 @@
 /packages
 /DauGiaTrucTuyen/App_Data
 /DauGiaTrucTuyen/obj/Release
+/Db/bin/Debug
+/Db/obj/Debug
+/Db/Db.dbmdl
+/Db/Db.jfm
