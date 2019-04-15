@@ -189,6 +189,7 @@
 
     //Thêm tin nhắn của client vào list-messages
     function appendListMsgClient(msg, email, date, isRead) {
+        console.log("idid: " + email)
         var status = isRead == false ? 'new' : '';
         var showTime = ShowTime(date);
         var codeHtml = '<li class="message row cl">\
@@ -207,6 +208,7 @@
 
     //Thêm tin nhắn của admin vào list-messages
     function appendListMsgAdmin(msg, date) {
+        console.log(msg)
         var showTime = ShowTime(date);
         var codeHtml = '<li class="message row ad">\
                             <input type="hidden" name="date" value = "'+ date + '" />\
@@ -299,13 +301,11 @@
     //Client gửi tin nhắn cho admin
     chatHub.client.sendMsgForAdmin = function (msg, date, connectionId, email) {
         var connectionIdActive = $('input[name="connectionIdActive"').val();                        //Lấy connectionId đang active
-        console.log(connectionId + "   " + connectionIdActive);
         if (connectionId == connectionIdActive) {                                                   //nếu đang active sẽ thêm message vào list-messages
             var dateSend = new Date(date);
             var emailLiLast = $('.list-messages li:last-child').find('.user-name').text();
             var dateLiLast = $('.list-messages li:last-child').find('input[name="date"]').val();
             var date = new Date(dateLiLast);
-            //console.log(msg);
             ClearSeen();
             if (email == emailLiLast && diffTimes(date, dateSend) < 30) {
                 appendGroupMsg(msg, false);
@@ -393,7 +393,6 @@
             var connectionId = $(this).find('input[name="connectionId"]').val();
 
             console.log(userId + "///" + connectionId)
-
             if ($(this).find('.user_info p').hasClass('new-msg') == true) {
                 $(this).find('.user_info p').removeClass('new-msg');
                 chatHub.server.updateIsReadMessage(connectionId, userId, true);
@@ -410,7 +409,9 @@
                 if ($(this).find('.img_cont span').hasClass('online') == true)
                     $('.chat-header .onl').addClass('fa-circle');
 
-                //var email = $(this).find('.user_info .user-name').text();
+                chatHub.server.loadMsgByEmailOfAdmin(userId);
+            }
+            else {
                 chatHub.server.loadMsgByEmailOfAdmin(userId);
             }
 

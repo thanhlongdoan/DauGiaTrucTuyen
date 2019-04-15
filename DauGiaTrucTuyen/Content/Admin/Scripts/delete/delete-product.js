@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
-    $("#example").on("click", "#js_btnDelete", function () {
+    $("#js_btnDelete").on('click', function () {
         var id = $(this).attr('data-id');
         swal({
-            title: "Xóa danh mục sản phẩm?",
-            text: "Bạn có chắc chắn muốn xóa danh mục sản phẩm này không?",
+            title: "Xóa sản phẩm?",
+            text: "Vui lòng cân nhắc trước khi xóa sản phẩm. Bạn có chắc chắn muốn xóa sản phẩm này không?",
             type: "warning",
             showCancelButton: true,
             closeOnConfirm: false,
@@ -16,7 +16,7 @@
             if (result) {
                 $.ajax(
                     {
-                        url: "/Admin/Category/Delete?id=" + id,
+                        url: "/Admin/Product/Delete?productId=" + id,
                         type: "GET",
                         success: function (data) {
                             if (data) {
@@ -27,7 +27,7 @@
                                     confirmButtonText: "OK",
                                     closeOnConfirm: false
                                 }, function () {
-                                    location.href = "/Admin/Category/Index";
+                                    location.reload();
                                 });
                             }
                             else {
@@ -39,4 +39,4 @@
             }
         });
     })
-})
+});

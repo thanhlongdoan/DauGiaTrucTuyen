@@ -115,7 +115,7 @@ namespace DauGiaTrucTuyen.DataBinding
         }
         public void AddListMessageIntoDb()
         {
-            Thread.Sleep(600000);
+            Thread.Sleep(10000);
             List<MessageChat> list = listMessages;
             listMessages = new List<MessageChat>();
 

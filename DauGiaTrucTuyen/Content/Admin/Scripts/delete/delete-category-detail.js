@@ -2,7 +2,7 @@
     $("#js_btnDelete").click(function () {
         var id = $(this).attr('data-id');
         swal({
-            title: "Xóa tài khoản?",
+            title: "Xóa danh mục sản phẩm?",
             text: "Bạn có chắc chắn muốn xóa danh mục sản phẩm này không?",
             type: "warning",
             showCancelButton: true,

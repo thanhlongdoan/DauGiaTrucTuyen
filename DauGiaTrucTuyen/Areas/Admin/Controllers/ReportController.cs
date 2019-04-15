@@ -30,19 +30,8 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View(_iReport.GetListReport());
-        }
-        //public ActionResult GetListReportForPageClient()
-        //{
-        //    return PartialView(_iReport.GetListReportForPageClient());
-        //}
-        //[AllowAnonymous]
-        //Danh sách sản phẩm cho trang người dùng
+        } 
 
-
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
         public ActionResult Details(string reports_id)
         {
             var result = _iReport.DetailReport(reports_id);
@@ -53,6 +42,13 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         public bool Delete(string id)
         {
             if (_iReport.DeleteReport(id))
+                return true;
+            return false;
+        }
+
+        public bool Responed(string id)
+        {
+            if (_iReport.Responed(id))
                 return true;
             return false;
         }

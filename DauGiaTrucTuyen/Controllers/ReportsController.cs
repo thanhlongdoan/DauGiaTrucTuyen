@@ -14,6 +14,7 @@ using DauGiaTrucTuyen.IDataBinding;
 
 namespace DauGiaTrucTuyen.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
         private Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
@@ -29,9 +30,11 @@ namespace DauGiaTrucTuyen.Controllers
         {
             _iReport = report;
         }
+
         // GET: Reports/Create
         public ActionResult Create()
         {
+            ViewBag.Message = null;
             return View();
         }
 
@@ -44,10 +47,15 @@ namespace DauGiaTrucTuyen.Controllers
         {
             if (ModelState.IsValid)
             {
-               if(_iReport.AddReport(model,User.Identity.GetUserId()))
-                return RedirectToAction("Index", "home");
+                if (_iReport.AddReport(model, User.Identity.GetUserId()))
+                    return RedirectToAction("ConfirmCreateReport");
             }
             return View(model);
+        }
+
+        public ActionResult ConfirmCreateReport()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

@@ -9,18 +9,12 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.ReportUser)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ReportUser)
-            </dd>
-            <dt>
-
                 @Html.DisplayNameFor(model => model.Title)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Title)
             </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.Content)
             </dt>
@@ -29,11 +23,40 @@
             </dd>
 
             <dt>
+                @Html.DisplayNameFor(model => model.ReportUser)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ReportUser)
+            </dd>
+
+            <dt>
                 @Html.DisplayNameFor(model => model.Transaction_Id)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Transaction_Id)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreateBy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreateBy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
             <p>
                 @Html.ActionLink("Quay lại", "Index")
                 <a id="js_btnDelete" href="javascript:;" data-id="@Model.ReportUser" class="btn btn-danger">Xóa</a>
@@ -42,6 +65,6 @@
     </div>
 </div>
 @section scripts{
-<script src="~/Content/Admin/Scripts/delete/delete-report-detail.js"></script>
+    <script src="~/Content/Admin/Scripts/delete/delete-report-detail.js"></script>
 }
 

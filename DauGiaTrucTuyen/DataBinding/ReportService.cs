@@ -4,6 +4,7 @@ using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.IDataBinding;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -32,9 +33,6 @@ namespace DauGiaTrucTuyen.DataBinding
             return true;
         }
 
-
-
-
         public List<ListReportViewModel> GetListReport()
         {
             var list = from report in db.Reports
@@ -46,7 +44,8 @@ namespace DauGiaTrucTuyen.DataBinding
                        };
             return list.ToList();
         }
-        //Xóa PHÒNG BAN
+
+        //Xóa báo cáo
         public bool DeleteReport(string id)
         {
             var report = db.Reports.Find(id);
@@ -59,7 +58,6 @@ namespace DauGiaTrucTuyen.DataBinding
             return false;
         }
 
-
         public DetailReportViewModel DetailReport(string reports_id)
         {
             var report = db.Reports.Find(reports_id);
@@ -69,6 +67,19 @@ namespace DauGiaTrucTuyen.DataBinding
                 return model;
             }
             return null;
+        }
+
+        public bool Responed(string id)
+        {
+            var report = db.Reports.Find(id);
+            if (report != null)
+            {
+                report.Status = StatusReport.Responed;
+                db.Entry(report).State = EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -4,12 +4,84 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div id="loadpage"></div>
-<script>
-    $(window).on('load', function () {
-        var pre_loader = $('#loadpage');
-        pre_loader.fadeOut('slow', function () {
-            $(this).remove();
-        });
-    });
-</script>
-
+<div class="row">
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h4>QUẢN LÝ NGƯỜI DÙNG</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            <a href="@Url.Action("Index", "User")" class="small-box-footer">Xem thêm<i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h4>QUẢN LÝ DANH MỤC</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="@Url.Action("Index", "Category")" class="small-box-footer">Xem thêm<i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h4>QUẢN LÝ BÁO CÁO</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            <a href="@Url.Action("Index","Report")" class="small-box-footer">Xem thêm<i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h4>QUẢN LÝ SẢN PHẨM</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">Xem thêm<i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-light-blue">
+            <div class="inner">
+                <h4>QUẢN LÝ TRÒ CHUYỆN</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            <a href="@Url.Action("Index", "Chatbox")" class="small-box-footer">Xem thêm<i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-maroon">
+            <div class="inner">
+                <h4>THỐNG KÊ</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">Xem thêm<i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/ClientTemplate/js/loadpage.js"></script>
+}

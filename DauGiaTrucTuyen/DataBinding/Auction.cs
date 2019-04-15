@@ -9,6 +9,7 @@ namespace DauGiaTrucTuyen.DataBinding
         {
             get
             {
+                var a = (int)Math.Abs(GetTimeRemaining().TotalSeconds);
                 return (int)Math.Abs(GetTimeRemaining().TotalSeconds);
             }
         }
@@ -47,6 +48,7 @@ namespace DauGiaTrucTuyen.DataBinding
 
         public TimeSpan GetTimeRemaining()
         {
+            var a = DateTime.Now.Subtract(EndTime);
             return DateTime.Now.Subtract(EndTime);
         }
 

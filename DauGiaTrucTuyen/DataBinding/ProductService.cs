@@ -249,5 +249,48 @@ namespace DauGiaTrucTuyen.DataBinding
                 return true;
             return false;
         }
+        //xóa sản phẩm
+        public bool Delele(string productId)
+        {
+            var product = db.Products.Find(productId);
+            var productDetail = db.ProductDetails.FirstOrDefault(x => x.Product_Id == productId);
+            var transaction = db.Transactions.FirstOrDefault(x => x.Product_Id == productId);
+            var transactionAuction = db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).ToList();
+            if (transactionAuction.Count() > 0)
+            {
+                foreach (var item in transactionAuction)
+                {
+                    db.TransactionAuctions.Remove(item);
+                }
+                db.SaveChanges();
+            }
+            db.Transactions.Remove(transaction);
+            db.SaveChanges();
+            db.ProductDetails.Remove(productDetail);
+            db.SaveChanges();
+            db.Products.Remove(product);
+            db.SaveChanges();
+            return true;
+        }
+
+        //hoàn tác đã duyệt thành đang chờ duyệt
+        public bool UnApproved(string productId)
+        {
+            var transaction = db.Transactions.FirstOrDefault(x => x.Product_Id == productId);
+            var transactionAuction = db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).ToList();
+            if (transactionAuction.Count() > 0)
+            {
+                foreach (var item in transactionAuction)
+                {
+                    db.TransactionAuctions.Remove(item);
+                }
+                db.SaveChanges();
+            }
+            var product = db.Products.FirstOrDefault(x => x.Products_Id == productId);
+            product.StatusProduct = StatusProduct.Review;
+            db.Entry(product).State = EntityState.Modified;
+            db.SaveChanges();
+            return true;
+        }
     }
 }

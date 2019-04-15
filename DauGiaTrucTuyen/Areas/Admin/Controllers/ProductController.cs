@@ -29,7 +29,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
 
         // GET: Admin/Product
         /// <summary>
-        /// Danh sách sản phẩm đang đấu giá
+        /// Danh sách sản phẩm đã duyệt
         /// </summary>
         /// <param name="status">status ==Approed </param>
         /// <returns></returns>
@@ -86,6 +86,18 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         public bool Approved(string id)
         {
             return _iProduct.ApprovedProduct(id) == true ? true : false;
+        }
+
+        [HttpGet]
+        public bool Delete(string productId)
+        {
+            return _iProduct.Delele(productId) == true ? true : false;
+        }
+
+        [HttpGet]
+        public bool UnApproved(string productId)
+        {
+            return _iProduct.UnApproved(productId) == true ? true : false;
         }
     }
 }

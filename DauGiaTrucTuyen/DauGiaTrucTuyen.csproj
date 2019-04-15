@@ -1932,14 +1932,18 @@
     <Content Include="Content\Admin\plugins\iCheck\InputIcheck.js" />
     <Content Include="Content\Admin\plugins\iCheck\square\blue.css" />
     <Content Include="Content\Admin\plugins\iCheck\square\blue.png" />
+    <Content Include="Content\Admin\Scripts\approved-product.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-category-detail.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-category.js" />
+    <Content Include="Content\Admin\Scripts\delete\delete-product.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-report-detail.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-report.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-user-detail.js" />
     <Content Include="Content\Admin\Scripts\delete\delete-user.js" />
     <Content Include="Content\Admin\Scripts\icheck.js" />
     <Content Include="Content\Admin\Scripts\reponsive-table.js" />
+    <Content Include="Content\Admin\Scripts\responed-report.js" />
+    <Content Include="Content\Admin\Scripts\unapproved-product.js" />
     <Content Include="Content\Admin\sweetalert\bootstrap-sweetalert.png" />
     <Content Include="Content\Admin\sweetalert\css\sweetalert.css" />
     <Content Include="Content\Admin\sweetalert\css\sweetalert.min.css" />
@@ -2636,7 +2640,6 @@
     <Content Include="Scripts\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Scripts\ckfinder\userfiles\.htaccess" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
-    <Content Include="Areas\Admin\Views\Report\GetListProductStatusReView.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Chatbox\Index.cshtml" />
@@ -3346,6 +3349,8 @@
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
     <Content Include="Views\Account\UpdateUser.cshtml" />
     <Content Include="Views\Reports\Create.cshtml" />
+    <Content Include="Views\Reports\ConfirmCreateReport.cshtml" />
+    <Content Include="Views\Account\ConfirmRegiserSendMail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

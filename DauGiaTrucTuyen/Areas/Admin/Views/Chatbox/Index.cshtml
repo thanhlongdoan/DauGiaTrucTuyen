@@ -14,27 +14,6 @@
                 <div class="title col-4">
                     <p>Quản lý tin nhắn</p>
                 </div>
-                <div class="avatar col-8">
-                    <div class="dropdown">
-                        <div class="bd-highlight dropdown-toggle" data-toggle="dropdown">
-                            <div class="img_cont">
-                                <img src="~/Content/ClientTemplate/images/img-chatbox/administrator.png" class="rounded-circle user_img" style="background: none" />
-                                <span class="online"></span>
-                            </div>
-                            <div class="user_info">
-                                <span>@User.Identity.GetUserName()</span>
-                                <p>Quản trị viên</p>
-                            </div>
-                        </div>
-                        <div class="dropdown-menu">
-                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item">Đăng xuất</a>
-                            }
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="content1 row">
                 <div class="content-left col-md-4">

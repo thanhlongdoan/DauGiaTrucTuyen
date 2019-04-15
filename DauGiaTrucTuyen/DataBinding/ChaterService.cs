@@ -31,7 +31,7 @@ namespace DauGiaTrucTuyen.DataBinding
 
         public void AddListUserIntoDb()
         {
-            Thread.Sleep(30000);
+            Thread.Sleep(10000);
             List<UserChat> list = listUser;
             listUser = new List<UserChat>();
 

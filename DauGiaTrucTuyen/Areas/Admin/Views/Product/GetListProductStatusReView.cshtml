@@ -51,8 +51,7 @@
                             @Html.DisplayFor(modelItem => item.CategoryName)
                         </td>
                         <td>
-                            <a id="js_btn-approved" href="javascript:;" data-id="@item.Products_Id">Duyệt</a>
-                            <a href="@Url.Action("Edit", new { id = item.Products_Id })"><i class="fas fa-edit"></i></a>
+                            <a id="js_btn-approved" href="javascript:;" class="btn btn-primary" style="display: inline-block" data-id="@item.Products_Id">Duyệt</a>
                             <a href="@Url.Action("Details", new { id = item.Products_Id })"><i class="fas fa-info-circle"></i></a>
                             <a id="js_btnDelete" href="javascript:;" data-id="@item.Products_Id"><i class="fas fa-trash text-danger"></i></a>
                         </td>
@@ -63,84 +62,9 @@
     </div>
 </div>
 @section scripts{
-    <script>
-        $(document).ready(function () {
-            var table = $('#example').DataTable({
-                responsive: true,
-                stateSave: true
-            });
-            new $.fn.dataTable.FixedHeader(table);
-        });
-        $(document).ready(function () {
-            $("#js_btnDelete").on('click', function () {
-                var id = $(this).attr('data-id');
-                swal({
-                    title: "Xóa tài khoản?",
-                    text: "Bạn có chắc chắn muốn xóa sản phẩm đấu giá này không?",
-                    type: "warning",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    confirmButtonText: "Đồng ý",
-                    cancelButtonText: 'Không',
-                    confirmButtonColor: "#ec6c62",
-                    closeOnConfirm: false,
-                    closeOnCancel: true
-                }, function (result) {
-                    if (result) {
-                        $.ajax(
-                            {
-                                url: "/Admin/Category/Delete?id=" + id,
-                                type: "GET",
-                                success: function (data) {
-                                    if (data) {
-                                        swal({
-                                            title: "Đã xóa thành công",
-                                            type: "success",
-                                            confirmButtonClass: "btn-primary",
-                                            confirmButtonText: "OK",
-                                            closeOnConfirm: false
-                                        }, function () {
-                                            location.reload();
-                                        });
-                                    }
-                                    else {
-                                        swal("Xóa thất bại", ":(", "error");
-                                    }
-                                }
-                            }
-                        )
-                    }
-                });
-            })
-
-            $("#js_btn-approved").on('click', function () {
-                var id = $(this).attr('data-id');
-                $.ajax(
-                    {
-                        url: "/Admin/Product/Approved?id=" + id,
-                        type: "GET",
-                        success: function (data) {
-                            if (data) {
-                                swal({
-                                    title: "Đã duyệt thành công",
-                                    type: "success",
-                                    confirmButtonClass: "btn-primary",
-                                    confirmButtonText: "OK",
-                                    closeOnConfirm: false
-                                }, function () {
-                                    location.reload();
-                                });
-                            }
-                            else {
-                                swal("Duyệt thất bại", ":(", "error");
-                            }
-                        }
-                    }
-                )
-            }
-            )
-        });
-    </script>
+    <script src="~/Content/Admin/Scripts/reponsive-table.js"></script>
+    <script src="~/Content/Admin/Scripts/approved-product.js"></script>
+    <script src="~/Content/Admin/Scripts/delete/delete-product.js"></script>
 }
 
 

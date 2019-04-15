@@ -11,9 +11,6 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Reports_Id)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Title)
                     </th>
                     <th>
@@ -27,16 +24,13 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Reports_Id)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Transaction_Id)
                         </td>
                         <td>
-                            <a href="#"><i class="fas fa-edit"></i></a>
+                            <a id="js_btnResponsed" href="javascript:;" class="btn btn-default" data-id="@item.Reports_Id" style="display: inline-block">Xác nhận phản hồi</a>
                             <a href="@Url.Action("Details", new { reports_id = item.Reports_Id })"><i class="fas fa-info-circle"></i></a>
                             <a id="js_btnDelete" href="javascript:;" data-id="@item.Reports_Id"><i class="fas fa-trash text-danger"></i></a>
                         </td>
@@ -49,4 +43,5 @@
 @section scripts{
     <script src="~/Content/Admin/Scripts/reponsive-table.js"></script>
     <script src="~/Content/Admin/Scripts/delete/delete-report.js"></script>
+    <script src="~/Content/Admin/Scripts/responed-report.js"></script>
 }
