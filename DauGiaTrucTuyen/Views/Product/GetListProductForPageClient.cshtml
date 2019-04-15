@@ -14,23 +14,3 @@
         </div>
     </div>
 }
-
-@*<script>
-        $(document).ready(function () {
-            $(function () {
-                var auctionHub = $.connection.auctionHub;
-                $.connection.hub.start().done(function () {
-                    $(".simpleCart_shelfItem").on("click","#btn-join-auction",function () {
-                        var id = $(this).attr("data-id");
-                        var connection = $.connection.hub.id;
-                        console.log(id + ":" + connection)
-                        $.ajax({
-                            url: "@Url.Action("ProductDetail", "Product", new { productId = id, connectionId = connection })",
-                            url: "Product/ProductDetail?productId=" + id + "&connectionId=" + connection,
-                            type: "GET"
-                        });
-                    })
-                });
-            });
-        });
-    </script>*@

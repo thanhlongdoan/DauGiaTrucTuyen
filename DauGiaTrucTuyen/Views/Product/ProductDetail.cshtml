@@ -119,13 +119,7 @@
 
             auctionHub.client.getTimeAuction = function (time) {
                 console.log(time)
-                document.getElementById("counter-time").innerHTML = time + " s";
-            }
-
-            //phiên đấu giá kết thúc
-            auctionHub.client.addMessage = function (msg) {
-                //console.log(msg);
-                if (msg == "End") {
+                if (time == "End") {
                     swal({
                         title: "Phiên đấu giá đã kết thúc !",
                         confirmButtonClass: "btn-primary",
@@ -135,10 +129,12 @@
                         location.href = "@Url.Action("Index","Home")";
                     });
                 }
+                else
+                    document.getElementById("counter-time").innerHTML = time + " s";
             }
 
             $.connection.hub.start().done(function () {
-                auctionHub.server.timerExpired();
+                //auctionHub.server.timerExpired();
 
                 $("#btn-auction").click(function () {
                     if ("@Request.IsAuthenticated" == "True") {
@@ -164,7 +160,7 @@
                         swal({
                         title: "Bạn phải đăng nhập để có thể thực hiện chức năng này !",
                         confirmButtonClass: "btn-primary",
-                        confirmButtonText: "Đồng ý",
+                            confirmButtonText: "Tiến hành đăng nhập",
                         closeOnConfirm: false
                         }, function () {
                             location.href = "@Url.Action("Login","Account", new { returnUrl = Url.Action("ProductDetail", "Product", new { productId = Model.Products_Id }) })";

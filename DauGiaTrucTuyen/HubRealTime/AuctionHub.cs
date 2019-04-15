@@ -2,6 +2,7 @@
 using DauGiaTrucTuyen.DataBinding;
 using Microsoft.AspNet.SignalR;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 
@@ -13,7 +14,6 @@ namespace DauGiaTrucTuyen.HubRealTime
         public static bool initialized = false;
         public static object initLock = new object();
         static private Timer timer;
-        static private int counter = 0;
         static public Auction auction;
         public static int secs_10 = 1000;
 
@@ -22,7 +22,9 @@ namespace DauGiaTrucTuyen.HubRealTime
             //var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
             //foreach (var item in transactions)
             //{
-            //    InitializeAuction(item.TimeLine.Value.TotalSeconds);
+            //    item.AuctionDateStart = DateTime.Now;
+            //    db.Entry(item).State = EntityState.Modified;
+            //    db.SaveChanges();
             //}
         }
 
@@ -34,16 +36,15 @@ namespace DauGiaTrucTuyen.HubRealTime
             {
                 Groups.Add(Context.ConnectionId, transaction.Transaction_Id);
 
-                if (initialized)
-                    return;
+                //if (initialized)
+                //    return;
 
-                lock (initLock)
-                {
-                    if (initialized)
-                        return;
-
-                    InitializeAuction(transaction.TimeLine.Value.TotalSeconds);
-                }
+                //lock (initLock)
+                //{
+                //    if (initialized)
+                //        return;
+                InitializeAuction((DateTime)transaction.AuctionDateStart, transaction.TimeLine.Value.TotalSeconds, transaction.Transaction_Id);
+                //}
             }
 
             //else
@@ -73,32 +74,26 @@ namespace DauGiaTrucTuyen.HubRealTime
                 Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại !");
         }
 
-        private void InitializeAuction(double seconds)
+        private void InitializeAuction(DateTime auctionDateStart, double seconds, string transactionId)
         {
-            auction = new Auction(0, 10, DateTime.Now.AddSeconds(seconds), 0);
+            auction = new Auction(auctionDateStart.AddSeconds(seconds));
 
             timer = new Timer(TimerExpired, null, secs_10, 0);
 
             initialized = true;
         }
 
-        public void AddMessage(string msg)
-        {
-            Clients.All.addMessage(msg);
-        }
-
         public void TimerExpired(object state)
         {
             if (auction.TimeRemaining > 0)
             {
-                AddMessage(string.Format("Push message from server {0} - {1:hh\\:mm\\:ss} - {2}", counter++, auction.GetTimeRemaining(), auction.TimeRemaining));
                 Clients.All.GetTimeAuction(string.Format("{0:hh\\:mm\\:ss}", auction.GetTimeRemaining()));
                 timer.Change(secs_10, 0);
             }
             else
             {
                 timer.Dispose();
-                AddMessage("End");
+                Clients.All.GetTimeAuction("End");
             }
         }
     }
