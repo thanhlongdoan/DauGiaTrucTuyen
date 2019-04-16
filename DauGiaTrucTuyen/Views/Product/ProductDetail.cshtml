@@ -20,6 +20,7 @@
                     <br />
                     <div class="cart-b">
                         <h4 style="color: brown" id="counter-time">@*@Model.AuctionTime s*@</h4>
+                        <div id="time"></div>
                         <br />
                         <h3 id="pricing">@Model.AuctionPrice<span> K</span></h3>
                         <div class="clearfix"></div>
@@ -82,6 +83,42 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script>
         $(document).ready(function () {
+            var seconds = new Date().getTime() / 1000;
+
+            @*var seconds2 = new @Model.AuctionDateStart / 1000;*@
+            @*var s = Date() - @Model.AuctionDateStart;*@
+            console.log(@Model.TimeRemaining)
+            function startTimer(duration, display) {
+                var timer = duration;
+                setInterval(function () {
+                    var minutes = parseInt(timer / 60, 10)
+                    var seconds = parseInt(timer % 60, 10);
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                    display.textContent = minutes + " " + " " + seconds;
+                    if (--timer < 0) {
+                        timer = duration;
+                    }
+                    window.localStorage.setItem("seconds1", seconds)
+                    window.localStorage.setItem("minutes1", minutes)
+                }, 1000);
+            }
+            window.onload = function () {
+                sec = parseInt(window.localStorage.getItem("seconds1"))
+                min = parseInt(window.localStorage.getItem("minutes1"))
+                console.log(sec);
+
+                console.log(min);
+                if (!isNaN(sec) && !isNaN(min)) {
+
+                    var fiveMinutes = (parseInt(min * 60) + sec);
+                } else {
+                    var fiveMinutes = 60 * 5;
+                }
+
+                display = document.querySelector('#time');
+                startTimer(fiveMinutes, display);
+            }
             var auctionHub = $.connection.auctionHub;
             var userId = "@User.Identity.GetUserId()";
             var productId = "@Model.Products_Id";

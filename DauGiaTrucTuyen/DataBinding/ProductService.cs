@@ -219,6 +219,8 @@ namespace DauGiaTrucTuyen.DataBinding
         //Chi tiết sản phẩm đấu giá
         public DetailProductViewModel DetailProduct(string productId)
         {
+            var transactionGetTimer = db.Transactions.Where(x => x.Product_Id == productId).FirstOrDefault();
+            var timerRemaining = Math.Abs(DateTime.Now.Subtract(transactionGetTimer.AuctionDateStart.Value.AddSeconds(transactionGetTimer.TimeLine.Value.TotalSeconds)).TotalSeconds);
             var result = from product in db.Products
                          join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                          join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
@@ -230,6 +232,7 @@ namespace DauGiaTrucTuyen.DataBinding
                              ProductName = productDetail.ProductName,
                              Image = productDetail.Image,
                              Description = productDetail.Description,
+                             TimeRemaining = timerRemaining,
                              TimeLine = transaction.TimeLine,
                              PriceStart = transaction.PriceStart,
                              StepPrice = transaction.StepPrice,
@@ -237,7 +240,6 @@ namespace DauGiaTrucTuyen.DataBinding
                              AuctionPrice = db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                              Transaction_Id = transaction.Transaction_Id
                          };
-
             return result.FirstOrDefault();
         }
 
