@@ -34,6 +34,23 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         public TimeSpan? TimeLine { get; set; }
 
+        public DateTime? AuctionDateStart { get; set; }
+
+        public string Image { get; set; }
+
+        public decimal PriceStart { get; set; }
+    }
+
+    public class ListProductFullViewModel
+    {
+        public string Products_Id { get; set; }
+
+        public TimeSpan? TimeLine { get; set; }
+
+        public DateTime? AuctionDateStart { get; set; }
+
+        public long TimeRemaining { get; set; }
+
         public string Image { get; set; }
 
         public decimal PriceStart { get; set; }

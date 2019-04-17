@@ -1,5 +1,7 @@
-﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductForPageClientViewModel>
-
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductFullViewModel>
+@{
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
 @foreach (var item in Model)
 {
     <div class="col-md-2 agile_ecommerce_tab_left">
@@ -9,8 +11,42 @@
             </div>
         </div>
         <div class="simpleCart_shelfItem">
-            <p><span>@item.TimeLine</span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
+            <p><span id="counter-time"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
             <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary">Đấu giá</a>
         </div>
     </div>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        //Js load thời gian đấu giá
+        var items = @Html.Raw(Json.Encode(Model));
+        console.log(items)
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            console.log(item.TimeRemaining)
+            var upgradeTime = item.TimeRemaining;
+            var seconds = upgradeTime;
+            function timer() {
+                var days = Math.floor(seconds / 24 / 60 / 60);
+                var hoursLeft = Math.floor((seconds) - (days * 86400));
+                var hours = Math.floor(hoursLeft / 3600);
+                var minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
+                var minutes = Math.floor(minutesLeft / 60);
+                var remainingSeconds = seconds % 60;
+                function pad(n) {
+                    return (n < 10 ? "0" + n : n);
+                }
+                document.getElementById('counter-time').innerHTML = pad(hours) + ":" + pad(minutes) + ":" + pad(remainingSeconds);
+                if (seconds == 0) {
+                    clearInterval(countdownTimer);
+                    document.getElementById('counter-time').innerHTML = "KẾT THÚC";
+                } else {
+                    seconds--;
+                }
+            }
+            var countdownTimer = setInterval('timer()', 1000);
+        }
+/**/
+    </script>
 }

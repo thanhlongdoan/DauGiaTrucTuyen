@@ -33,7 +33,7 @@ namespace DauGiaTrucTuyen.Controllers
         //Danh sách sản phẩm cho trang người dùng
         public ActionResult GetListProductForPageClient()
         {
-            return PartialView(_iProduct.GetListProductForPageClient());
+            return View(_iProduct.GetListProductForPageClient());
         }
 
         [AllowAnonymous]

@@ -1,13 +1,67 @@
-﻿@{
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductFullViewModel>
+@{
     ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
-@section css{
 
+@foreach (var item in Model)
+{
+    <div class="col-md-2 agile_ecommerce_tab_left">
+        <div class="hs-wrapper">
+            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })"><img src="@item.Image" alt="NO" class="img-responsive" /></a>
+            <div class="w3_hs_bottom">
+            </div>
+        </div>
+        <div class="simpleCart_shelfItem">
+            <p><span id="counter-time-@item.Products_Id"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
+            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary">Đấu giá</a>
+        </div>
+    </div>
 }
-<div id="loadpage"></div>
-@{ Html.RenderAction("GetListProductForPageClient", "Product");}
 
 @section scripts{
-    <script src="~/Content/ClientTemplate/js/loadpage.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Js load thời gian đấu giá
+            var items = @Html.Raw(Json.Encode(Model));
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var id = item.Products_Id;
+                var upgradeTime = item.TimeRemaining;
+                var seconds = upgradeTime;
+
+                function startTimer(duration, display) {
+                    var timer = duration, hours, minutes, seconds;
+                    setInterval(function () {
+                        hours = Math.floor(timer / 3600);
+                        minutes = Math.floor((Math.floor((timer) - (hours * 3600))) / 60);
+                        seconds = Math.floor(timer % 60);
+
+                        hours = hours < 10 ? "0" + hours : hours;
+                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+                        if (--timer < 0) {
+                            timer = duration;
+                        }
+                    }, 1000);
+                }
+
+                var fiveMinutes = upgradeTime,
+                    display = document.querySelector('#counter-time-' + id);
+                startTimer(fiveMinutes, display);
+            }
+
+            var auctionHub = $.connection.auctionHub;
+            $.connection.hub.start().done(function () {
+            })
+
+            setTimeout(function () {
+                window.location.reload(1);
+            }, 5000);
+        })
+    </script>
 }
+

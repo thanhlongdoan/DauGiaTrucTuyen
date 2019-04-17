@@ -61,9 +61,6 @@ namespace DauGiaTrucTuyen.HubRealTime
                 InitializeAuction((DateTime)transaction.AuctionDateStart, transaction.TimeLine.Value.TotalSeconds, transaction.Transaction_Id);
                 //}
             }
-
-            //else
-            //    Clients.Caller.JoinGroupError("Phiên đấu giá này đã kết thúc !");
         }
         public void JoinAuction(string productId, string userId, decimal? price)
         {

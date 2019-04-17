@@ -20,7 +20,7 @@ namespace DauGiaTrucTuyen.IDataBinding
 
         bool ApprovedProduct(string product_Id);
 
-        List<ListProductForPageClientViewModel> GetListProductForPageClient();
+        List<ListProductFullViewModel> GetListProductForPageClient();
 
         DetailProductViewModel DetailProduct(string productId);
 
