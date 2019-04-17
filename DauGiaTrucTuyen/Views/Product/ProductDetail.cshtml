@@ -19,8 +19,8 @@
                     <h3>@Model.ProductName</h3>
                     <br />
                     <div class="cart-b">
-                        <h4 style="color: brown" id="counter-time">@*@Model.AuctionTime s*@</h4>
-                        <div id="time"></div>
+                        <h4 style="color: brown" id="countdown"></h4>
+                        <h4 id="counter-time">@*@Model.AuctionTime s*@</h4>
                         <br />
                         <h3 id="pricing">@Model.AuctionPrice<span> K</span></h3>
                         <div class="clearfix"></div>
@@ -81,51 +81,42 @@
 @section scripts{
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript">
+        //Js load thời gian đấu giá
+        var upgradeTime = @Model.TimeRemaining;
+        var seconds = upgradeTime;
+        function timer() {
+            var days = Math.floor(seconds / 24 / 60 / 60);
+            var hoursLeft = Math.floor((seconds) - (days * 86400));
+            var hours = Math.floor(hoursLeft / 3600);
+            var minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
+            var minutes = Math.floor(minutesLeft / 60);
+            var remainingSeconds = seconds % 60;
+            function pad(n) {
+                return (n < 10 ? "0" + n : n);
+            }
+            document.getElementById('countdown').innerHTML = pad(hours) + ":" + pad(minutes) + ":" + pad(remainingSeconds);
+            if (seconds == 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown').innerHTML = "KẾT THÚC";
+            } else {
+                seconds--;
+            }
+        }
+        var countdownTimer = setInterval('timer()', 1000);
+    </script>
     <script>
         $(document).ready(function () {
-            var seconds = new Date().getTime() / 1000;
-
-            @*var seconds2 = new @Model.AuctionDateStart / 1000;*@
-            @*var s = Date() - @Model.AuctionDateStart;*@
-            console.log(@Model.TimeRemaining)
-            function startTimer(duration, display) {
-                var timer = duration;
-                setInterval(function () {
-                    var minutes = parseInt(timer / 60, 10)
-                    var seconds = parseInt(timer % 60, 10);
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
-                    display.textContent = minutes + " " + " " + seconds;
-                    if (--timer < 0) {
-                        timer = duration;
-                    }
-                    window.localStorage.setItem("seconds1", seconds)
-                    window.localStorage.setItem("minutes1", minutes)
-                }, 1000);
-            }
-            window.onload = function () {
-                sec = parseInt(window.localStorage.getItem("seconds1"))
-                min = parseInt(window.localStorage.getItem("minutes1"))
-                console.log(sec);
-
-                console.log(min);
-                if (!isNaN(sec) && !isNaN(min)) {
-
-                    var fiveMinutes = (parseInt(min * 60) + sec);
-                } else {
-                    var fiveMinutes = 60 * 5;
-                }
-
-                display = document.querySelector('#time');
-                startTimer(fiveMinutes, display);
-            }
             var auctionHub = $.connection.auctionHub;
             var userId = "@User.Identity.GetUserId()";
             var productId = "@Model.Products_Id";
 
+            auctionHub.client.addMessage = function (msg) {
+                console.log(msg)
+            }
+
             //nhập giá tiền nhỏ hơn giá tiền hiện tại
             auctionHub.client.auctionError = function (error) {
-                console.log(error)
                 swal({
                     title: error,
                     confirmButtonClass: "btn-primary",
@@ -134,6 +125,19 @@
                     }, function () {
                        location.reload();
                     });
+            }
+
+            auctionHub.client.endTime = function (msg) {
+                if (msg == "End") {
+                     swal({
+                        title: "Phiên đấu giá này đã kết thúc !",
+                        confirmButtonClass: "btn-primary",
+                        confirmButtonText: "Đồng ý",
+                        closeOnConfirm: false
+                    }, function () {
+                        location.href = "@Url.Action("Index","Home")";
+                    });
+                }
             }
 
             //phiên đấu giá kết thúc khi load
@@ -150,29 +154,27 @@
 
             //get giá tiền khi đấu giá
             auctionHub.client.auctioning = function (price) {
-                console.log(price)
                 document.getElementById("pricing").innerHTML = price + "<span> K</span>";
             }
 
+            //load thời gian từ service
             auctionHub.client.getTimeAuction = function (time) {
-                console.log(time)
                 if (time == "End") {
-                    swal({
+                    @*swal({
                         title: "Phiên đấu giá đã kết thúc !",
                         confirmButtonClass: "btn-primary",
                         confirmButtonText: "Đồng ý",
                         closeOnConfirm: false
                     }, function () {
                         location.href = "@Url.Action("Index","Home")";
-                    });
+                    });*@
                 }
                 else
-                    document.getElementById("counter-time").innerHTML = time + " s";
+                    document.getElementById("counter-time").innerHTML = time + " service";
             }
 
             $.connection.hub.start().done(function () {
-                //auctionHub.server.timerExpired();
-
+                //click vào đấu giá
                 $("#btn-auction").click(function () {
                     if ("@Request.IsAuthenticated" == "True") {
                         var price = $("#AuctionPrice").val();
@@ -193,6 +195,7 @@
                         //tham gia phiên đấu giá
                         auctionHub.server.joinAuction(productId, userId, price)
                     }
+                    //click vào đấu giá nhưng chưa đăng nhập
                     else {
                         swal({
                         title: "Bạn phải đăng nhập để có thể thực hiện chức năng này !",
@@ -206,6 +209,9 @@
                 });
                 //tham gia phiên đấu giá khi load trang
                 auctionHub.server.joinGroupAuction(productId)
+                setInterval(function () {
+                    auctionHub.server.endTime();
+                }, 1000);
             });
         })
     </script>

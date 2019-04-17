@@ -19,13 +19,28 @@ namespace DauGiaTrucTuyen.HubRealTime
 
         public AuctionHub()
         {
-            //var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
-            //foreach (var item in transactions)
+            //var context = GlobalHost.ConnectionManager.GetHubContext<AuctionHub>();
+
+            //var transaction = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
+            //foreach (var item in transaction)
             //{
             //    item.AuctionDateStart = DateTime.Now;
             //    db.Entry(item).State = EntityState.Modified;
             //    db.SaveChanges();
             //}
+        }
+
+        public void EndTime()
+        {
+            var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
+            foreach (var item in transactions)
+            {
+                var time1 = item.AuctionDateStart + item.TimeLine;
+                if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
+                {
+                    Clients.Group(item.Transaction_Id).EndTime("End");
+                }
+            }
         }
 
         public void JoinGroupAuction(string productId)

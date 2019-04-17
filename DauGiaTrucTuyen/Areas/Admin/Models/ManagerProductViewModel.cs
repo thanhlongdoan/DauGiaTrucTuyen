@@ -92,7 +92,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [DisplayName("Mô tả")]
         public string Description { get; set; }
 
-        public double TimeRemaining { get; set; }
+        public long TimeRemaining { get; set; }
 
         [DisplayName("Thời gian đấu giá")]
         public TimeSpan? TimeLine { get; set; }
