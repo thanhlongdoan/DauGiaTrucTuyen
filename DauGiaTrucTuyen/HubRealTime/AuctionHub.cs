@@ -21,13 +21,13 @@ namespace DauGiaTrucTuyen.HubRealTime
         {
             //var context = GlobalHost.ConnectionManager.GetHubContext<AuctionHub>();
 
-            //var transaction = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
-            //foreach (var item in transaction)
-            //{
-            //    item.AuctionDateStart = DateTime.Now;
-            //    db.Entry(item).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //}
+            var transaction = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
+            foreach (var item in transaction)
+            {
+                item.AuctionDateStart = DateTime.Now;
+                db.Entry(item).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         public void EndTime()

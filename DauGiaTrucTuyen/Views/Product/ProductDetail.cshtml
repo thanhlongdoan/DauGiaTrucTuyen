@@ -6,13 +6,27 @@
 }
 @section css{
     <link href="~/Content/ClientTemplate/css/product-detail.css" rel="stylesheet" />
+    <link href="~/Content/ClientTemplate/css/flexslider.css" rel="stylesheet" />
 }
 <div class="shoes-grid col-md-8 col-sm-12">
     <div class=" single_top">
         <div class="single_grid">
             <div class="row">
                 <div class="grid images_3_of_2 col-md-6">
-                    <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
+                    <div class="flexslider1">
+                        <ul class="slides">
+                            <li data-thumb="@Model.Image">
+                                <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                            </li>
+                            <li data-thumb="/Content/Admin/img-test/a2.jpg">
+                                <div class="thumb-image"> <img src="/Content/Admin/img-test/a2.jpg" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                            </li>
+                            <li data-thumb="/Content/Admin/img-test/a3.jpg">
+                                <div class="thumb-image"> <img src="/Content/Admin/img-test/a3.jpg" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                            </li>
+                        </ul>
+                    </div>
+                    @*<img class="etalage_thumb_image img-responsive" src="@Model.Image" />*@
                     <div class="clearfix"> </div>
                 </div>
                 <div class="desc1 span_3_of_2 col-md-6">
@@ -81,6 +95,16 @@
 @section scripts{
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/ClientTemplate/js/imagezoom.js"></script>
+    <script src="~/Content/ClientTemplate/js/jquery.flexslider.js"></script>
+    <script>
+        $(window).load(function () {
+            $('.flexslider1').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
     <script type="text/javascript">
         //Js load thời gian đấu giá
          var upgradeTime = @Model.TimeRemaining;
