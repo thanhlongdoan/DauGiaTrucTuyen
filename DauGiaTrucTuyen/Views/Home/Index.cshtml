@@ -56,6 +56,7 @@
 
             var auctionHub = $.connection.auctionHub;
             $.connection.hub.start().done(function () {
+                auctionHub.server.setTimer();
             })
 
             setTimeout(function () {

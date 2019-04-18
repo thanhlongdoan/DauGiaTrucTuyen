@@ -14,9 +14,9 @@ namespace DauGiaTrucTuyen.IDataBinding
 
         List<ListProductViewModel> GetListProductForClient(string sessionUserId);
 
-        bool Create(AddProductViewModel model, HttpPostedFileBase file, string sessionUserId);
+        bool Create(AddProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2, string sessionUserId);
 
-        bool CreateForClient(AddProductViewModel model, HttpPostedFileBase file, string sessionUserId);
+        bool CreateForClient(AddProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2, string sessionUserId);
 
         bool ApprovedProduct(string product_Id);
 
@@ -31,5 +31,9 @@ namespace DauGiaTrucTuyen.IDataBinding
         bool Delele(string productId);
 
         bool UnApproved(string productId);
+
+        EditProductViewModel GetViewEditProduct(string productId);
+
+        bool Edit(EditProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2);
     }
 }

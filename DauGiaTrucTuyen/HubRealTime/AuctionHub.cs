@@ -21,6 +21,10 @@ namespace DauGiaTrucTuyen.HubRealTime
         {
             //var context = GlobalHost.ConnectionManager.GetHubContext<AuctionHub>();
 
+        }
+
+        public void setTimer()
+        {
             var transaction = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
             foreach (var item in transaction)
             {

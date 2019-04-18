@@ -50,11 +50,11 @@ namespace DauGiaTrucTuyen.Controllers
 
         //Tạo mới sản phẩm (POST)
         [HttpPost]
-        public ActionResult Create(AddProductViewModel model, HttpPostedFileBase file)
+        public ActionResult Create(AddProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2)
         {
             if (ModelState.IsValid)
             {
-                if (_iProduct.CreateForClient(model, file, User.Identity.GetUserId()))
+                if (_iProduct.CreateForClient(model, file, file1, file2, User.Identity.GetUserId()))
                     return RedirectToAction("Index", new { status = StatusProduct.Approved });
                 return HttpNotFound();
             }
@@ -63,6 +63,44 @@ namespace DauGiaTrucTuyen.Controllers
                 ViewBag.Category_Id = new SelectList(db.Categorys, "Categorys_Id", "CategoryName");
                 return View(model);
             }
+        }
+
+        [AllowAnonymous]
+        public ActionResult Edit(string id)
+        {
+            ViewBag.Category_Id = new SelectList(db.Categorys, "Categorys_Id", "CategoryName");
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "1:00 s", Value = "600000000" });
+            items.Add(new SelectListItem { Text = "3:00 s", Value = "1800000000" });
+            items.Add(new SelectListItem { Text = "5:00 s", Value = "3000000000" });
+            items.Add(new SelectListItem { Text = "10:00 s", Value = "6000000000" });
+            items.Add(new SelectListItem { Text = "30:00 s", Value = "18000000000" });
+            items.Add(new SelectListItem { Text = "1:00:00 s", Value = "36000000000" });
+            items.Add(new SelectListItem { Text = "2:00:00 s", Value = "72000000000" });
+            items.Add(new SelectListItem { Text = "4:00:00 s", Value = "144000000000" });
+            ViewBag.SelectedItems = items;
+            var result = _iProduct.GetViewEditProduct(id);
+            return View(result);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Edit(EditProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2)
+        {
+            if (ModelState.IsValid)
+            {
+                _iProduct.Edit(model, file, file1, file2);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        public ActionResult Detail(string id)
+        {
+            var result = _iProduct.DetailProduct(id);
+            if (result != null)
+                return View(result);
+            return HttpNotFound();
         }
     }
 }

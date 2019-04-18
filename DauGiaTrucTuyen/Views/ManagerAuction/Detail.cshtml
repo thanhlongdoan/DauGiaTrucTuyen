@@ -1,0 +1,122 @@
+﻿@model DauGiaTrucTuyen.Areas.Admin.Models.DetailProductViewModel
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+@section css{
+    <link href="~/Content/ClientTemplate/css/manager-auction.css" rel="stylesheet" />
+}
+<h3 class="text-center">QUẢN LÝ ĐẤU GIÁ</h3>
+<br />
+<div class="shoes-grid col-md-8 col-sm-12">
+    <div class="container bootstrap snippet information-user">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="box box-primary">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading panel-primary">Quản lý đấu giá</div>
+                        <div class="list-group">
+                            <a href="@Url.Action("Index","ManagerAuction")" class="list-group-item">Danh sách sản phẩm</a>
+                            <a href="@Url.Action("Create","ManagerAuction")" class="list-group-item">Đăng ký sản phẩm đấu giá</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Danh sách sản phẩm đấu giá</div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ProductName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.ProductName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </dt>
+                            <dd>
+                                <img src="@Model.Image" width="300" height="250" class="img-responsive" alt="Alternate Text" />
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ImageMore1)
+                            </dt>
+                            <dd>
+                                <img src="@Model.ImageMore1" width="300" height="250" class="img-responsive" alt="Không có" />
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ImageMore2)
+                            </dt>
+                            <dd>
+                                <img src="@Model.ImageMore2" width="300" height="250" class="img-responsive" alt="Không có" />
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </dt>
+                            <dd>
+                                @Html.Raw(Model.Description)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TimeLine)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.TimeLine)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PriceStart)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PriceStart)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.StepPrice)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.StepPrice)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CategoryName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.CategoryName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Transaction_Id)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Transaction_Id)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.AuctionPrice)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.AuctionPrice)
+                            </dd>
+                            <p>
+                                @Html.ActionLink("Quay lại", "Index")
+                                <a href="@Url.Action("Edit",new { id = Model.Products_Id })" class="btn btn-primary" style="display: inline-block">Cập nhật</a>
+                                <a href="@Url.Action("Edit",new { id = Model.Products_Id })" class="btn btn-danger" style="display: inline-block">Kết thúc phiên đấu giá</a>
+                            </p>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+}
+

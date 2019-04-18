@@ -68,6 +68,10 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         //[Required(ErrorMessage = "Hình ảnh là bắt buộc")]
         public string Image { get; set; }
 
+        public string ImageMore1 { get; set; }
+
+        public string ImageMore2 { get; set; }
+
         [AllowHtml]
         [DisplayName("Mô tả")]
         [Required(ErrorMessage = "Mô tả là bắt buộc")]
@@ -95,6 +99,45 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string User_Id { get; set; }
     }
 
+    public class EditProductViewModel
+    {
+        public string Products_Id { get; set; }
+
+        [DisplayName("Tên sản phẩm")]
+        [Required(ErrorMessage = "Tên sản phẩm là bắt buộc")]
+        public string ProductName { get; set; }
+
+        [DisplayName("Hình ảnh")]
+        public string Image { get; set; }
+
+        public string ImageMore1 { get; set; }
+
+        public string ImageMore2 { get; set; }
+
+        [AllowHtml]
+        [DisplayName("Mô tả")]
+        [Required(ErrorMessage = "Mô tả là bắt buộc")]
+        public string Description { get; set; }
+
+        [DisplayName("Thời gian đấu giá")]
+        [Required(ErrorMessage = "Thời gian đấu giá là bắt buộc")]
+        public long TimeLine { get; set; }
+
+        [DisplayName("Giá khởi điểm")]
+        [Required(ErrorMessage = "Giá khởi điểm là bắt buộc")]
+        public decimal? PriceStart { get; set; }
+
+        [DisplayName("Bước giá")]
+        [Required(ErrorMessage = "Bước giá là bắt buộc")]
+        public int? StepPrice { get; set; }
+
+        [DisplayName("Tên danh mục sản phẩm")]
+        [Required(ErrorMessage = "Tên danh mục sản phẩm là bắt buộc")]
+        public string Category_Id { get; set; }
+
+        public string User_Id { get; set; }
+    }
+
     public class DetailProductViewModel
     {
         public string Products_Id { get; set; }
@@ -104,6 +147,12 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Hình ảnh")]
         public string Image { get; set; }
+
+        [DisplayName("Hình ảnh mở rộng 1")]
+        public string ImageMore1 { get; set; }
+
+        [DisplayName("Hình ảnh mở rộng 2")]
+        public string ImageMore2 { get; set; }
 
         [AllowHtml]
         [DisplayName("Mô tả")]
@@ -123,8 +172,10 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [DisplayName("Tên danh mục sản phẩm")]
         public string CategoryName { get; set; }
 
+        [DisplayName("Mã phiên đấu giá")]
         public string Transaction_Id { get; set; }
 
+        [DisplayName("Giá cao nhất")]
         public decimal? AuctionPrice { get; set; }
     }
 }

@@ -1,0 +1,100 @@
+﻿@model DauGiaTrucTuyen.Areas.Admin.Models.DetailProductViewModel
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Chi tiết sản phẩm</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+            <dd>
+                <img src="@Model.Image" width="300" height="250" class="img-responsive" alt="Alternate Text" />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageMore1)
+            </dt>
+            <dd>
+                <img src="@Model.ImageMore1" width="300" height="250" class="img-responsive" alt="Không có" />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageMore2)
+            </dt>
+            <dd>
+                <img src="@Model.ImageMore2" width="300" height="250" class="img-responsive" alt="Không có" />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.Raw(Model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeLine)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TimeLine)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PriceStart)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PriceStart)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StepPrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StepPrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CategoryName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Transaction_Id)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Transaction_Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AuctionPrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AuctionPrice)
+            </dd>
+            <p>
+                @Html.ActionLink("Quay lại", "Index")
+                <a href="@Url.Action("Edit",new { id = Model.Products_Id })" class="btn btn-primary" style="display: inline-block">Cập nhật</a>
+                <a id="js_btnDelete" href="javascript:;" data-id="@Model.Products_Id" class="btn btn-danger">Xóa</a>
+            </p>
+        </dl>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/Admin/Scripts/delete/delete-report-detail.js"></script>
+}
+
+

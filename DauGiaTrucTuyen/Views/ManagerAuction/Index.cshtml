@@ -66,8 +66,11 @@
                                             @Html.DisplayFor(modelItem => item.CategoryName)
                                         </td>
                                         <td>
-                                            <a href="@Url.Action("Edit", new { id = item.Products_Id })"><i class="fas fa-edit"></i></a>
-                                            <a href="@Url.Action("Details", new { id = item.Products_Id })"><i class="fas fa-info-circle"></i></a>
+                                            @if (item.Status == "Đang chờ duyệt")
+                                            {
+                                                <a href="@Url.Action("Edit", new { id = item.Products_Id})"><i class="fas fa-edit"></i></a>
+                                            }
+                                            <a href="@Url.Action("Detail", new { id = item.Products_Id })"><i class="fas fa-info-circle"></i></a>
                                         </td>
                                     </tr>
                                 }

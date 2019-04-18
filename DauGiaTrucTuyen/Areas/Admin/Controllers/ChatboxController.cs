@@ -24,10 +24,12 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
             MessageService messageDb = new MessageService();
             foreach (var item in list)
             {
+                var test = db.Users.Find(item.User_Id);
+
                 ChatboxViewModel userView = new ChatboxViewModel();
                 userView.ConnectionId = item.ConnectionId;
                 userView.User_Id = item.User_Id;
-                userView.UserName = db.Users.Find(item.User_Id).UserName;
+                userView.UserName = db.Users.Find(item.User_Id) == null ? "Không rõ" : db.Users.Find(item.User_Id).UserName;
                 userView.IsOnline = (bool)item.IsOnline;
                 userView.LastMsg = messageDb.GetLastMessageByUserId(item.User_Id).Msg;
                 listUser.Add(userView);

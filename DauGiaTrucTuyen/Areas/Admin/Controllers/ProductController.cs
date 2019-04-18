@@ -67,11 +67,11 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
 
         //Tạo mới sản phẩm (POST)
         [HttpPost]
-        public ActionResult Create(AddProductViewModel model, HttpPostedFileBase file)
+        public ActionResult Create(AddProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2)
         {
             if (ModelState.IsValid)
             {
-                if (_iProduct.Create(model, file, User.Identity.GetUserId()))
+                if (_iProduct.Create(model, file, file1, file2, User.Identity.GetUserId()))
                     return RedirectToAction("Index", new { status = StatusProduct.Approved });
                 return HttpNotFound();
             }
@@ -98,6 +98,14 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         public bool UnApproved(string productId)
         {
             return _iProduct.UnApproved(productId) == true ? true : false;
+        }
+
+        public ActionResult Detail(string id)
+        {
+            var result = _iProduct.DetailProduct(id);
+            if (result != null)
+                return View(result);
+            return HttpNotFound();
         }
     }
 }

@@ -63,7 +63,7 @@ namespace DauGiaTrucTuyen.DataBinding
         }
 
         //Tạo mới sản phẩm đấu giá ( dành cho admin )
-        public bool Create(AddProductViewModel model, HttpPostedFileBase file, string sessionUserId)
+        public bool Create(AddProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2, string sessionUserId)
         {
             try
             {
@@ -82,6 +82,8 @@ namespace DauGiaTrucTuyen.DataBinding
                 productDetail.ProductDetails_Id = Guid.NewGuid().ToString();
                 productDetail.ProductName = model.ProductName;
                 productDetail.Image = upload.UploadImg(file);
+                productDetail.ImageMore1 = upload.UploadImg(file1);
+                productDetail.ImageMore2 = upload.UploadImg(file2);
                 productDetail.Description = model.Description;
                 productDetail.Product_Id = product.Products_Id;
                 db.ProductDetails.Add(productDetail);
@@ -113,7 +115,7 @@ namespace DauGiaTrucTuyen.DataBinding
         }
 
         //Tạo mới sản phẩm đấu giá ( dành cho client )
-        public bool CreateForClient(AddProductViewModel model, HttpPostedFileBase file, string sessionUserId)
+        public bool CreateForClient(AddProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2, string sessionUserId)
         {
             try
             {
@@ -122,7 +124,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 Data.Product product = new Data.Product();
                 product.Products_Id = Guid.NewGuid().ToString();
                 product.CreateDate = DateTime.Now;
-                product.CreateBy = "admin";
+                product.CreateBy = sessionUserId;
                 product.StatusProduct = StatusProduct.Review;
                 product.Category_Id = model.Category_Id;
                 product.User_Id = sessionUserId;
@@ -132,6 +134,8 @@ namespace DauGiaTrucTuyen.DataBinding
                 productDetail.ProductDetails_Id = Guid.NewGuid().ToString();
                 productDetail.ProductName = model.ProductName;
                 productDetail.Image = upload.UploadImg(file);
+                productDetail.ImageMore1 = upload.UploadImg(file1);
+                productDetail.ImageMore2 = upload.UploadImg(file2);
                 productDetail.Description = model.Description;
                 productDetail.Product_Id = product.Products_Id;
                 db.ProductDetails.Add(productDetail);
@@ -212,11 +216,6 @@ namespace DauGiaTrucTuyen.DataBinding
             return listView;
         }
 
-        public long GetTimeRemaining(DateTime? auctionDateStart, TimeSpan? timeLine)
-        {
-            return (long)Math.Abs(DateTime.Now.Subtract(auctionDateStart.Value.AddSeconds(timeLine.Value.TotalSeconds)).TotalSeconds);
-        }
-
         //Danh sách danh sách sản phẩm đấu giá theo danh mục
         public List<ListProductForPageClientViewModel> GetListProductFromCategory(string categoryId)
         {
@@ -255,6 +254,8 @@ namespace DauGiaTrucTuyen.DataBinding
                              Products_Id = product.Products_Id,
                              ProductName = productDetail.ProductName,
                              Image = productDetail.Image,
+                             ImageMore1 = productDetail.ImageMore1,
+                             ImageMore2 = productDetail.ImageMore2,
                              Description = productDetail.Description,
                              TimeRemaining = (long)timerRemaining,
                              TimeLine = transaction.TimeLine,
@@ -265,6 +266,69 @@ namespace DauGiaTrucTuyen.DataBinding
                              Transaction_Id = transaction.Transaction_Id
                          };
             return result.FirstOrDefault();
+        }
+
+        //Cập nhật sản phẩm
+        public EditProductViewModel GetViewEditProduct(string productId)
+        {
+            var result = from product in db.Products
+                         join category in db.Categorys on product.Category_Id equals category.Categorys_Id
+                         join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
+                         join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
+                         where product.Products_Id == productId && product.StatusProduct.Equals(StatusProduct.Review)
+                         select new EditProductViewModel
+                         {
+                             Products_Id = product.Products_Id,
+                             ProductName = productDetail.ProductName,
+                             Image = productDetail.Image,
+                             ImageMore1 = productDetail.ImageMore1,
+                             ImageMore2 = productDetail.ImageMore2,
+                             Description = productDetail.Description,
+                             //TimeLine = transaction.TimeLine,
+                             PriceStart = transaction.PriceStart,
+                             StepPrice = transaction.StepPrice,
+                             Category_Id = category.Categorys_Id,
+                             User_Id = product.User_Id
+                         };
+            return result.FirstOrDefault();
+        }
+
+        public bool Edit(EditProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2)
+        {
+            Upload upload = new Upload();
+            var product = db.Products.Find(model.Products_Id);
+            product.UpdateBy = model.User_Id == null ? "" : model.User_Id;
+            product.UpdateDate = DateTime.Now;
+            product.Category_Id = model.Category_Id;
+            db.Entry(product).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var productDetail = db.ProductDetails.FirstOrDefault(x => x.Product_Id == model.Products_Id);
+            productDetail.ProductName = model.ProductName;
+            if (file != null)
+            {
+                productDetail.Image = upload.UploadImg(file);
+            }
+            if (file1 != null)
+            {
+                productDetail.ImageMore1 = upload.UploadImg(file1);
+            }
+            if (file2 != null)
+            {
+                productDetail.ImageMore2 = upload.UploadImg(file2);
+            }
+            productDetail.Description = model.Description;
+            db.Entry(productDetail).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var transaction = db.Transactions.FirstOrDefault(x => x.Product_Id == model.Products_Id);
+            transaction.TimeLine = TimeSpan.FromTicks(model.TimeLine);
+            transaction.PriceStart = model.PriceStart;
+            transaction.StepPrice = model.StepPrice;
+            db.Entry(transaction).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return true;
         }
 
         //Kiểm tra tiền nhập vào đấu giá

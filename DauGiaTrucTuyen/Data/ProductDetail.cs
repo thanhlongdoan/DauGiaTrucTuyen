@@ -16,6 +16,10 @@ namespace DauGiaTrucTuyen.Data
 
         public string Image { get; set; }
 
+        public string ImageMore1 { get; set; }
+
+        public string ImageMore2 { get; set; }
+
         public string Description { get; set; }
 
         [StringLength(128)]
