@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -177,5 +178,14 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Giá cao nhất")]
         public decimal? AuctionPrice { get; set; }
+
+        public List<ListTopAuction> ListTopAuction { get; set; }
+    }
+
+    public class ListTopAuction
+    {
+        public string UserName { get; set; }
+
+        public decimal? PriceAuction { get; set; }
     }
 }

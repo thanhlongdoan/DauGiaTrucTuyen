@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DauGiaTrucTuyen.DataBinding
 {
@@ -263,8 +266,18 @@ namespace DauGiaTrucTuyen.DataBinding
                              StepPrice = transaction.StepPrice,
                              CategoryName = category.CategoryName,
                              AuctionPrice = db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
-                             Transaction_Id = transaction.Transaction_Id
+                             Transaction_Id = transaction.Transaction_Id,
+                             ListTopAuction = (from transactionAuction in db.TransactionAuctions
+                                               where transactionAuction.Transaction_Id == transaction.Transaction_Id
+                                               orderby transactionAuction.AuctionPrice descending
+                                               select new ListTopAuction
+                                               {
+                                                   //UserName = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(transactionAuction.User_Id).UserName,
+                                                   UserName = transactionAuction.User_Id,
+                                                   PriceAuction = transactionAuction.AuctionPrice
+                                               }).Take(5).ToList()
                          };
+            var a = result.FirstOrDefault();
             return result.FirstOrDefault();
         }
 
@@ -293,6 +306,7 @@ namespace DauGiaTrucTuyen.DataBinding
             return result.FirstOrDefault();
         }
 
+        //Cập nhật sản phẩm POST
         public bool Edit(EditProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2)
         {
             Upload upload = new Upload();
@@ -339,6 +353,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 return true;
             return false;
         }
+
         //xóa sản phẩm
         public bool Delele(string productId)
         {

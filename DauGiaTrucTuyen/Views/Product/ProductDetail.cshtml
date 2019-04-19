@@ -29,10 +29,11 @@
                     @*<img class="etalage_thumb_image img-responsive" src="@Model.Image" />*@
                     <div class="clearfix"> </div>
                 </div>
-                <div class="desc1 span_3_of_2 col-md-6">
+                <div class="desc1 span_3_of_2 col-md-6" style="margin-bottom: 10%;">
                     <h3>@Model.ProductName</h3>
                     <br />
                     <div class="cart-b">
+                        <h4 style="color: brown" id="end-time"></h4>
                         <h4 style="color: brown" id="countdown"></h4>
                         <h4 id="counter-time">@*@Model.AuctionTime s*@</h4>
                         <br />
@@ -50,46 +51,37 @@
             </div>
         </div>
     </div>
-    <h3 class="text-uppercase page-header">Mô tả chi tiết sản phẩm</h3>
-    <div style="padding-left: 5%;">
-        @Html.Raw(Model.Description)
-    </div>
-    <div class="modal fade" id="modal-register" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 70%; margin: auto">
-                <div class="modal-body">
-                    <div id="myTabContent" class="tab-content">
-                        <h3>Phiên đấu giá này đã hết thời gian</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <div class="col-md-4 col-sm-12">
     <div class="box" style="padding-top: 0% !important">
         <div class="box-header">
-            <h3 class="box-title">Danh sách đấu giá sản phẩm</h3>
+            <h3 class="box-title text-center">Danh sách đấu giá sản phẩm</h3>
         </div>
         <div class="box-body no-padding">
             <table class="table table-condensed">
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Tài khoản</th>
-                    <th>Số tiền</th>
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Update software</td>
-                    <td><span class="badge bg-red">100k</span></td>
-                </tr>
-                <tr>
-                    <td>2.</td>
-                    <td>Clean database</td>
-                    <td><span class="badge bg-yellow">150k</span></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Tài khoản</th>
+                        <th>Số tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.ListTopAuction.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.ListTopAuction[i].UserName</td>
+                            <td><span class="badge bg-red">@Model.ListTopAuction[i].PriceAuction K</span></td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <h3 class="text-uppercase page-header">Mô tả chi tiết sản phẩm</h3>
+    <div style="padding-left: 5%;">
+        @Html.Raw(Model.Description)
     </div>
 </div>
 @section scripts{
@@ -97,6 +89,7 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Content/ClientTemplate/js/imagezoom.js"></script>
     <script src="~/Content/ClientTemplate/js/jquery.flexslider.js"></script>
+    <!--Slide Img-->
     <script>
         $(window).load(function () {
             $('.flexslider1').flexslider({
@@ -105,19 +98,19 @@
             });
         });
     </script>
+    <!--Load thời gian đấu giá-->
     <script type="text/javascript">
-        //Js load thời gian đấu giá
          var upgradeTime = @Model.TimeRemaining;
-                    var seconds = upgradeTime;
-                    function timer() {
-                        var days = Math.floor(seconds / 24 / 60 / 60);
-                        var hoursLeft = Math.floor((seconds) - (days * 86400));
-                        var hours = Math.floor(hoursLeft / 3600);
-                        var minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
-                        var minutes = Math.floor(minutesLeft / 60);
-                        var remainingSeconds = seconds % 60;
-                        function pad(n) {
-                            return (n < 10 ? "0" + n : n);
+        var seconds = upgradeTime;
+        function timer() {
+            var days = Math.floor(seconds / 24 / 60 / 60);
+            var hoursLeft = Math.floor((seconds) - (days * 86400));
+            var hours = Math.floor(hoursLeft / 3600);
+            var minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
+            var minutes = Math.floor(minutesLeft / 60);
+            var remainingSeconds = seconds % 60;
+            function pad(n) {
+                return (n < 10 ? "0" + n : n);
                         }
                         document.getElementById('countdown').innerHTML = pad(hours) + ":" + pad(minutes) + ":" + pad(remainingSeconds);
                         if (seconds == 0) {
@@ -147,24 +140,31 @@
                     });
             }
 
-            //phiên đấu giá kết thúc
+            //phiên đấu giá kết thúc thì vô hiệu hóa các sự kiện submit or nhập
             auctionHub.client.endTime = function (result) {
                 if (result == "End") {
-                    document.getElementById('countdown').innerHTML = "KẾT THÚC";
-                    swal({
-                        title: "Phiên đấu giá này đã kết thúc !",
-                        confirmButtonClass: "btn-primary",
-                        confirmButtonText: "Đồng ý",
-                        closeOnConfirm: false
-                    }, function () {
-                        location.href = "@Url.Action("Index","Home")";
-                    });
+                    document.getElementById('end-time').innerHTML = "ĐÃ KẾT THÚC";
+                    document.getElementById('countdown').style.display = "none";
+                    document.getElementById('AuctionPrice').disabled = true;
+                    document.getElementById('btn-auction').disabled = true;
                 }
             }
 
-            //get giá tiền khi đấu giá
-            auctionHub.client.auctioning = function (price) {
+            //get giá tiền khi đấu giá và thêm vào list danh sách đấu giá
+            auctionHub.client.auctioning = function (price, userName) {
                 document.getElementById("pricing").innerHTML = price + "<span> K</span>";
+                var code = '<tr>' +
+                    '<td>' + userName + '</td>' +
+                    '<td><span class="badge bg-red">' + price + ' K</span></td>' +
+                    '</tr>';
+                var tbody = document.getElementsByTagName("tbody");
+                if (tbody.length == "0") {
+                    $('tbody').append(code);
+                } else {
+                    console.log(tbody[0])
+                    $(code).insertBefore(tbody[0]);
+                    $("tbody tr:last-child").remove();
+                }
             }
 
             //load thời gian từ service
@@ -178,20 +178,6 @@
                 $("#btn-auction").click(function () {
                     if ("@Request.IsAuthenticated" == "True") {
                         var price = $("#AuctionPrice").val();
-                        auctionHub.client.auctioning = function (price) {
-                            auctionHub.client.addMessage = function (msg) {
-                                if (msg == "end") {
-                                    swal({
-                                        title: "Phiên đấu giá đã kết thúc !",
-                                        confirmButtonClass: "btn-primary",
-                                        confirmButtonText: "Đồng ý",
-                                        closeOnConfirm: false
-                                    }, function () {
-                                        location.href = "@Url.Action("Index","Home")";
-                                    });
-                                }
-                            }
-                        }
                         //tham gia phiên đấu giá
                         auctionHub.server.joinAuction(productId, userId, price)
                     }
@@ -200,7 +186,7 @@
                         swal({
                         title: "Bạn phải đăng nhập để có thể thực hiện chức năng này !",
                         confirmButtonClass: "btn-primary",
-                            confirmButtonText: "Tiến hành đăng nhập",
+                        confirmButtonText: "Tiến hành đăng nhập",
                         closeOnConfirm: false
                         }, function () {
                             location.href = "@Url.Action("Login","Account", new { returnUrl = Url.Action("ProductDetail", "Product", new { productId = Model.Products_Id }) })";

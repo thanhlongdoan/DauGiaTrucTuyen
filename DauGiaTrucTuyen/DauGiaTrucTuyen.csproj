@@ -257,9 +257,9 @@
     <Compile Include="IDataBinding\IProduct.cs" />
     <Compile Include="IDataBinding\IReport.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
-    <Compile Include="Migrations\201904180151433_init.cs" />
-    <Compile Include="Migrations\201904180151433_init.Designer.cs">
-      <DependentUpon>201904180151433_init.cs</DependentUpon>
+    <Compile Include="Migrations\201904190658078_init.cs" />
+    <Compile Include="Migrations\201904190658078_init.Designer.cs">
+      <DependentUpon>201904190658078_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2661,6 +2661,8 @@
     <Content Include="Areas\Admin\Views\Chatbox\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Chart\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Set.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Handle.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ckfinder\changelog.txt" />
     <Content Include="Scripts\ckfinder\ckfinder.html" />
@@ -3386,8 +3388,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904180151433_init.resx">
-      <DependentUpon>201904180151433_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904190658078_init.resx">
+      <DependentUpon>201904190658078_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

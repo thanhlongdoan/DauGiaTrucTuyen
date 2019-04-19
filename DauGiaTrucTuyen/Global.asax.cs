@@ -14,7 +14,6 @@ namespace DauGiaTrucTuyen
         {
             AutoMapper.Mapper.Initialize(conf =>
             {
-                conf.CreateMap<DetailUserViewModel, Microsoft.AspNet.Identity.EntityFramework.IdentityUser>();
                 conf.CreateMap<ListUserViewModel, Microsoft.AspNet.Identity.EntityFramework.IdentityUser>();
                 conf.CreateMap<DetailCategoryViewModel, Category>();
                 conf.CreateMap<AddCategoryViewModel, Category>();

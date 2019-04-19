@@ -12,15 +12,15 @@
             <div class="w3_hs_bottom">
             </div>
         </div>
-        <div class="simpleCart_shelfItem">
-            <p><span id="counter-time-@item.Products_Id"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
-            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary">Đấu giá</a>
+        <div class="simpleCart_shelfItem" id="@item.Products_Id">
+            <p><span id="end-time"></span><span id="counter-time-@item.Products_Id"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
+            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary"><i class="fas fa-gavel"></i></a>
         </div>
     </div>
 }
 
 @section scripts{
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
             //Js load thời gian đấu giá
             var items = @Html.Raw(Json.Encode(Model));
@@ -53,15 +53,27 @@
                     display = document.querySelector('#counter-time-' + id);
                 startTimer(fiveMinutes, display);
             }
-
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
             var auctionHub = $.connection.auctionHub;
+
+            auctionHub.client.endTimeInListView = function (result) {
+                $(".agile_ecommerce_tab_left").each(function (i) {
+                    var a = $(".agile_ecommerce_tab_left").find('#' + result + '')
+                    a.find("#end-time").text("KẾT THÚC")
+                    a.find('#counter-time-' + result + '').css("display", "none")
+                });
+            }
+
             $.connection.hub.start().done(function () {
-                auctionHub.server.setTimer();
+                auctionHub.server.checkEndTime();
             })
 
-            setTimeout(function () {
-                window.location.reload(1);
-            }, 5000);
+            //setTimeout(function () {
+            //    window.location.reload(1);
+            //}, 5000);
         })
     </script>
 }

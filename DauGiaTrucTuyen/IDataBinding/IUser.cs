@@ -9,7 +9,11 @@ namespace DauGiaTrucTuyen.IDataBinding
     public interface IUser
     {
         List<ListUserViewModel> GetListUser();
+
         DetailUserViewModel DetailUser(string id);
+
         bool DeleteUser(string id);
+
+        bool HandleUser(HandleUserViewModel model);
     }
 }

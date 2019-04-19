@@ -25,4 +25,16 @@ namespace DauGiaTrucTuyen.DataBinding
         public const string Responed = "Đã phản hồi";
         public const string NotResponed = "Chưa Phản Hồi";
     }
+
+    public static class StatusBlockAuction
+    {
+        public const string Open = "Không khóa";
+        public const string Close = "Khóa";
+    }
+
+    public static class StatusBlockUser
+    {
+        public const string Open = "Không khóa";
+        public const string Close = "Khóa";
+    }
 }

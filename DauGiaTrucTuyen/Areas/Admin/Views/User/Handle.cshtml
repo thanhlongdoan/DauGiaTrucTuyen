@@ -1,0 +1,49 @@
+﻿@model DauGiaTrucTuyen.Areas.Admin.Models.ManagerUserViewModel.HandleUserViewModel
+
+@{
+    ViewBag.Title = "Khóa tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Khóa tài khoản
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.StatusUsers_Id)
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BlockAuctionStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.BlockAuctionStatus, new SelectList(ViewBag.SelectedItemsAuction, "Value", "Text", ViewBag.SelectedDefaultAuction), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BlockAuctionStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BlockUserStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.BlockUserStatus, new SelectList(ViewBag.SelectedItemsUser, "Value", "Text", ViewBag.SelectedDefaultUser), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BlockUserStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Xác nhận" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+        }
+
+        <div>
+            @Html.ActionLink("Quay lại", "Index")
+        </div>
+    </div>
+</div>
+

@@ -11,15 +11,15 @@ namespace DauGiaTrucTuyen.Data
         [Key]
         public string StatusUsers_Id { get; set; }
 
-        public bool? BlockAuctionStatus { get; set; }
-
-        public DateTime? BlockAuctionTimes { get; set; }
+        [StringLength(10)]
+        public string BlockAuctionStatus { get; set; }
 
         public DateTime? BlockAuctionDate { get; set; }
 
-        public bool? BlockUserStatus { get; set; }
+        [StringLength(10)]
+        public string BlockUserStatus { get; set; }
 
-        public DateTime? BlockUserTime { get; set; }
+        public DateTime? BlockUserDate { get; set; }
 
         [StringLength(128)]
         public string User_Id { get; set; }

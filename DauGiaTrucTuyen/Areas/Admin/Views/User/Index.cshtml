@@ -37,7 +37,7 @@
                             @Html.DisplayFor(modelItem => item.CreateDate)
                         </td>
                         <td>
-                            <a href="#"><i class="fas fa-edit"></i></a>
+                            <a href="@Url.Action("Handle", new { id = item.Id })"><i class="fas fa-lock-open"></i></a>
                             <a href="@Url.Action("Detail", new { id = item.Id })"><i class="fas fa-info-circle"></i></a>
                             <a id="js_btnDelete" href="javascript:;" data-id="@item.Id"><i class="fas fa-trash text-danger"></i></a>
                         </td>

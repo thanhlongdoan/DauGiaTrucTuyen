@@ -35,6 +35,18 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
             [Display(Name = "Địa chỉ")]
             public string Address { get; set; }
+
+            [Display(Name = "Trạng thái khóa đấu giá")]
+            public string BlockAuctionStatus { get; set; }
+
+            [Display(Name = "Thời gian khóa đấu giá")]
+            public DateTime? BlockAuctionDate { get; set; }
+
+            [Display(Name = "Trạng thái khóa tài khoản")]
+            public string BlockUserStatus { get; set; }
+
+            [Display(Name = "Thời gian khóa tài khoản")]
+            public DateTime? BlockUserDate { get; set; }
         }
         public class ListUserViewModel
         {
@@ -48,6 +60,17 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
             [Display(Name = "Ngày tạo")]
             public DateTime CreateDate { get; set; }
+        }
+
+        public class HandleUserViewModel
+        {
+            public string StatusUsers_Id { get; set; }
+
+            [Display(Name = "Trạng thái khóa đấu giá")]
+            public string BlockAuctionStatus { get; set; }
+
+            [Display(Name = "Trạng thái khóa tài khoản")]
+            public string BlockUserStatus { get; set; }
         }
     }
 }

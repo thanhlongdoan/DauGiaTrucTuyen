@@ -5,7 +5,9 @@ using DauGiaTrucTuyen.IDataBinding;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -106,6 +108,18 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
             if (result != null)
                 return View(result);
             return HttpNotFound();
+        }
+
+        public ActionResult Set()
+        {
+            var transaction = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
+            foreach (var item in transaction)
+            {
+                item.AuctionDateStart = DateTime.Now;
+                db.Entry(item).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return View();
         }
     }
 }
