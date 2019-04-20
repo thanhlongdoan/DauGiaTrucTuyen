@@ -21,18 +21,32 @@ namespace DauGiaTrucTuyen.HubRealTime
         public void EndTime()
         {
             var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
-                                                    || x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
-                                                    .ToList();
+                                                        || x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
+                                                        .ToList();
             foreach (var item in transactions)
             {
                 if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
                 {
                     //cập nhật trạng thái khi kết thúc phiên đấu giá
-                    Product product = db.Products.FirstOrDefault(x => x.Products_Id == item.Product_Id && x.StatusProduct.Equals(StatusProduct.Auctioning));
+                    Product product = db.Products.FirstOrDefault(x => x.Products_Id == item.Product_Id 
+                                                                    && x.StatusProduct.Equals(StatusProduct.Auctioning));
                     if (product != null)
                     {
                         product.StatusProduct = StatusProduct.Transactioning;
                         db.Entry(product).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+
+                    //lấy ra người có giá cao nhất để update trạng thái win
+                    TransactionAuction transactionAuction = db.TransactionAuctions.Where(x => x.Transaction_Id == item.Transaction_Id 
+                                                                                            && x.Status != null)
+                                                                                            .OrderByDescending(x => x.AuctionPrice)
+                                                                                            .FirstOrDefault();
+                    //update trạng thái win cho người thắng cuộc trong phiên đấu giá
+                    if (transactionAuction != null)
+                    {
+                        transactionAuction.Status = StatusTransactionAuction.Win;
+                        db.Entry(transactionAuction).State = EntityState.Modified;
                         db.SaveChanges();
                     }
 
@@ -45,8 +59,8 @@ namespace DauGiaTrucTuyen.HubRealTime
         public void CheckEndTime()
         {
             var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
-                                                    || x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
-                                                    .ToList();
+                                                        || x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
+                                                        .ToList();
             foreach (var item in transactions)
             {
                 if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
@@ -60,10 +74,10 @@ namespace DauGiaTrucTuyen.HubRealTime
         public void JoinGroupAuction(string productId)
         {
             var transaction = db.Transactions.Where(x => x.Product_Id == productId
-                                                    && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
-                                                    || x.Product_Id == productId
-                                                    && x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
-                                                    .FirstOrDefault();
+                                                        && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
+                                                        || x.Product_Id == productId
+                                                        && x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
+                                                        .FirstOrDefault();
 
             if (transaction != null)
             {
@@ -74,7 +88,9 @@ namespace DauGiaTrucTuyen.HubRealTime
         //Đấu giá
         public void JoinAuction(string productId, string userId, decimal? price)
         {
-            var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).FirstOrDefault();
+            var transaction = db.Transactions.Where(x => x.Product_Id == productId 
+                                                        && x.Product.StatusProduct.Equals(StatusProduct.Auctioning))
+                                                        .FirstOrDefault();
 
             decimal? priceing = db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice);
             if (DateTime.Now > (transaction.AuctionDateStart + transaction.TimeLine))
