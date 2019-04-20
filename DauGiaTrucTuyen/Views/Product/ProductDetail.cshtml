@@ -167,12 +167,6 @@
                 }
             }
 
-            //load thời gian từ service
-            auctionHub.client.getTimeAuction = function (time) {
-                if (time != "End")
-                    document.getElementById("counter-time").innerHTML = time + " service";
-            }
-
             $.connection.hub.start().done(function () {
                 //click vào đấu giá
                 $("#btn-auction").click(function () {
