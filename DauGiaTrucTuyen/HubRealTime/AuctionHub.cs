@@ -12,7 +12,6 @@ namespace DauGiaTrucTuyen.HubRealTime
     public class AuctionHub : Hub
     {
         Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
-        static public Auction auction;
 
         public AuctionHub()
         {
