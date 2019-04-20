@@ -6,8 +6,7 @@ namespace DauGiaTrucTuyen.Data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("MessageChat")]
-    public partial class MessageChat
+    public partial class Message_User_Chat
     {
         [Key]
         public string MessageChat_Id { get; set; }
@@ -21,7 +20,7 @@ namespace DauGiaTrucTuyen.Data
         [StringLength(128)]
         public string ToUser_Id { get; set; }
 
-        public string Msg { get; set; }
+        public string Message { get; set; }
 
         public DateTime? DateSend { get; set; }
 

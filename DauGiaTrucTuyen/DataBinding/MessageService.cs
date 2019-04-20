@@ -14,18 +14,18 @@ namespace DauGiaTrucTuyen.DataBinding
     public class MessageService
     {
         public Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
-        public static List<MessageChat> listMessages = new List<MessageChat>();
+        public static List<Message_User_Chat> listMessages = new List<Message_User_Chat>();
         public ChaterService chater = new ChaterService();
 
         public void AddMessage(string fromUserId, string toUserId, string msg, string id, DateTime createDate)
         {
-            var item = new MessageChat
+            var item = new Message_User_Chat
             {
                 MessageChat_Id = Guid.NewGuid().ToString(),
                 FromConnectionId = id,
                 FromUser_Id = fromUserId.ToLower(),
                 ToUser_Id = toUserId.ToLower(),
-                Msg = msg,
+                Message = msg,
                 DateSend = createDate,
                 IsRead = false
             };
@@ -40,11 +40,11 @@ namespace DauGiaTrucTuyen.DataBinding
         /// <returns>list tin nhan da tra ve kieu JSON</returns>
         public string GetMessagesByUserId(string userId)
         {
-            List<MessageChat> listMsg = new List<MessageChat>();
+            List<Message_User_Chat> listMsg = new List<Message_User_Chat>();
             var user = chater.GetUser(userId);
             if (user != null)
             {
-                var Msgs = db.MessageChats.Where(x => x.FromUser_Id.Equals(userId) || x.ToUser_Id.Equals(userId)).ToList().OrderBy(x => x.DateSend);
+                var Msgs = db.Message_User_Chat.Where(x => x.FromUser_Id.Equals(userId) || x.ToUser_Id.Equals(userId)).ToList().OrderBy(x => x.DateSend);
                 if (Msgs.Count() > 0)
                 {
                     foreach (var message in Msgs)
@@ -71,9 +71,9 @@ namespace DauGiaTrucTuyen.DataBinding
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public MessageChat GetLastMessageByUserId(string userId)
+        public Message_User_Chat GetLastMessageByUserId(string userId)
         {
-            MessageChat message = new MessageChat();
+            Message_User_Chat message = new Message_User_Chat();
             var messages = listMessages.Where(x => x.FromUser_Id.Equals(userId)  || x.ToUser_Id.Equals(userId)).ToList().OrderBy(x => x.DateSend);
             if (messages.Count() > 0)
             {
@@ -81,14 +81,14 @@ namespace DauGiaTrucTuyen.DataBinding
             }
             else
             {
-                var msgs = db.MessageChats.Where(x => x.FromUser_Id.Equals(userId) || x.ToUser_Id.Equals(userId)).ToList().OrderBy(x => x.DateSend);
+                var msgs = db.Message_User_Chat.Where(x => x.FromUser_Id.Equals(userId) || x.ToUser_Id.Equals(userId)).ToList().OrderBy(x => x.DateSend);
                 if (msgs.Count() > 0)
                     message = msgs.LastOrDefault();
             }
             return message;
         }
 
-        public string GetStringDateOfLastMessage(MessageChat msg)
+        public string GetStringDateOfLastMessage(Message_User_Chat msg)
         {
             string strDate = string.Empty;
             if (msg.MessageChat_Id != null)
@@ -118,18 +118,18 @@ namespace DauGiaTrucTuyen.DataBinding
         public void AddListMessageIntoDb()
         {
             Thread.Sleep(1000);
-            List<MessageChat> list = listMessages;
-            listMessages = new List<MessageChat>();
+            List<Message_User_Chat> list = listMessages;
+            listMessages = new List<Message_User_Chat>();
 
             foreach (var item in list)
             {
-                db.MessageChats.Add(item);
+                db.Message_User_Chat.Add(item);
                 db.SaveChanges();
             }
         }
         public void UpdateFromConnectionId(string email, string id)
         {
-            var messages = db.MessageChats.Where(x => x.FromUser_Id == email || x.ToUser_Id == email).ToList();
+            var messages = db.Message_User_Chat.Where(x => x.FromUser_Id == email || x.ToUser_Id == email).ToList();
             foreach (var item in messages)
             {
                 item.FromConnectionId = id;
@@ -141,11 +141,11 @@ namespace DauGiaTrucTuyen.DataBinding
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
             //update in database
-            IEnumerable<MessageChat> messages;
+            IEnumerable<Message_User_Chat> messages;
             if (adRead == true)
-                messages = db.MessageChats.Where(x => x.FromUser_Id == userId && x.IsRead == false).ToList();
+                messages = db.Message_User_Chat.Where(x => x.FromUser_Id == userId && x.IsRead == false).ToList();
             else
-                messages = db.MessageChats.Where(x => x.ToUser_Id == userId && x.IsRead == false).ToList();
+                messages = db.Message_User_Chat.Where(x => x.ToUser_Id == userId && x.IsRead == false).ToList();
             foreach (var item in messages)
             {
                 item.IsRead = true;

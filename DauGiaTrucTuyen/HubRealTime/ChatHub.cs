@@ -13,7 +13,7 @@ namespace DauGiaTrucTuyen.HubRealTime
     public class ChatHub : Hub
     {
         public Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
-        public static List<UserChat> listUser = new List<UserChat>();
+        public static List<Users_Chat> listUser = new List<Users_Chat>();
         MessageService messageDb = new MessageService();
         ChaterService chater = new ChaterService();
         UserService userService = new UserService();
@@ -32,7 +32,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                 /// chưa có tài khoản , tạo mới
                 if (item == null)
                 {
-                    listUser.Add(new UserChat
+                    listUser.Add(new Users_Chat
                     {
                         UserChat_Id = Guid.NewGuid().ToString(),
                         ConnectionId = id,

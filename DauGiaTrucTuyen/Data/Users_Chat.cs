@@ -6,8 +6,7 @@ namespace DauGiaTrucTuyen.Data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("UserChat")]
-    public partial class UserChat
+    public partial class Users_Chat
     {
         [Key]
         public string UserChat_Id { get; set; }

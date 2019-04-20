@@ -10,12 +10,12 @@ namespace DauGiaTrucTuyen.DataBinding
 {
     public class ChaterService
     {
-        public static List<UserChat> listUser = new List<UserChat>();
+        public static List<Users_Chat> listUser = new List<Users_Chat>();
         public Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
 
         public void AddUser(string userId, string id)
         {
-            UserChat user = new UserChat
+            Users_Chat user = new Users_Chat
             {
                 UserChat_Id = Guid.NewGuid().ToString(),
                 ConnectionId = id,
@@ -32,27 +32,27 @@ namespace DauGiaTrucTuyen.DataBinding
         public void AddListUserIntoDb()
         {
             Thread.Sleep(10000);
-            List<UserChat> list = listUser;
-            listUser = new List<UserChat>();
+            List<Users_Chat> list = listUser;
+            listUser = new List<Users_Chat>();
 
             foreach (var item in list)
             {
-                db.UserChats.Add(item);
+                db.Users_Chat.Add(item);
                 db.SaveChanges();
             }
         }
 
-        public List<UserChat> GetAllUser()
+        public List<Users_Chat> GetAllUser()
         {
-            List<UserChat> users = new List<UserChat>();
+            List<Users_Chat> users = new List<Users_Chat>();
             var listFromList = listUser.OrderByDescending(x => x.DateOnline).ToList();
             if (listFromList.Count() > 0)
                 foreach (var item in listFromList)
                 {
                     users.Add(item);
                 }
-            var lista = db.UserChats.ToList();
-            var listFromDb = db.UserChats.ToList().OrderByDescending(x => x.IsOnline).ThenByDescending(x => x.DateOnline).ToList();
+            var lista = db.Users_Chat.ToList();
+            var listFromDb = db.Users_Chat.ToList().OrderByDescending(x => x.IsOnline).ThenByDescending(x => x.DateOnline).ToList();
             if (listFromDb.Count() > 0)
                 foreach (var item in listFromDb)
                 {
@@ -61,18 +61,18 @@ namespace DauGiaTrucTuyen.DataBinding
             return users;
         }
 
-        public UserChat GetUser(string userId)
+        public Users_Chat GetUser(string userId)
         {
-            UserChat user;
+            Users_Chat user;
             user = listUser.FirstOrDefault(x => x.User_Id == userId);
             if (user == null)
-                user = db.UserChats.FirstOrDefault(x => x.User_Id == userId);
+                user = db.Users_Chat.FirstOrDefault(x => x.User_Id == userId);
             return user;
         }
 
         public void UpdateIsOnlineOfUser(string userId, bool isOnline)
         {
-            UserChat user;
+            Users_Chat user;
             user = listUser.FirstOrDefault(x => x.User_Id == userId);
             if (user != null)
             {
@@ -81,7 +81,7 @@ namespace DauGiaTrucTuyen.DataBinding
             }
             else
             {
-                user = db.UserChats.FirstOrDefault(x => x.User_Id == userId);
+                user = db.Users_Chat.FirstOrDefault(x => x.User_Id == userId);
                 if (user != null)
                 {
                     user.IsOnline = isOnline;
@@ -94,7 +94,7 @@ namespace DauGiaTrucTuyen.DataBinding
 
         public void UpdateConnectionId(string userId, string id)
         {
-            UserChat user;
+            Users_Chat user;
             user = listUser.FirstOrDefault(x => x.User_Id == userId);
             if (user != null)
             {
@@ -102,7 +102,7 @@ namespace DauGiaTrucTuyen.DataBinding
             }
             else
             {
-                user = db.UserChats.FirstOrDefault(x => x.User_Id == userId);
+                user = db.Users_Chat.FirstOrDefault(x => x.User_Id == userId);
                 if (user != null)
                 {
                     user.ConnectionId = id;
@@ -111,12 +111,12 @@ namespace DauGiaTrucTuyen.DataBinding
             }
         }
 
-        public UserChat GetUserByConnectionId(string id)
+        public Users_Chat GetUserByConnectionId(string id)
         {
-            UserChat user;
+            Users_Chat user;
             user = listUser.FirstOrDefault(x => x.ConnectionId == id);
             if (user == null)
-                user = db.UserChats.FirstOrDefault(x => x.ConnectionId == id);
+                user = db.Users_Chat.FirstOrDefault(x => x.ConnectionId == id);
             return user;
         }
     }

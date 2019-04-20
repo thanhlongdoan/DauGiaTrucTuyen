@@ -239,14 +239,14 @@
     <Compile Include="Data\Category.cs" />
     <Compile Include="Data\Db_DauGiaTrucTuyen.cs" />
     <Compile Include="Data\FeedBack.cs" />
-    <Compile Include="Data\MessageChat.cs" />
+    <Compile Include="Data\Message_User_Chat.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\ProductDetail.cs" />
     <Compile Include="Data\Report.cs" />
     <Compile Include="Data\StatusUser.cs" />
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\TransactionAuction.cs" />
-    <Compile Include="Data\UserChat.cs" />
+    <Compile Include="Data\Users_Chat.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -256,9 +256,13 @@
     <Compile Include="IDataBinding\IProduct.cs" />
     <Compile Include="IDataBinding\IReport.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
-    <Compile Include="Migrations\201904190658078_init.cs" />
-    <Compile Include="Migrations\201904190658078_init.Designer.cs">
-      <DependentUpon>201904190658078_init.cs</DependentUpon>
+    <Compile Include="Migrations\201904201729535_init.cs" />
+    <Compile Include="Migrations\201904201729535_init.Designer.cs">
+      <DependentUpon>201904201729535_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904201804140_init2.cs" />
+    <Compile Include="Migrations\201904201804140_init2.Designer.cs">
+      <DependentUpon>201904201804140_init2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3387,8 +3391,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904190658078_init.resx">
-      <DependentUpon>201904190658078_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904201729535_init.resx">
+      <DependentUpon>201904201729535_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904201804140_init2.resx">
+      <DependentUpon>201904201804140_init2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
