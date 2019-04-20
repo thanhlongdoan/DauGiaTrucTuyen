@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="simpleCart_shelfItem" id="@item.Products_Id">
-            <p><span id="end-time"></span><span id="counter-time-@item.Products_Id"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
+            <p><span id="end-time" style="font-size: 13px"></span><span id="counter-time-@item.Products_Id" style="font-size: 13px;"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
             <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary"><i class="fas fa-gavel"></i></a>
         </div>
     </div>
@@ -44,7 +44,7 @@
                         display.textContent = hours + ":" + minutes + ":" + seconds;
 
                         if (--timer < 0) {
-                            display.textContent = "KẾT THÚC";
+                            display.textContent = "ĐÃ KẾT THÚC";
                         }
                     }, 1000);
                 }
@@ -62,7 +62,8 @@
             auctionHub.client.endTimeInListView = function (result) {
                 $(".agile_ecommerce_tab_left").each(function (i) {
                     var a = $(".agile_ecommerce_tab_left").find('#' + result + '')
-                    a.find("#end-time").text("KẾT THÚC")
+                    a.find("#end-time").css('font-size', '13px;')
+                    a.find("#end-time").text("ĐÃ KẾT THÚC")
                     a.find('#counter-time-' + result + '').css("display", "none")
                 });
             }
