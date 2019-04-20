@@ -16,6 +16,7 @@ namespace DauGiaTrucTuyen.HubRealTime
         public static List<UserChat> listUser = new List<UserChat>();
         MessageService messageDb = new MessageService();
         ChaterService chater = new ChaterService();
+        UserService userService = new UserService();
         string emailAdmin = WebConfigurationManager.AppSettings["EmailAdmin"];
 
         public void Connect(string userId)
@@ -100,8 +101,9 @@ namespace DauGiaTrucTuyen.HubRealTime
                 MessageService messageDb = new MessageService();
                 var createDate = DateTime.Now;
                 messageDb.AddMessage(fromUserId, toUserId, msg, id, createDate);
+                var user = userService.DetailUser(fromUserId);
                 var connectionId = Context.ConnectionId;
-                Clients.User("admin@gmail.com").SendMsgForAdmin(msg, createDate, connectionId, fromUserId);
+                Clients.User("admin@gmail.com").SendMsgForAdmin(msg, createDate, connectionId, user.UserName);
             }
             //truong hoi Id khong dung voi ConnectionId thi tra ve result va 'thong bao ket noi bi ngat'
             else
