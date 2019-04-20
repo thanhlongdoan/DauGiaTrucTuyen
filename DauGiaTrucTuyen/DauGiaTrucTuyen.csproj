@@ -226,7 +226,6 @@
     <Compile Include="Controllers\MyAuctionController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
-    <Compile Include="DataBinding\Auction.cs" />
     <Compile Include="DataBinding\CategoryService.cs" />
     <Compile Include="DataBinding\ChaterService.cs" />
     <Compile Include="DataBinding\MessageService.cs" />

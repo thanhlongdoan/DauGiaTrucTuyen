@@ -12,27 +12,30 @@ namespace DauGiaTrucTuyen.HubRealTime
     public class AuctionHub : Hub
     {
         Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
-        public static bool initialized = false;
-        public static object initLock = new object();
-        static private Timer timer;
-        static public Auction auction;
-        public static int secs_10 = 1000;
 
         public AuctionHub()
         {
-            //var context = GlobalHost.ConnectionManager.GetHubContext<AuctionHub>();
-
         }
 
         //check phiên đấu giá kết thúc ngay tại trang chi tiết
         public void EndTime()
         {
-            var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
+            var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
+                                                    || x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
+                                                    .ToList();
             foreach (var item in transactions)
             {
-                var time1 = item.AuctionDateStart + item.TimeLine;
                 if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
                 {
+                    //cập nhật trạng thái khi kết thúc phiên đấu giá
+                    Product product = db.Products.FirstOrDefault(x => x.Products_Id == item.Product_Id && x.StatusProduct.Equals(StatusProduct.Auctioning));
+                    if (product != null)
+                    {
+                        product.StatusProduct = StatusProduct.Transactioning;
+                        db.Entry(product).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+
                     Clients.Group(item.Transaction_Id).EndTime("End");
                 }
             }
@@ -41,27 +44,34 @@ namespace DauGiaTrucTuyen.HubRealTime
         //kiểm tra phiên đấu giá kết thúc ngay tại trang hiển thị danh sách đấu giá của người dùng
         public void CheckEndTime()
         {
-            var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
+            var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
+                                                    || x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
+                                                    .ToList();
             foreach (var item in transactions)
             {
-                var time1 = item.AuctionDateStart + item.TimeLine;
                 if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
                 {
                     Clients.All.EndTimeInListView(item.Product_Id);
                 }
             }
         }
-        
+
+        //tham gia phiên đấu giá khi load trang chi tiết
         public void JoinGroupAuction(string productId)
         {
-            var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).FirstOrDefault();
+            var transaction = db.Transactions.Where(x => x.Product_Id == productId
+                                                    && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
+                                                    || x.Product_Id == productId
+                                                    && x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
+                                                    .FirstOrDefault();
 
             if (transaction != null)
             {
                 Groups.Add(Context.ConnectionId, transaction.Transaction_Id);
-                InitializeAuction((DateTime)transaction.AuctionDateStart, transaction.TimeLine.Value.TotalSeconds, transaction.Transaction_Id);
             }
         }
+
+        //Đấu giá
         public void JoinAuction(string productId, string userId, decimal? price)
         {
             var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).FirstOrDefault();
@@ -80,6 +90,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                     transactionAuction.User_Id = userId;
                     transactionAuction.AuctionTime = DateTime.Now;
                     transactionAuction.AuctionPrice = price;
+                    transactionAuction.Status = StatusTransactionAuction.Lost;
                     db.TransactionAuctions.Add(transactionAuction);
                     db.SaveChanges();
 
@@ -89,29 +100,6 @@ namespace DauGiaTrucTuyen.HubRealTime
                 }
                 else
                     Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại !");
-            }
-        }
-
-        private void InitializeAuction(DateTime auctionDateStart, double seconds, string transactionId)
-        {
-            auction = new Auction(auctionDateStart.AddSeconds(seconds));
-
-            timer = new Timer(TimerExpired, null, secs_10, 0);
-
-            initialized = true;
-        }
-
-        public void TimerExpired(object state)
-        {
-            if (auction.TimeRemaining > 0)
-            {
-                Clients.All.GetTimeAuction(string.Format("{0:hh\\:mm\\:ss}", auction.GetTimeRemaining()));
-                timer.Change(secs_10, 0);
-            }
-            else
-            {
-                timer.Dispose();
-                Clients.All.GetTimeAuction("End");
             }
         }
     }
