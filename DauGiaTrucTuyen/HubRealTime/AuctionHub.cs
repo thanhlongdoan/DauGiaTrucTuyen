@@ -15,8 +15,6 @@ namespace DauGiaTrucTuyen.HubRealTime
 
         public AuctionHub()
         {
-            //var context = GlobalHost.ConnectionManager.GetHubContext<AuctionHub>();
-
         }
 
         //check phiên đấu giá kết thúc ngay tại trang chi tiết
@@ -25,7 +23,6 @@ namespace DauGiaTrucTuyen.HubRealTime
             var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
             foreach (var item in transactions)
             {
-                var time1 = item.AuctionDateStart + item.TimeLine;
                 if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
                 {
                     Clients.Group(item.Transaction_Id).EndTime("End");
@@ -39,7 +36,6 @@ namespace DauGiaTrucTuyen.HubRealTime
             var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
             foreach (var item in transactions)
             {
-                var time1 = item.AuctionDateStart + item.TimeLine;
                 if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
                 {
                     Clients.All.EndTimeInListView(item.Product_Id);
@@ -56,6 +52,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                 Groups.Add(Context.ConnectionId, transaction.Transaction_Id);
             }
         }
+
         public void JoinAuction(string productId, string userId, decimal? price)
         {
             var transaction = db.Transactions.Where(x => x.Product_Id == productId && x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).FirstOrDefault();
