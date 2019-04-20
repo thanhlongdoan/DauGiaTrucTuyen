@@ -44,7 +44,8 @@
                         display.textContent = hours + ":" + minutes + ":" + seconds;
 
                         if (--timer < 0) {
-                            timer = duration;
+                            display.textContent = "KẾT THÚC"
+                            //timer = duration;
                         }
                     }, 1000);
                 }
