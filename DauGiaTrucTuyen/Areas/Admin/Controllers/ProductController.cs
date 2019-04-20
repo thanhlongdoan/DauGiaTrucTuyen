@@ -112,10 +112,35 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
 
         public ActionResult Set()
         {
-            var transaction = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)).ToList();
+            var transaction = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning) || x.Product.StatusProduct.Equals(StatusProduct.Transactioning)).ToList();
+
+            var transactionAuction = db.TransactionAuctions.ToList();
+            foreach (var item in transactionAuction)
+            {
+                db.TransactionAuctions.Remove(item);
+                db.SaveChanges();
+            }
             foreach (var item in transaction)
             {
                 item.AuctionDateStart = DateTime.Now;
+                db.Entry(item).State = EntityState.Modified;
+                db.SaveChanges();
+
+                TransactionAuction itemTransactionAuction = new TransactionAuction()
+                {
+                    Transaction_Id = item.Transaction_Id,
+                    User_Id = item.Product.User_Id,
+                    AuctionPrice = item.PriceStart,
+                    AuctionTime = DateTime.Now
+                };
+                db.TransactionAuctions.Add(itemTransactionAuction);
+                db.SaveChanges();
+            }
+
+            var product = db.Products.Where(x => x.StatusProduct.Equals(StatusProduct.Transactioning)).ToList();
+            foreach (var item in product)
+            {
+                item.StatusProduct = StatusProduct.Auctioning;
                 db.Entry(item).State = EntityState.Modified;
                 db.SaveChanges();
             }

@@ -15,6 +15,12 @@ namespace DauGiaTrucTuyen.DataBinding
         public const string Transactioned = "Đã giao dich";
     }
 
+    public static class StatusTransactionAuction
+    {
+        public const string Win = "Thắng";
+        public const string Lost = "Thua";
+    }
+
     public static class StatusCategory
     {
         public const string Opened = "Mở";

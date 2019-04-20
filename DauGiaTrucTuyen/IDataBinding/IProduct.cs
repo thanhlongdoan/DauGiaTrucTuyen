@@ -24,8 +24,6 @@ namespace DauGiaTrucTuyen.IDataBinding
 
         DetailProductViewModel DetailProduct(string productId);
 
-        bool CheckPrice(decimal price, string productId);
-
         List<ListProductForPageClientViewModel> GetListProductFromCategory(string categoryId);
 
         bool Delele(string productId);

@@ -69,6 +69,7 @@ namespace DauGiaTrucTuyen.Models
         [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
         [Display(Name = "Tên đăng nhập")]
         [Remote("CheckUserNameExist", "Account", ErrorMessage = "Tên đăng nhập đã tồn tại !")]
+        [MaxLength(15, ErrorMessage = "Tên đăng nhập không quá 15 ký tự !")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập Email !")]
@@ -80,6 +81,7 @@ namespace DauGiaTrucTuyen.Models
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại !")]
         [Display(Name = "Số điện thoại")]
         [StringLength(12, MinimumLength = 6, ErrorMessage = "Số điện thoại phải từ 6-12 kí tự !")]
+        [Remote("CheckNumberPhoneExist", "Account", ErrorMessage = "Số điện thoại này đã được đăng ký !")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu !")]
@@ -99,8 +101,9 @@ namespace DauGiaTrucTuyen.Models
 
     public class ResetPasswordViewModel
     {
-        [Required(ErrorMessage = "Vui lòng nhập tài khoản !")]
-        [Display(Name = "Tài khoản")]
+        [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập !")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
+        [Display(Name = "Tên đăng nhập")]
 
         public string UserName { get; set; }
 
@@ -127,6 +130,8 @@ namespace DauGiaTrucTuyen.Models
     }
     public class UpdateUserViewModel
     {
+        [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập !")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
         [Display(Name = "Tên đăng nhập")]
         public string UserName { get; set; }
 

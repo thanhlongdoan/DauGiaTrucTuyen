@@ -178,7 +178,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 transactionAuction.AuctionPrice = transaction.PriceStart; ;
                 db.TransactionAuctions.Add(transactionAuction);
 
-                db.Entry(product).State = EntityState.Modified;
+                db.Entry(transactionAuction).State = EntityState.Modified;
                 db.SaveChanges();
                 return true;
             }
@@ -193,7 +193,7 @@ namespace DauGiaTrucTuyen.DataBinding
                         join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                         join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
                         orderby transaction.TimeLine ascending
-                        where product.StatusProduct.Equals(StatusProduct.Auctioning)
+                        where product.StatusProduct.Equals(StatusProduct.Auctioning) || product.StatusProduct.Equals(StatusProduct.Transactioning)
                         select new ListProductForPageClientViewModel
                         {
                             Products_Id = product.Products_Id,
@@ -268,7 +268,7 @@ namespace DauGiaTrucTuyen.DataBinding
                              AuctionPrice = db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                              Transaction_Id = transaction.Transaction_Id,
                              ListTopAuction = (from transactionAuction in db.TransactionAuctions
-                                               where transactionAuction.Transaction_Id == transaction.Transaction_Id
+                                               where transactionAuction.Transaction_Id == transaction.Transaction_Id && transactionAuction.Status != null
                                                orderby transactionAuction.AuctionPrice descending
                                                select new ListTopAuction
                                                {
@@ -343,15 +343,6 @@ namespace DauGiaTrucTuyen.DataBinding
             db.SaveChanges();
 
             return true;
-        }
-
-        //Kiểm tra tiền nhập vào đấu giá
-        public bool CheckPrice(decimal price, string productId)
-        {
-            var result = db.TransactionAuctions.Where(x => x.AuctionPrice <= price).FirstOrDefault();
-            if (result != null)
-                return true;
-            return false;
         }
 
         //xóa sản phẩm
