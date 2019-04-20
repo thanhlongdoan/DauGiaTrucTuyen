@@ -6,6 +6,8 @@ using System.Threading;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Script.Serialization;
+using System.IdentityModel;
+using Microsoft.AspNet.Identity;
 
 namespace DauGiaTrucTuyen.DataBinding
 {
@@ -115,7 +117,7 @@ namespace DauGiaTrucTuyen.DataBinding
         }
         public void AddListMessageIntoDb()
         {
-            Thread.Sleep(10000);
+            Thread.Sleep(1000);
             List<MessageChat> list = listMessages;
             listMessages = new List<MessageChat>();
 
@@ -137,12 +139,13 @@ namespace DauGiaTrucTuyen.DataBinding
 
         public void UpdateIsReadMessage(string email, bool adRead, DateTime date)
         {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
             //update in database
             IEnumerable<MessageChat> messages;
             if (adRead == true)
-                messages = db.MessageChats.Where(x => x.FromUser_Id == email && x.IsRead == false).ToList();
+                messages = db.MessageChats.Where(x => x.FromUser_Id == userId && x.IsRead == false).ToList();
             else
-                messages = db.MessageChats.Where(x => x.ToUser_Id == email && x.IsRead == false).ToList();
+                messages = db.MessageChats.Where(x => x.ToUser_Id == userId && x.IsRead == false).ToList();
             foreach (var item in messages)
             {
                 item.IsRead = true;
@@ -151,9 +154,9 @@ namespace DauGiaTrucTuyen.DataBinding
             db.SaveChanges();
             //update in list messages
             if (adRead == true)
-                messages = listMessages.Where(x => x.FromUser_Id == email && x.IsRead == false).ToList();
+                messages = listMessages.Where(x => x.FromUser_Id == userId && x.IsRead == false).ToList();
             else
-                messages = listMessages.Where(x => x.ToUser_Id == email && x.IsRead == false).ToList();
+                messages = listMessages.Where(x => x.ToUser_Id == userId && x.IsRead == false).ToList();
             foreach (var item in messages)
             {
                 item.IsRead = true;

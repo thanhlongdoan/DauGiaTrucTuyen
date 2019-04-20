@@ -203,7 +203,8 @@
     @Scripts.Render("~/bundles/ckeditor")
     <script src="~/Scripts/ckfinder/ckfinder.js"></script>
     <script>
-        if ("@Request.IsAuthenticated" == "False") {
+        var isAuthenticated = "@Request.IsAuthenticated" == "True";
+        if (!isAuthenticated) {
             $(".customer-info").html('<a href="@Url.Action("Login","Account")">Vui lòng đăng nhập để trò chuyện</a>')
             var userIdAll = '';
         }

@@ -8,6 +8,7 @@
 
     var chatHub = $.connection.chatHub;
     var item;
+    var userActive;
 
 
 
@@ -253,7 +254,8 @@
     //Load all messeges of email
     chatHub.client.loadAllMsgByEmailOfAdmin = function (listMsg) {
         $('.list-messages').html('');
-        var email = $('.user-active').text();
+        var userid = $('input[name="user-id"]').val().trim();
+        var user = $('.user-active').text();
         var jsonMsg = JSON.parse(listMsg);
         var len = jsonMsg.length;
         if (len == 0)
@@ -265,15 +267,14 @@
             if (i == 0) {
                 addDateIntoListMessages(dateFormart);
             }
-
-            if (email == jsonMsg[i].FromEmail) {
-                if (i > 0 && jsonMsg[i - 1].FromEmail == email && diffTimes(new Date(parseInt(jsonMsg[i - 1].DateSend.substr(6))), dateFormart) < 30)
+            if (userid == jsonMsg[i].FromUser_Id) {
+                if (i > 0 && jsonMsg[i - 1].FromUser_Id == userid && diffTimes(new Date(parseInt(jsonMsg[i - 1].DateSend.substr(6))), dateFormart) < 30)
                     appendGroupMsg(jsonMsg[i].Msg, jsonMsg[i].IsRead);
                 else
-                    appendListMsgClient(jsonMsg[i].Msg, jsonMsg[i].FromEmail, dateFormart, jsonMsg[i].IsRead)
+                    appendListMsgClient(jsonMsg[i].Msg, user, dateFormart, jsonMsg[i].IsRead)
             }
             else {
-                if (i > 0 && jsonMsg[i - 1].FromEmail != email && diffTimes(new Date(parseInt(jsonMsg[i - 1].DateSend.substr(6))), dateFormart) < 30)
+                if (i > 0 && jsonMsg[i - 1].FromUser_Id != userid && diffTimes(new Date(parseInt(jsonMsg[i - 1].DateSend.substr(6))), dateFormart) < 30)
                     appendGroupMsg(jsonMsg[i].Msg, true);
                 else
                     appendListMsgAdmin(jsonMsg[i].Msg, dateFormart);
@@ -287,7 +288,7 @@
             }
         }
         console.log(jsonMsg[len - 1].DateRead);
-        if (jsonMsg[len - 1].FromEmail != email && jsonMsg[len - 1].IsRead == true) {
+        if (jsonMsg[len - 1].FromUser_id != user && jsonMsg[len - 1].IsRead == true) {
             var date = new Date(parseInt(jsonMsg[len - 1].DateRead.substr(6)));
             AppendSeenToMessage(date);
         }
@@ -300,19 +301,21 @@
 
     //Client gửi tin nhắn cho admin
     chatHub.client.sendMsgForAdmin = function (msg, date, connectionId, email) {
+        debugger;
         var connectionIdActive = $('input[name="connectionIdActive"').val();                        //Lấy connectionId đang active
         if (connectionId == connectionIdActive) {                                                   //nếu đang active sẽ thêm message vào list-messages
             var dateSend = new Date(date);
             var emailLiLast = $('.list-messages li:last-child').find('.user-name').text();
             var dateLiLast = $('.list-messages li:last-child').find('input[name="date"]').val();
             var date = new Date(dateLiLast);
+            var user = $('.chat-header .user-active').text();
             ClearSeen();
             if (email == emailLiLast && diffTimes(date, dateSend) < 30) {
                 appendGroupMsg(msg, false);
             } else {
                 if (diffDays(date, dateSend) > 0)
                     addDateIntoListMessages(dateSend);
-                appendListMsgClient(msg, email, dateSend, false);
+                appendListMsgClient(msg, user, dateSend, false);
             }
             $(".list-messages").animate({ scrollTop: $('.list-messages').prop('scrollHeight') });
         }
@@ -331,10 +334,12 @@
     $.connection.hub.start().done(function () {
         //Send message from admin to client
         function sendMessge(email, msg) {
-            var connectionId = $('input[name="connectionIdActive"').val();
+            debugger;
+            var connectionId = $('input[name="connectionIdActive"]').val();
             var dateSend = new Date();
             var emailLiLast = $('.list-messages li:last-child').find('.user-name').text();
             var dateLiLast = $('.list-messages li:last-child').find('input[name="date"]').val();
+            var userId = $('input[name = "user-id"]').val().trim();
             var date = new Date(dateLiLast);
             ClearSeen();
             if (email != emailLiLast && diffTimes(date, dateSend) < 30) {
@@ -345,7 +350,7 @@
                 appendListMsgAdmin(msg, dateSend);
             }
             $(".list-messages").animate({ scrollTop: $('.list-messages').prop('scrollHeight') });
-            chatHub.server.sendPrivateMessage(email, msg, connectionId);
+            chatHub.server.sendPrivateMessage(userId, msg, connectionId);
             $('textarea').val('').focus();
         }
 
@@ -378,13 +383,15 @@
         start.addClass('active');
         var emailStart = start.find('.user_info .user-name').text();
         var connectionIdStart = start.find('input[name="connectionId"]').val();
+        var userIdStart = start.find('.user_info .user-id').text();
         //console.log(start.find('.img_cont span').hasClass('online'));
         if (start.find('.img_cont span').hasClass('online') == true)
             $('.chat-header .onl').addClass('fa-circle');
         console.log($('.chat-header i.onl').html())
         $('input[name="connectionIdActive"]').val(connectionIdStart);
+        $('input[name="user-id"]').val(userIdStart);
         $('.chat-header .user-active').html(emailStart);
-        chatHub.server.loadMsgByEmailOfAdmin(emailStart);
+        chatHub.server.loadMsgByEmailOfAdmin(userIdStart);
 
         //event click a li (a contact) in ul (list contact)
         $('.list-contacts').on('click', 'li', function () {
@@ -403,8 +410,10 @@
                 $('.list-contacts').children('li').removeClass('active');
                 $(this).addClass('active');
 
+                userActive = userName;
                 $('.user-active').text(userName);
                 $('input[name="connectionIdActive"]').val(connectionId);
+                $('input[name="user-id"]').val(userId);
 
                 if ($(this).find('.img_cont span').hasClass('online') == true)
                     $('.chat-header .onl').addClass('fa-circle');

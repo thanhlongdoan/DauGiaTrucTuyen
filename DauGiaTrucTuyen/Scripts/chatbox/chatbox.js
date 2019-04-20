@@ -29,7 +29,7 @@
 
             var formatted2 = formatAMPM(dateFormart);
             //console.log(dateFormart);
-            if (jsonMsg[i].FromEmail != 'admin@gmail.com') {
+            if (jsonMsg[i].FromUser_Id != 'admin@gmail.com') {
                 $('.chatbox-body-msg').append(AddMsgOfClient(jsonMsg[i].Msg, formatted2));
             }
             //nguoc lai thi append ben phai
@@ -44,6 +44,7 @@
     };
 
     chatHub.client.adminSendMsg = function (msg) {
+        debugger;
         DeleteOldSeen();
         $('.chatbox-body-msg').append('<li class="float-left mt-1 new-message chatbox-body-msg-left ">' + msg + '</li >');
         $('.chatbox-body').animate({ scrollTop: $('.chatbox-body').prop('scrollHeight') });
@@ -101,7 +102,8 @@
             }
         });
         $('.chatbox').on('click', function () {
-            if (email != null) {
+            debugger
+            if (isAuthenticated) {
                 var lastLi = $('.chatbox-body-msg li:last-child');
                 console.log(lastLi.hasClass('float-left'));
                 if (lastLi.hasClass('new-message')) {
