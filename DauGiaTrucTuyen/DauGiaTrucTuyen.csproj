@@ -231,7 +231,6 @@
     <Compile Include="DataBinding\MessageService.cs" />
     <Compile Include="DataBinding\ProductService.cs" />
     <Compile Include="DataBinding\ReportService.cs" />
-    <Compile Include="DataBinding\SendMailAuction.cs" />
     <Compile Include="DataBinding\StatusService.cs" />
     <Compile Include="DataBinding\UserService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
