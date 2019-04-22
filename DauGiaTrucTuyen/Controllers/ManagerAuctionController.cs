@@ -102,5 +102,10 @@ namespace DauGiaTrucTuyen.Controllers
                 return View(result);
             return HttpNotFound();
         }
+
+        public ActionResult MailContent()
+        {
+            return View();
+        }
     }
 }

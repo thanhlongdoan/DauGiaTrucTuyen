@@ -1,5 +1,7 @@
-﻿using DauGiaTrucTuyen.Data;
+﻿using DauGiaTrucTuyen.Areas.Admin.Models;
+using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
+using DauGiaTrucTuyen.Models;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Data.Entity;
@@ -27,18 +29,9 @@ namespace DauGiaTrucTuyen.HubRealTime
             {
                 if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
                 {
-                    //cập nhật trạng thái khi kết thúc phiên đấu giá
-                    Product product = db.Products.FirstOrDefault(x => x.Products_Id == item.Product_Id 
-                                                                    && x.StatusProduct.Equals(StatusProduct.Auctioning));
-                    if (product != null)
-                    {
-                        product.StatusProduct = StatusProduct.Transactioning;
-                        db.Entry(product).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
 
                     //lấy ra người có giá cao nhất để update trạng thái win
-                    TransactionAuction transactionAuction = db.TransactionAuctions.Where(x => x.Transaction_Id == item.Transaction_Id 
+                    TransactionAuction transactionAuction = db.TransactionAuctions.Where(x => x.Transaction_Id == item.Transaction_Id
                                                                                             && x.Status != null)
                                                                                             .OrderByDescending(x => x.AuctionPrice)
                                                                                             .FirstOrDefault();
@@ -47,6 +40,35 @@ namespace DauGiaTrucTuyen.HubRealTime
                     {
                         transactionAuction.Status = StatusTransactionAuction.Win;
                         db.Entry(transactionAuction).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        var query = (from productSendMail in db.Products
+                                     join productDetail in db.ProductDetails on productSendMail.Products_Id equals productDetail.Product_Id
+                                     join transactionSendMail in db.Transactions on productSendMail.Products_Id equals transactionSendMail.Product_Id
+                                     where transactionSendMail.Transaction_Id == transactionAuction.Transaction_Id &&
+                                         productSendMail.StatusProduct.Equals(StatusProduct.Auctioning)
+                                     select new NoticationWin
+                                     {
+                                         Transaction_Id = transactionSendMail.Transaction_Id,
+                                         ProductName = productDetail.ProductName,
+                                         PriceAuction = transactionAuction.AuctionPrice,
+                                         User_Id_Auction = transactionAuction.User_Id,
+                                         User_Id_Add = productSendMail.User_Id
+                                     })
+                                 .FirstOrDefault();
+                        if (query != null)
+                        {
+                            SendMail(query);
+                        }
+                    }
+
+                    //cập nhật trạng thái khi kết thúc phiên đấu giá
+                    Product product = db.Products.FirstOrDefault(x => x.Products_Id == item.Product_Id
+                                                                    && x.StatusProduct.Equals(StatusProduct.Auctioning));
+                    if (product != null)
+                    {
+                        product.StatusProduct = StatusProduct.Transactioning;
+                        db.Entry(product).State = EntityState.Modified;
                         db.SaveChanges();
                     }
 
@@ -88,7 +110,7 @@ namespace DauGiaTrucTuyen.HubRealTime
         //Đấu giá
         public void JoinAuction(string productId, string userId, decimal? price)
         {
-            var transaction = db.Transactions.Where(x => x.Product_Id == productId 
+            var transaction = db.Transactions.Where(x => x.Product_Id == productId
                                                         && x.Product.StatusProduct.Equals(StatusProduct.Auctioning))
                                                         .FirstOrDefault();
 
@@ -117,6 +139,12 @@ namespace DauGiaTrucTuyen.HubRealTime
                 else
                     Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại !");
             }
+        }
+
+        public void SendMail(NoticationWin model)
+        {
+            SendMail sendMail = new SendMail();
+            sendMail.SendMailNotication(model);
         }
     }
 }

@@ -488,7 +488,7 @@ namespace DauGiaTrucTuyen.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
             var result = db.Users.Any(x => x.PhoneNumber.Equals(numberPhone));
-            if (result == true)
+            if (result != true)
                 return Json(false, JsonRequestBehavior.AllowGet);
             return Json(true, JsonRequestBehavior.AllowGet);
         }

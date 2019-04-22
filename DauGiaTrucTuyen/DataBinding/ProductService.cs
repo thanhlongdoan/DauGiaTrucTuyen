@@ -76,7 +76,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 product.Products_Id = Guid.NewGuid().ToString();
                 product.CreateDate = DateTime.Now;
                 product.CreateBy = "admin";
-                product.StatusProduct = StatusProduct.Approved;
+                product.StatusProduct = StatusProduct.Transactioning;
                 product.Category_Id = model.Category_Id;
                 product.User_Id = sessionUserId;
                 db.Products.Add(product);
@@ -169,7 +169,13 @@ namespace DauGiaTrucTuyen.DataBinding
             var transaction = db.Transactions.Where(x => x.Product_Id == product.Products_Id).FirstOrDefault();
             if (product != null)
             {
-                product.StatusProduct = StatusProduct.Approved;
+                product.StatusProduct = StatusProduct.Transactioning;
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+
+                transaction.AuctionDateStart = DateTime.Now;
+                db.Entry(transaction).State = EntityState.Modified;
+                db.SaveChanges();
 
                 TransactionAuction transactionAuction = new TransactionAuction();
                 transactionAuction.Transaction_Id = transaction.Transaction_Id;
@@ -177,9 +183,8 @@ namespace DauGiaTrucTuyen.DataBinding
                 transactionAuction.AuctionTime = DateTime.Now;
                 transactionAuction.AuctionPrice = transaction.PriceStart; ;
                 db.TransactionAuctions.Add(transactionAuction);
-
-                db.Entry(transactionAuction).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return true;
             }
             return false;

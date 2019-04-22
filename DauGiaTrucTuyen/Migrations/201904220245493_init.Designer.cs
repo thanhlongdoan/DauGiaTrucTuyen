@@ -13,7 +13,7 @@ namespace DauGiaTrucTuyen.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201904201729535_init"; }
+            get { return "201904220245493_init"; }
         }
         
         string IMigrationMetadata.Source
