@@ -9,6 +9,7 @@ using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.IDataBinding;
 using Microsoft.AspNet.SignalR;
 using DauGiaTrucTuyen.HubRealTime;
+using PagedList;
 
 namespace DauGiaTrucTuyen.Controllers
 {
@@ -38,9 +39,12 @@ namespace DauGiaTrucTuyen.Controllers
 
         [AllowAnonymous]
         //Danh sách sản phẩm cho trang người dùng
-        public ActionResult GetListProductFromCategory(string id)
+        public ActionResult GetListProductFromCategory(string id, int? page)
         {
-            return View(_iProduct.GetListProductFromCategory(id));
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            return View(_iProduct.GetListProductFromCategory(id).ToPagedList(pageIndex, pageSize));
         }
 
         [AllowAnonymous]

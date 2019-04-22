@@ -24,7 +24,7 @@ namespace DauGiaTrucTuyen.IDataBinding
 
         DetailProductViewModel DetailProduct(string productId);
 
-        List<ListProductForPageClientViewModel> GetListProductFromCategory(string categoryId);
+        List<ListProductFullViewModel> GetListProductFromCategory(string categoryId);
 
         bool Delele(string productId);
 

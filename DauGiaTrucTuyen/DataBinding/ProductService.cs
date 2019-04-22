@@ -225,22 +225,38 @@ namespace DauGiaTrucTuyen.DataBinding
         }
 
         //Danh sách danh sách sản phẩm đấu giá theo danh mục
-        public List<ListProductForPageClientViewModel> GetListProductFromCategory(string categoryId)
+        public List<ListProductFullViewModel> GetListProductFromCategory(string categoryId)
         {
-            var list = from product in db.Products
-                       join category in db.Categorys on product.Category_Id equals category.Categorys_Id
-                       join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
-                       join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                       orderby transaction.TimeLine ascending
-                       where product.StatusProduct.Equals(StatusProduct.Auctioning) && product.Category_Id == categoryId
-                       select new ListProductForPageClientViewModel
-                       {
-                           Products_Id = product.Products_Id,
-                           TimeLine = transaction.TimeLine,
-                           PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
-                           Image = productDetail.Image
-                       };
-            return list.ToList();
+            var query = from product in db.Products
+                        join category in db.Categorys on product.Category_Id equals category.Categorys_Id
+                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
+                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
+                        orderby transaction.TimeLine ascending
+                        where product.StatusProduct.Equals(StatusProduct.Auctioning) && product.Category_Id == categoryId
+                        || product.StatusProduct.Equals(StatusProduct.Transactioning) && product.Category_Id == categoryId
+                        select new ListProductForPageClientViewModel
+                        {
+                            Products_Id = product.Products_Id,
+                            TimeLine = transaction.TimeLine,
+                            AuctionDateStart = transaction.AuctionDateStart,
+                            PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
+                            Image = productDetail.Image
+                        };
+            var list = query.ToList();
+            List<ListProductFullViewModel> listView = new List<ListProductFullViewModel>();
+            foreach (var item in list)
+            {
+                listView.Add(new ListProductFullViewModel
+                {
+                    Products_Id = item.Products_Id,
+                    TimeLine = item.TimeLine,
+                    AuctionDateStart = item.AuctionDateStart,
+                    PriceStart = item.PriceStart,
+                    Image = item.Image,
+                    TimeRemaining = item.AuctionDateStart == null ? 0 : (long)Math.Abs(DateTime.Now.Subtract(item.AuctionDateStart.Value.AddSeconds(item.TimeLine.Value.TotalSeconds)).TotalSeconds)
+                });
+            }
+            return listView;
         }
 
         //Chi tiết sản phẩm đấu giá
@@ -390,6 +406,10 @@ namespace DauGiaTrucTuyen.DataBinding
             var product = db.Products.FirstOrDefault(x => x.Products_Id == productId);
             product.StatusProduct = StatusProduct.Review;
             db.Entry(product).State = EntityState.Modified;
+            db.SaveChanges();
+
+            transaction.AuctionDateStart = null;
+            db.Entry(transaction).State = EntityState.Modified;
             db.SaveChanges();
             return true;
         }

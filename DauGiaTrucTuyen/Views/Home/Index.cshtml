@@ -1,24 +1,32 @@
-﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductFullViewModel>
+﻿@model PagedList.IPagedList<DauGiaTrucTuyen.Areas.Admin.Models.ListProductFullViewModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
-
-@foreach (var item in Model)
-{
-    <div class="col-md-2 agile_ecommerce_tab_left">
-        <div class="hs-wrapper">
-            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })"><img src="@item.Image" alt="NO" class="img-responsive" /></a>
-            <div class="w3_hs_bottom">
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-2 agile_ecommerce_tab_left">
+            <div class="hs-wrapper">
+                <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })"><img src="@item.Image" alt="NO" class="img-responsive" /></a>
+                <div class="w3_hs_bottom">
+                </div>
+            </div>
+            <div class="simpleCart_shelfItem" id="@item.Products_Id">
+                <p><span id="end-time" style="font-size: 13px"></span><span id="counter-time-@item.Products_Id" style="font-size: 13px;"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
+                <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary"><i class="fas fa-gavel"></i></a>
             </div>
         </div>
-        <div class="simpleCart_shelfItem" id="@item.Products_Id">
-            <p><span id="end-time" style="font-size: 13px"></span><span id="counter-time-@item.Products_Id" style="font-size: 13px;"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
-            <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary"><i class="fas fa-gavel"></i></a>
-        </div>
+    }
+</div>
+<div class="row">
+    <div id='Paging' style="text-align:center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        / @Model.PageCount
     </div>
-}
-
+</div>
 @section scripts{
     <script>
         $(document).ready(function () {
