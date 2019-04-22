@@ -1,18 +1,18 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    <div class="w3l_login logined">
+    <div class="col-md-1 col-sm-6 w3l_login logined">
         <a href="@Url.Action("InformationUser", "Account")"><span class="glyphicon glyphicon-user" aria-hidden="true">@(User.Identity.GetUserName() != "admin@gmail.com" ? User.Identity.GetUserName() : "admin") </span></a>
 
     </div>
 
-    <div class="w3l_login">
+    <div class="col-md-1 col-sm-6 w3l_login">
         <a href="@Url.Action("LogOff","Account")"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
     </div>
 }
 else
 {
-    <div class="w3l_login">
+    <div class="col-md-2 col-sm-6 w3l_login">
         <a href="@Url.Action("Login","Account")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
     </div>
 }

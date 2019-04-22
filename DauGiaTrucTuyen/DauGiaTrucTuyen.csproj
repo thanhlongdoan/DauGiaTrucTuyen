@@ -3371,11 +3371,11 @@
     <Content Include="Views\Account\UpdateUser.cshtml" />
     <Content Include="Views\Reports\Create.cshtml" />
     <Content Include="Views\Reports\ConfirmCreateReport.cshtml" />
-    <Content Include="Views\Account\ConfirmRegiserSendMail.cshtml" />
     <Content Include="Views\ManagerAuction\Detail.cshtml" />
     <Content Include="Views\ManagerAuction\Edit.cshtml" />
     <Content Include="Views\ManagerAuction\MailContent.cshtml" />
     <Content Include="Views\ManagerAuction\MailContentForUserAdd.cshtml" />
+    <Content Include="Views\Account\RegisterSendMail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

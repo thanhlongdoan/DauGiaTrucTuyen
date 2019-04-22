@@ -21,6 +21,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [DisplayName("Tài khoản cần báo cáo")]
         [Required(ErrorMessage = "Tài khoản là bắt buộc")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
         public string ReportUser { get; set; }
 
         [DisplayName("Mã phiên đấu giá")]

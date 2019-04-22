@@ -49,14 +49,10 @@ input[type="submit"], .panel-body ul li a, .checkout-right-basket a, .additional
 
 
 .w3l_login {
-    float: left;
-    margin-left: 2%;
 }
 
 .w3l_logo {
-    float: left;
-    margin-left: 22em;
-    margin-right: 10em;
+    text-align: center;
 }
 
     .w3l_logo h1 a {
@@ -3625,10 +3621,6 @@ td.invert-image a img {
 }
 
 @media (max-width: 1280px) {
-    .w3l_logo {
-        margin-right: 5em;
-    }
-
     .w3view-cart {
         right: 10%;
     }
@@ -3669,10 +3661,6 @@ td.invert-image a img {
 
     .modal-body-sub {
         padding: 2em 3em !important;
-    }
-
-    .w3l_logo {
-        margin-left: 13em;
     }
 
     .banner.banner10 {
@@ -3866,10 +3854,6 @@ td.invert-image a img {
 
     .search {
         margin: .6em 0 0 4em;
-    }
-
-    .w3l_logo {
-        margin-left: 9em;
     }
 
     .navbar-nav > li > a {
@@ -4258,6 +4242,10 @@ td.invert-image a img {
         width: 70%;
         margin: 0 auto;
     }
+
+    .w3l_login a span {
+        float: right;
+    }
 }
 
 @media (max-width:800px) {
@@ -4515,10 +4503,6 @@ td.invert-image a img {
         margin: 3em auto 2em;
     }
 
-    .w3l_logo {
-        margin-left: 6em;
-    }
-
     .social li {
         height: 2em;
         line-height: 2em;
@@ -4570,6 +4554,17 @@ td.invert-image a img {
     }
 }
 
+@media (max-width:692px) {
+    .w3l_login a {
+        text-align: center;
+        margin: auto;
+    }
+
+        .w3l_login a span {
+            float: none !important;
+        }
+}
+
 @media (max-width:667px) {
     .modal-dialog {
         width: 630px;
@@ -4582,10 +4577,6 @@ td.invert-image a img {
         .w3l_logo h1 a span {
             letter-spacing: 5px;
         }
-
-    .w3l_logo {
-        margin-left: 3em;
-    }
 
     .search_box:checked ~ .search_form {
         width: 440px;
@@ -4633,11 +4624,6 @@ td.invert-image a img {
 
     .modal-body-sub {
         padding: 2em 1em !important;
-    }
-
-    .w3l_logo {
-        margin-left: 8em;
-        margin-right: 1em;
     }
 
     .search {
@@ -4731,7 +4717,7 @@ td.invert-image a img {
     }
 
     .w3_footer_grid:nth-child(2) {
-        margin-bottom: 6em;
+        margin-bottom: 10em;
     }
 
     .footer-copy-pos {
@@ -4887,10 +4873,6 @@ td.invert-image a img {
         width: 55%;
     }
 
-    .w3l_logo {
-        margin-left: 6em;
-    }
-
     .w3l_login a {
         width: 40px;
         height: 40px;
@@ -4898,7 +4880,7 @@ td.invert-image a img {
     }
 
         .w3l_login a span {
-            top: 0.9em;
+            top: 0.6em;
         }
 
     .banner.banner1, .banner.banner2, .banner.banner3 {
@@ -4937,10 +4919,6 @@ td.invert-image a img {
 
     .social li {
         margin: .3em;
-    }
-
-    .w3l_logo {
-        margin-left: 3em;
     }
 
     .search {
@@ -5049,10 +5027,6 @@ td.invert-image a img {
 
     .banner h3 {
         width: 70%;
-    }
-
-    .w3l_logo {
-        margin-left: 4em;
     }
 
     .video-img a {
@@ -5439,10 +5413,6 @@ td.invert-image a img {
             font-size: .4em;
         }
 
-    .w3l_logo {
-        margin-left: 3em;
-    }
-
     .search_box:checked ~ .search_form {
         width: 365px;
     }
@@ -5591,10 +5561,6 @@ td.invert-image a img {
 
     .box_1 a {
         font-size: 14px;
-    }
-
-    .w3l_logo {
-        margin-left: 2em;
     }
 
     .w3l_login {
@@ -5794,10 +5760,6 @@ td.invert-image a img {
 
     .w3l_logo h1 a span {
         letter-spacing: 2px;
-    }
-
-    .w3l_logo {
-        margin-left: 1.5em;
     }
 
     .modal-dialog {

@@ -78,7 +78,7 @@ namespace DauGiaTrucTuyen.Controllers
             var user = await UserManager.FindAsync(model.UserName, model.Password);
             if (user != null && user.EmailConfirmed == false && user.PhoneNumberConfirmed == false)
             {
-                ModelState.AddModelError("", "Tài khoản của bạn chưa được xác nhận !");
+                ModelState.AddModelError("", "Tài khoản của bạn chưa được xác thực !");
                 return View(model);
             }
             else
@@ -185,12 +185,12 @@ namespace DauGiaTrucTuyen.Controllers
                     {
                         string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản 'Đấu giá trực tuyến'", "Vui lòng click vào  <a href=\"" + callbackUrl + "\">đây để xác thực tài khoản</a>");
-                        return RedirectToAction("ConfirmRegiserSendMail");
+                        await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản", "Vui lòng click vào  <a href=\"" + callbackUrl + "\">đây để xác thực tài khoản</a>");
+                        return RedirectToAction("RegisterSendMail");
                     }
                     else
                     {
-                        var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.PhoneNumber);
+                        var code = await UserManager.GenerateChangePhoneNumberTokenAsync(user.Id, model.PhoneNumber);
                         if (UserManager.SmsService != null)
                         {
                             var message = new IdentityMessage
@@ -200,15 +200,16 @@ namespace DauGiaTrucTuyen.Controllers
                             };
                             await UserManager.SmsService.SendAsync(message);
                         }
-                        return RedirectToAction("VerifyPhoneNumber", "Manage", new { PhoneNumber = model.PhoneNumber });
+                        return RedirectToAction("VerifyPhoneNumber", "Manage", new { PhoneNumber = model.PhoneNumber, UserId = user.Id });
                     }
                 }
                 AddErrors(result);
             }
             return View(model);
         }
-        
-        public ActionResult ConfirmRegiserSendMail()
+
+        [AllowAnonymous]
+        public ActionResult RegisterSendMail()
         {
             return View();
         }
@@ -246,14 +247,12 @@ namespace DauGiaTrucTuyen.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.UserName);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (!(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    ModelState.AddModelError("", "Tài khoản này không tồn tại hoặc chưa được xác thực");
+                    return View(model);
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Quên mật khẩu", "Vui lòng chọn vào <a href=\"" + callbackUrl + "\">đây</a> để đặt lại mật khẩu");

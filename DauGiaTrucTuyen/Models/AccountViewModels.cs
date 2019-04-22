@@ -80,7 +80,7 @@ namespace DauGiaTrucTuyen.Models
 
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại !")]
         [Display(Name = "Số điện thoại")]
-        [StringLength(12, MinimumLength = 6, ErrorMessage = "Số điện thoại phải từ 6-12 kí tự !")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Số điện thoại không hợp lệ")]
         [Remote("CheckNumberPhoneExist", "Account", ErrorMessage = "Số điện thoại này đã được đăng ký !")]
         public string PhoneNumber { get; set; }
 
@@ -125,6 +125,7 @@ namespace DauGiaTrucTuyen.Models
     {
         [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập !")]
         [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
+        [Remote("CheckUserNameExist", "Account", ErrorMessage = "Tên đăng nhập đã tồn tại !")]
         [Display(Name = "Tên đăng nhập")]
         public string UserName { get; set; }
     }

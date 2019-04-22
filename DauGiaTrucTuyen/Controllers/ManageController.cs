@@ -163,11 +163,11 @@ namespace DauGiaTrucTuyen.Controllers
         //
         // GET: /Manage/VerifyPhoneNumber
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
+        public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber, string userId)
         {
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
+            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(userId, phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
-            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber, Id = userId });
         }
 
         //
@@ -181,10 +181,10 @@ namespace DauGiaTrucTuyen.Controllers
             {
                 return View(model);
             }
-            var result = await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
+            var result = await UserManager.ChangePhoneNumberAsync(model.Id, model.PhoneNumber, model.Code);
             if (result.Succeeded)
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                var user = await UserManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

@@ -11,6 +11,7 @@
     {
         @Html.AntiForgeryToken()
         @Html.Hidden("phoneNumber", @Model.PhoneNumber)
+        @Html.Hidden("id", @Model.Id)
         <h4 class="text-center">Vui lòng nhập mã xác nhận để xác thực tài khoản</h4>
         <h5>@ViewBag.Status</h5>
         <div class="form-group">

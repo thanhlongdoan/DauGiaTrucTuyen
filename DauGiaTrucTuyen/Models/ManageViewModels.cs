@@ -76,6 +76,8 @@ namespace DauGiaTrucTuyen.Models
         [Phone]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
+        public string Id { get; set; }
     }
 
     public class ConfigureTwoFactorViewModel

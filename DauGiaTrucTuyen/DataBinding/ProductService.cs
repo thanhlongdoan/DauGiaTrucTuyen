@@ -44,7 +44,7 @@ namespace DauGiaTrucTuyen.DataBinding
         /// <summary>
         /// Trả về danh sách sản phẩm đấu giá
         /// </summary>
-        /// <param name="status">trạng thái sản phẩm cho người dùng ( trạng thái chưa duyệt và duyệt rồi )</param>
+        /// <param name="status">trạng thái sản phẩm cho người dùng ( trạng thái chưa duyệt và duyệt rồi ) trong quản lý đấu giá của người dùng</param>
         /// <returns></returns>
         public List<ListProductViewModel> GetListProductForClient(string sessionUserId)
         {
@@ -52,7 +52,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                       where product.User_Id == sessionUserId && product.StatusProduct.Equals(StatusProduct.Approved) || product.StatusProduct.Equals(StatusProduct.Review)
+                       where product.User_Id == sessionUserId && product.StatusProduct.Equals(StatusProduct.Approved) || product.User_Id == sessionUserId && product.StatusProduct.Equals(StatusProduct.Review)
                        select new ListProductViewModel
                        {
                            Products_Id = product.Products_Id,
