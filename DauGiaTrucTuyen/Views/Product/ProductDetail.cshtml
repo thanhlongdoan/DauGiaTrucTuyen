@@ -35,7 +35,6 @@
                     <div class="cart-b">
                         <h4 style="color: brown" id="end-time"></h4>
                         <h4 style="color: brown" id="countdown"></h4>
-                        <button id="send-mail">send mail</button>
                         <h4 id="counter-time">@*@Model.AuctionTime s*@</h4>
                         <br />
                         <h3 id="pricing">@Model.AuctionPrice<span> K</span></h3>
@@ -193,10 +192,7 @@
                         });
                     }
                 });
-
-                $('#send-mail').click(function () {
-                    auctionHub.server.sendMail();
-                })
+                
                 //tham gia phiên đấu giá khi load trang
                 auctionHub.server.joinGroupAuction(productId)
                 //check xem phiên đấu giá nào đã kết thúc

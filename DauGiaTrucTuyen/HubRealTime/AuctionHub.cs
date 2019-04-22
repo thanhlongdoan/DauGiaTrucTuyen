@@ -42,6 +42,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                         db.Entry(transactionAuction).State = EntityState.Modified;
                         db.SaveChanges();
 
+                        //query để lấy thông tin gửi email 
                         var query = (from productSendMail in db.Products
                                      join productDetail in db.ProductDetails on productSendMail.Products_Id equals productDetail.Product_Id
                                      join transactionSendMail in db.Transactions on productSendMail.Products_Id equals transactionSendMail.Product_Id
@@ -141,6 +142,7 @@ namespace DauGiaTrucTuyen.HubRealTime
             }
         }
 
+        //gửi email khi phiên đấu giá kết thúc ( gửi cho người thắng cuộc và người chủ sản phẩm)
         public void SendMail(NoticationWin model)
         {
             SendMail sendMail = new SendMail();

@@ -1,4 +1,4 @@
-﻿<!--Gửi cho người thắng cuộc-->
+﻿<!--Gửi cho người chủ sản phẩm-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,12 +7,12 @@
 </head>
 <body style="color:black">
     <div style="text-align:center;">
-        <h4>Cảm ơn bạn đã tham gia phiên đấu giá của tôi chúng. Sau đây là thông tin mà phiên đấu giá bạn đã thắng cuộc</h4>
+        <h4>Cảm ơn bạn đã tham gia đăng ký sản phẩm cho hệ thống đấu giá của tôi chúng. Sau đây là thông tin sau khi phiên đấu giá của bạn kết thúc và thành công</h4>
     </div>
     <div style="background-color: #efcccc;">
         <table style="width: 100%; margin:auto; background-color:white;">
             <tr style="background-color:#3c43a4; color:white; height:40px;">
-                <th colspan="2" style="text-align: center;">Thông tin chi tiét</th>
+                <th colspan="2" style="text-align: center;">Thông tin chi tiết sản phẩm bạn đã đăng ký</th>
             </tr>
             <tr style="background-color: #eae9e9;">
                 <td style="width:50%;">Tên sản phẩm</td>
@@ -26,8 +26,12 @@
                 <td>Số tiền đấu giá cao nhất</td>
                 <td>{{PriceAuction}} VND đồng</td>
             </tr>
+            <tr>
+                <td>Người dùng đấu giá cao nhất</td>
+                <td>{{User_Id_Auction}}</td>
+            </tr>
             <tr style="background-color:#3c43a4; color:white; height:40px;">
-                <th colspan="2" style="text-align: center;">Thông tin chi tiết chủ sản phẩm</th>
+                <th colspan="2" style="text-align: center;">Thông tin chi tiết người đấu giá thắng cuộc</th>
             </tr>
             <tr>
                 <td>Tên tài khoản</td>
@@ -53,3 +57,4 @@
     </div>
 </body>
 </html>
+

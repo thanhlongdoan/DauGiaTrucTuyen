@@ -3375,6 +3375,7 @@
     <Content Include="Views\ManagerAuction\Detail.cshtml" />
     <Content Include="Views\ManagerAuction\Edit.cshtml" />
     <Content Include="Views\ManagerAuction\MailContent.cshtml" />
+    <Content Include="Views\ManagerAuction\MailContentForUserAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

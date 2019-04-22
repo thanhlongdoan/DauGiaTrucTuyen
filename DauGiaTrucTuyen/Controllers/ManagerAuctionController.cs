@@ -107,5 +107,10 @@ namespace DauGiaTrucTuyen.Controllers
         {
             return View();
         }
+
+        public ActionResult MailContentForUserAdd()
+        {
+            return View();
+        }
     }
 }
