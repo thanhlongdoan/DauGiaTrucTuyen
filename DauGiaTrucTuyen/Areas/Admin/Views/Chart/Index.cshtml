@@ -3,37 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-@section css{
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <style>
-        .ui-datepicker-calendar {
-            display: none;
-        }
-    </style>
-}
-@using (Html.BeginForm())
-{
-    @Html.EditorFor(model => model.dateTime, new { htmlAttributes = new { @class = "datepicker" } })
-    <br /> 
-    <br />
-    <input type="submit" class="btn btn-primary" value="Oke" />
-}
+<div>
+    <img src="@Url.Action("chart")" alt="Chart" />
+</div>
 
-@section scripts{
-    <script src="~/Scripts/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $(".datepicker").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
-                dateFormat: 'mm/yy',
-                onClose: function (dateText, inst) {
-                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-                },
-                showOn: "both",
-                buttonText: "<i class='fas fa-calendar-alt'>"
-            });
-        });
-    </script>
-}
