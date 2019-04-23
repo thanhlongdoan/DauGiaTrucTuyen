@@ -19,7 +19,7 @@ namespace DauGiaTrucTuyen.DataBinding
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential("long205888126@gmail.com", "pailaanh126");
+            smtp.Credentials = new NetworkCredential("long205888126@gmail.com", "gvelfqgnpenxscay");
 
             var fromEmail = new MailAddress("long205888126@gmail.com", "Đấu giá trực tuyến");
             var UserWin = db.Users.FirstOrDefault(x => x.Id == model.User_Id_Auction);
