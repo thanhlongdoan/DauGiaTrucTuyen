@@ -3383,6 +3383,7 @@
     <Content Include="Views\ManagerAuction\MailContent.cshtml" />
     <Content Include="Views\ManagerAuction\MailContentForUserAdd.cshtml" />
     <Content Include="Views\Account\RegisterSendMail.cshtml" />
+    <Content Include="Views\ManagerAuction\ConfirmAddProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -55,7 +55,7 @@ namespace DauGiaTrucTuyen.Controllers
             if (ModelState.IsValid)
             {
                 if (_iProduct.CreateForClient(model, file, file1, file2, User.Identity.GetUserId()))
-                    return RedirectToAction("Index", new { status = StatusProduct.Approved });
+                    return RedirectToAction("ConfirmAddProduct");
                 return HttpNotFound();
             }
             else
@@ -109,6 +109,11 @@ namespace DauGiaTrucTuyen.Controllers
         }
 
         public ActionResult MailContentForUserAdd()
+        {
+            return View();
+        }
+
+        public ActionResult ConfirmAddProduct()
         {
             return View();
         }

@@ -32,13 +32,6 @@ namespace DauGiaTrucTuyen.Controllers
 
         [AllowAnonymous]
         //Danh sách sản phẩm cho trang người dùng
-        public ActionResult GetListProductForPageClient()
-        {
-            return View(_iProduct.GetListProductForPageClient());
-        }
-
-        [AllowAnonymous]
-        //Danh sách sản phẩm cho trang người dùng
         public ActionResult GetListProductFromCategory(string id, int? page)
         {
             int pageSize = 10;
