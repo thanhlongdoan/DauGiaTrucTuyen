@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
 using DauGiaTrucTuyen.Models;
 using Microsoft.AspNet.Identity;
@@ -16,6 +17,7 @@ namespace DauGiaTrucTuyen.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private IDataBinding.IUser _iUser { get; set; }
@@ -76,6 +78,12 @@ namespace DauGiaTrucTuyen.Controllers
                 return View(model);
             }
             var user = await UserManager.FindAsync(model.UserName, model.Password);
+            var query = db.StatusUsers.FirstOrDefault(x => x.BlockUserStatus.Equals(StatusBlockUser.Close) && x.User_Id == user.Id);
+            if (query != null)
+            {
+                ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa !");
+                return View(model);
+            }
             if (user != null && user.EmailConfirmed == false && user.PhoneNumberConfirmed == false)
             {
                 ModelState.AddModelError("", "Tài khoản của bạn chưa được xác thực !");
@@ -91,6 +99,7 @@ namespace DauGiaTrucTuyen.Controllers
                             if (!UserManager.IsInRole(user.Id, "Admin"))
                                 return RedirectToLocal(returnUrl);
                             return RedirectToAction("Index", "Home", new { area = "admin" });
+
                         }
                     case SignInStatus.LockedOut:
                         {

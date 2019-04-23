@@ -72,6 +72,7 @@ namespace DauGiaTrucTuyen.DataBinding
             else
             {
                 statusUser.BlockAuctionDate = null;
+                statusUser.BlockAuctionStatus = StatusBlockAuction.Open;
             }
 
             if (model.BlockUserStatus == "Close")
@@ -82,6 +83,7 @@ namespace DauGiaTrucTuyen.DataBinding
             else
             {
                 statusUser.BlockUserDate = null;
+                statusUser.BlockUserStatus = StatusBlockUser.Open;
             }
 
             context.Entry(statusUser).State = EntityState.Modified;
