@@ -1,21 +1,44 @@
 ﻿@model PagedList.IPagedList<DauGiaTrucTuyen.Areas.Admin.Models.ListProductFullViewModel>
 @using PagedList.Mvc;
 @{
+    /**/
+
     ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
+<div class="row select-auction">
+    <div class="col-md-6">
+        <a href="#">
+            <span>
+                <i class="fas fa-braille"></i>
+            </span>
+            <span>Tất cả các sản phẩm</span>
+        </a>
+    </div>
+    <div class="col-md-6">
+        <a href="#">
+            <span>
+                <i class="fas fa-braille"></i>
+            </span>
+            <span>Tất cả các sản phẩm</span>
+        </a>
+    </div>
+</div>
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-2 agile_ecommerce_tab_left">
+        <div class="col-md-3 col-lg-2 agile_ecommerce_tab_left">
             <div class="hs-wrapper">
                 <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })"><img src="@item.Image" alt="NO" class="img-responsive" /></a>
                 <div class="w3_hs_bottom">
                 </div>
             </div>
             <div class="simpleCart_shelfItem" id="@item.Products_Id">
-                <p><span id="end-time" style="font-size: 13px"></span><span id="counter-time-@item.Products_Id" style="font-size: 13px;"></span> <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i></p>
-                <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary"><i class="fas fa-gavel"></i></a>
+                <p><span id="end-time" style="font-size: 13px"></span><span id="counter-time-@item.Products_Id" style="font-size: 13px;"></span></p>
+                <p>
+                    <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Products_Id })" class="w3ls-cart btn btn-primary"><i class="fas fa-gavel"></i></a>
+                    <i class="item_price">@item.PriceStart <span style="color: black; font-weight: bold">K</span></i>
+                </p>
             </div>
         </div>
     }

@@ -1,6 +1,8 @@
 ﻿@model DauGiaTrucTuyen.Areas.Admin.Models.DetailProductViewModel
 @using Microsoft.AspNet.Identity;
 @{
+    /**/
+
     ViewBag.Title = "Chi tiết sản phẩm đấu giá";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
@@ -13,20 +15,39 @@
         <div class="single_grid">
             <div class="row">
                 <div class="grid images_3_of_2 col-md-6">
-                    <div class="flexslider1">
-                        <ul class="slides">
-                            <li data-thumb="@Model.Image">
-                                <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-fluid" alt=" "> </div>
-                            </li>
-                            <li data-thumb="@Model.ImageMore1">
-                                <div class="thumb-image"> <img src="@Model.ImageMore1" data-imagezoom="true" class="img-fluid" alt=" "> </div>
-                            </li>
-                            <li data-thumb="@Model.ImageMore2">
-                                <div class="thumb-image"> <img src="@Model.ImageMore2" data-imagezoom="true" class="img-fluid" alt=" "> </div>
-                            </li>
-                        </ul>
-                    </div>
-                    @*<img class="etalage_thumb_image img-responsive" src="@Model.Image" />*@
+                    @if (Model.ImageMore1 == null && Model.ImageMore2 == null)
+                    {
+                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
+                    }
+                    else
+                    {
+                        if (Model.ImageMore1 != null)
+                        {
+                            <div class="flexslider1">
+                                <ul class="slides">
+                                    <li data-thumb="@Model.Image">
+                                        <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                                    </li>
+                                    <li data-thumb="@Model.ImageMore1">
+                                        <div class="thumb-image"> <img src="@Model.ImageMore1" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="flexslider1">
+                                <ul class="slides">
+                                    <li data-thumb="@Model.Image">
+                                        <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                                    </li>
+                                    <li data-thumb="@Model.ImageMore2">
+                                        <div class="thumb-image"> <img src="@Model.ImageMore2" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    }
                     <div class="clearfix"> </div>
                 </div>
                 <div class="desc1 span_3_of_2 col-md-6" style="margin-bottom: 10%;">
@@ -192,7 +213,7 @@
                         });
                     }
                 });
-                
+
                 //tham gia phiên đấu giá khi load trang
                 auctionHub.server.joinGroupAuction(productId)
                 //check xem phiên đấu giá nào đã kết thúc

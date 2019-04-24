@@ -9,6 +9,32 @@ p {
     font-size: 14px;
 }
 
+.hs-wrapper img {
+    width: 180px;
+    height: 220px;
+}
+
+.select-auction {
+    margin-bottom: 2%;
+}
+
+    .select-auction div {
+        margin: auto;
+        text-align: center;
+        border-left: 1px solid #e8e8e8;
+        border-top: 1px solid #e8e8e8;
+        border-bottom: 1px solid #e8e8e8;
+        box-shadow: 0px 3px 0px #f5f5f5;
+        -moz-box-shadow: 0px 3px 0px #f5f5f5;
+        -webkit-box-shadow: 0px 3px 0px #f5f5f5;
+        border-right: 1px solid #e8e8e8;
+        background: #fff;
+    }
+
+#Paging {
+    padding-top: 5%;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Glegoo', serif;
     margin: 0;
@@ -661,7 +687,7 @@ li.w3pages .dropdown-menu > li > a:hover {
 /*-- //banner --*/
 /*-- banner-bottom --*/
 .banner-bottom, .team, .checkout, .additional_info, .team-bottom, .single, .mail, .special-deals, .about, .faq, .typo, .new-products, .banner-bottom1, .top-brands, .mobiles, .w3l_related_products {
-    padding: 5em 0;
+    padding: 5em 0 1em 0;
 }
 
 .modal-body iframe {
@@ -797,7 +823,6 @@ li.w3pages .dropdown-menu > li > a:hover {
 .simpleCart_shelfItem p {
     font-size: 1.2em;
     color: #212121;
-    margin: 0.5em 0 1em;
     font-weight: 600;
 }
 
@@ -4931,10 +4956,6 @@ td.invert-image a img {
 
     .nav > li > a {
         padding: 6px 8px;
-    }
-
-    .simpleCart_shelfItem p a {
-        padding: .5em 1.9em;
     }
 }
 
