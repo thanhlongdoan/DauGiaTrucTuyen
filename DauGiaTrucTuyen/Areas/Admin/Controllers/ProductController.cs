@@ -63,6 +63,10 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
             items.Add(new SelectListItem { Text = "1:00:00 s", Value = "36000000000" });
             items.Add(new SelectListItem { Text = "2:00:00 s", Value = "72000000000" });
             items.Add(new SelectListItem { Text = "4:00:00 s", Value = "144000000000" });
+            items.Add(new SelectListItem { Text = "8:00:00 s", Value = "288000000000" });
+            items.Add(new SelectListItem { Text = "12:00:00 s", Value = "432000000000" });
+            items.Add(new SelectListItem { Text = "24:00:00 s", Value = "864000000000" });
+            items.Add(new SelectListItem { Text = "48:00:00 s", Value = "1728000000000" });
             ViewBag.SelectedItems = items;
             return View();
         }
@@ -110,6 +114,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
             return HttpNotFound();
         }
 
+        [AllowAnonymous]
         public ActionResult Set()
         {
             var transaction = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning) || x.Product.StatusProduct.Equals(StatusProduct.Transactioning)).ToList();
