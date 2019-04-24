@@ -256,6 +256,7 @@
     <Compile Include="Data\StatusUser.cs" />
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\TransactionAuction.cs" />
+    <Compile Include="Data\User.cs" />
     <Compile Include="Data\Users_Chat.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -270,6 +271,10 @@
     <Compile Include="Migrations\201904220245493_init.cs" />
     <Compile Include="Migrations\201904220245493_init.Designer.cs">
       <DependentUpon>201904220245493_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904240728454_init1.cs" />
+    <Compile Include="Migrations\201904240728454_init1.Designer.cs">
+      <DependentUpon>201904240728454_init1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3407,6 +3412,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904220245493_init.resx">
       <DependentUpon>201904220245493_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904240728454_init1.resx">
+      <DependentUpon>201904240728454_init1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

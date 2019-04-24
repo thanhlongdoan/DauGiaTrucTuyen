@@ -21,6 +21,7 @@ namespace DauGiaTrucTuyen.Data
         public virtual DbSet<StatusUser> StatusUsers { get; set; }
         public virtual DbSet<TransactionAuction> TransactionAuctions { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Users_Chat> Users_Chat { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -51,6 +52,32 @@ namespace DauGiaTrucTuyen.Data
             modelBuilder.Entity<Transaction>()
                 .HasMany(e => e.TransactionAuctions)
                 .WithRequired(e => e.Transaction)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.FeedBacks)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.User_Id);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Products)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.User_Id);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Reports)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.User_Id);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.StatusUsers)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.User_Id);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.TransactionAuctions)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.User_Id)
                 .WillCascadeOnDelete(false);
         }
     }

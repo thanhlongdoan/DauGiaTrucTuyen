@@ -292,11 +292,13 @@ namespace DauGiaTrucTuyen.DataBinding
                              AuctionPrice = db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                              Transaction_Id = transaction.Transaction_Id,
                              ListTopAuction = (from transactionAuction in db.TransactionAuctions
+                                               join user in db.Users on transactionAuction.User_Id equals user.Id
                                                where transactionAuction.Transaction_Id == transaction.Transaction_Id && transactionAuction.Status != null
                                                orderby transactionAuction.AuctionPrice descending
                                                select new ListTopAuction
                                                {
-                                                   UserName = transactionAuction.User_Id,
+                                                   UserName = user.UserName,
+                                                   //UserName = transactionAuction.User_Id,
                                                    PriceAuction = transactionAuction.AuctionPrice
                                                }).Take(5).ToList()
                          };

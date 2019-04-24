@@ -20,12 +20,12 @@ namespace DauGiaTrucTuyen.Data
         [StringLength(128)]
         public string ToUser_Id { get; set; }
 
-        public string Message { get; set; }
-
         public DateTime? DateSend { get; set; }
 
         public bool? IsRead { get; set; }
 
         public DateTime? DateRead { get; set; }
+
+        public string Message { get; set; }
     }
 }

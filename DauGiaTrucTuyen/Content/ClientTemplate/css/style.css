@@ -803,28 +803,24 @@ li.w3pages .dropdown-menu > li > a:hover {
     padding-bottom: 2%;
 }
 
-.agile_ecommerce_tabs {
-    padding: 2em 0 0;
-}
-
-.agile_ecommerce_tab_left h5 {
-    margin: 2em 0 0;
-}
-
-    .agile_ecommerce_tab_left h5 a {
-        font-size: 1.2em;
-        color: #ff5063;
-        text-decoration: none;
-        font-weight: 700;
-        -webkit-transition: .5s all;
-        -moz-transition: .5s all;
-        -o-transition: .5s all;
-        transition: .5s all;
+    .agile_ecommerce_tab_left h5 {
+        margin: 2em 0 0;
     }
 
-        .agile_ecommerce_tab_left h5 a:hover {
-            color: #3c43a4;
+        .agile_ecommerce_tab_left h5 a {
+            font-size: 1.2em;
+            color: #ff5063;
+            text-decoration: none;
+            font-weight: 700;
+            -webkit-transition: .5s all;
+            -moz-transition: .5s all;
+            -o-transition: .5s all;
+            transition: .5s all;
         }
+
+            .agile_ecommerce_tab_left h5 a:hover {
+                color: #3c43a4;
+            }
 
 .simpleCart_shelfItem p {
     font-size: 1.2em;
@@ -3923,7 +3919,7 @@ td.invert-image a img {
     }
 
     .wthree_banner_bottom_right {
-        margin: 3em 0 0;
+        margin: 1em 0 0;
     }
 
     .agile_ecommerce_tab_left {
@@ -4391,6 +4387,14 @@ td.invert-image a img {
 }
 
 @media (max-width:767px) {
+    .select-auction {
+        margin-bottom: 4% !important;
+    }
+
+        .select-auction div {
+            width: 100%;
+        }
+
     .navbar-default .navbar-toggle {
         border-color: #fff;
     }
@@ -4619,10 +4623,6 @@ td.invert-image a img {
 
     .nav > li > a {
         padding: 10px 14px;
-    }
-
-    .agile_ecommerce_tabs {
-        padding: 1em 0 0;
     }
 
     .banner h3 {

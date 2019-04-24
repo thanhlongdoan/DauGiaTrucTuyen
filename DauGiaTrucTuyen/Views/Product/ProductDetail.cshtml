@@ -1,8 +1,6 @@
 ﻿@model DauGiaTrucTuyen.Areas.Admin.Models.DetailProductViewModel
 @using Microsoft.AspNet.Identity;
 @{
-    /**/
-
     ViewBag.Title = "Chi tiết sản phẩm đấu giá";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
@@ -179,12 +177,12 @@
                     '<td><span class="badge bg-red">' + price + ' K</span></td>' +
                     '</tr>';
                 var tbody = document.getElementsByTagName("tbody");
+                console.log(tbody[0])
                 if (tbody.length == "0") {
                     $('tbody').append(code);
                 } else {
-                    console.log(tbody[0])
-                    $(code).insertBefore(tbody[0]);
                     $("tbody tr:last-child").remove();
+                    $(code).insertBefore($("tbody tr")[0]);
                 }
             }
 

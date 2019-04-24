@@ -27,5 +27,7 @@ namespace DauGiaTrucTuyen.Data
         public string Status { get; set; }
 
         public virtual Transaction Transaction { get; set; }
+
+        public virtual User User { get; set; }
     }
 }
