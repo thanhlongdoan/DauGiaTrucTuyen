@@ -88,6 +88,11 @@ namespace DauGiaTrucTuyen.HubRealTime
             {
                 if (DateTime.Now > (item.AuctionDateStart + item.TimeLine))
                 {
+                    var product = db.Products.FirstOrDefault(x => x.Products_Id == item.Product_Id);
+                    product.StatusProduct = StatusProduct.Transactioning;
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+
                     Clients.All.EndTimeInListView(item.Product_Id);
                 }
             }

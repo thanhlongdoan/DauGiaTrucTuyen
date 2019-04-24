@@ -32,10 +32,18 @@ p {
         display: inline-grid;
     }
 
-        .select-auction div a {
-            padding: 1em 0;
-            font-size: 18px;
-        }
+    .select-auction .left.active {
+        border: 1px solid #3c43a4;
+    }
+
+    .select-auction .right.active {
+        border: 1px solid #3c43a4;
+    }
+
+    .select-auction div a {
+        padding: 1em 0;
+        font-size: 18px;
+    }
 
 #Paging {
     padding-top: 5%;

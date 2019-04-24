@@ -22,6 +22,8 @@ namespace DauGiaTrucTuyen.IDataBinding
 
         List<ListProductFullViewModel> GetListProductForPageClient();
 
+        List<ListProductFullViewModel> GetListProductForPageClientAuctionning();
+
         DetailProductViewModel DetailProduct(string productId);
 
         List<ListProductFullViewModel> GetListProductFromCategory(string categoryId);

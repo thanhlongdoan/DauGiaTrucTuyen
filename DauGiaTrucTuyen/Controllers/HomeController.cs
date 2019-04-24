@@ -43,5 +43,13 @@ namespace DauGiaTrucTuyen.Controllers
         {
             return View();
         }
+
+        public ActionResult ListAuctioning(int? page)
+        {
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            return View(_iProduct.GetListProductForPageClientAuctionning().ToPagedList(pageIndex, pageSize));
+        }
     }
 }

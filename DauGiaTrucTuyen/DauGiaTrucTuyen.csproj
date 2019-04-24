@@ -3395,6 +3395,7 @@
     <Content Include="Views\MyAuction\AuctionWin.cshtml" />
     <Content Include="Views\MyAuction\AuctionLost.cshtml" />
     <Content Include="Views\MyAuction\FeedBack.cshtml" />
+    <Content Include="Views\Home\ListAuctioning.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

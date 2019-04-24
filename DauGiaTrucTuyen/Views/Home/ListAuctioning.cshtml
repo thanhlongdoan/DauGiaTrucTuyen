@@ -1,11 +1,11 @@
 ﻿@model PagedList.IPagedList<DauGiaTrucTuyen.Areas.Admin.Models.ListProductFullViewModel>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Trang chủ";
+    ViewBag.Title = "Sản phẩm đang đấu giá";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 <div class="row select-auction">
-    <div class="col-md-6 col-sm-12 left active">
+    <div class="col-md-6 col-sm-12 left">
         <a href="@Url.Action("Index")">
             <span>
                 <i class="fas fa-braille"></i>
@@ -13,7 +13,7 @@
             <span>Tất cả các sản phẩm</span>
         </a>
     </div>
-    <div class="col-md-6 col-sm-12 right">
+    <div class="col-md-6 col-sm-12 right active">
         <a href="@Url.Action("ListAuctioning")">
             <span>
                 <i class="fas fa-gavel"></i>
@@ -73,7 +73,7 @@
                         display.textContent = hours + ":" + minutes + ":" + seconds;
 
                         if (--timer < 0) {
-                            display.textContent = "ĐANG KẾT THÚC";
+                            display.textContent = "ĐANG KẾT THÚC..";
                         }
                     }, 1000);
                 }
@@ -92,7 +92,7 @@
                 $(".agile_ecommerce_tab_left").each(function (i) {
                     var a = $(".agile_ecommerce_tab_left").find('#' + result + '')
                     a.find("#end-time").css('font-size', '13px;')
-                    a.find("#end-time").text("ĐÃ KẾT THÚC")
+                    a.find("#end-time").text("ĐANG KẾT THÚC...")
                     a.find('#counter-time-' + result + '').css("display", "none")
                 });
             }
@@ -107,4 +107,5 @@
         })
     </script>
 }
+
 
