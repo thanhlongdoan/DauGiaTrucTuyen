@@ -209,7 +209,7 @@
 
     //Thêm tin nhắn của admin vào list-messages
     function appendListMsgAdmin(msg, date) {
-        console.log(msg)
+        console.log('/admin:' + msg)
         var showTime = ShowTime(date);
         var codeHtml = '<li class="message row ad">\
                             <input type="hidden" name="date" value = "'+ date + '" />\
@@ -269,15 +269,15 @@
             }
             if (userid == jsonMsg[i].FromUser_Id) {
                 if (i > 0 && jsonMsg[i - 1].FromUser_Id == userid && diffTimes(new Date(parseInt(jsonMsg[i - 1].DateSend.substr(6))), dateFormart) < 30)
-                    appendGroupMsg(jsonMsg[i].Msg, jsonMsg[i].IsRead);
+                    appendGroupMsg(jsonMsg[i].Message, jsonMsg[i].IsRead);
                 else
-                    appendListMsgClient(jsonMsg[i].Msg, user, dateFormart, jsonMsg[i].IsRead)
+                    appendListMsgClient(jsonMsg[i].Message, user, dateFormart, jsonMsg[i].IsRead)
             }
             else {
                 if (i > 0 && jsonMsg[i - 1].FromUser_Id != userid && diffTimes(new Date(parseInt(jsonMsg[i - 1].DateSend.substr(6))), dateFormart) < 30)
-                    appendGroupMsg(jsonMsg[i].Msg, true);
+                    appendGroupMsg(jsonMsg[i].Message, true);
                 else
-                    appendListMsgAdmin(jsonMsg[i].Msg, dateFormart);
+                    appendListMsgAdmin(jsonMsg[i].Message, dateFormart);
             }
 
             if (i < len - 1) {
@@ -301,7 +301,6 @@
 
     //Client gửi tin nhắn cho admin
     chatHub.client.sendMsgForAdmin = function (msg, date, connectionId, email) {
-        debugger;
         var connectionIdActive = $('input[name="connectionIdActive"').val();                        //Lấy connectionId đang active
         if (connectionId == connectionIdActive) {                                                   //nếu đang active sẽ thêm message vào list-messages
             var dateSend = new Date(date);
@@ -334,7 +333,6 @@
     $.connection.hub.start().done(function () {
         //Send message from admin to client
         function sendMessge(email, msg) {
-            debugger;
             var connectionId = $('input[name="connectionIdActive"]').val();
             var dateSend = new Date();
             var emailLiLast = $('.list-messages li:last-child').find('.user-name').text();

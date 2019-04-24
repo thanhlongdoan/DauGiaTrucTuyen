@@ -30,11 +30,11 @@
             var formatted2 = formatAMPM(dateFormart);
             //console.log(dateFormart);
             if (jsonMsg[i].FromUser_Id != 'admin@gmail.com') {
-                $('.chatbox-body-msg').append(AddMsgOfClient(jsonMsg[i].Msg, formatted2));
+                $('.chatbox-body-msg').append(AddMsgOfClient(jsonMsg[i].Message, formatted2));
             }
             //nguoc lai thi append ben phai
             else {
-                $('.chatbox-body-msg').append('<li class="float-left mt-1 chatbox-body-msg-left">' + jsonMsg[i].Msg + '</br><div class="message-time-admin">' + formatted2 + '</div></li>');
+                $('.chatbox-body-msg').append('<li class="float-left mt-1 chatbox-body-msg-left">' + jsonMsg[i].Message + '</br><div class="message-time-admin">' + formatted2 + '</div></li>');
             }
         }
         var lastMsg = jsonMsg.pop();

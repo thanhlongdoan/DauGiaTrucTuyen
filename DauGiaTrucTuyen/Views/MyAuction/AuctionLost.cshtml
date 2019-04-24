@@ -1,0 +1,66 @@
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListAuctionLostViewModel>
+@{
+    ViewBag.Title = "Danh sách phiên đấu giá thua cuộc";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+@section css {
+    <link href="~/Content/ClientTemplate/css/my-auction.css" rel="stylesheet" />
+    <!-- Css datatable.net-->
+    <link href="~/Content/Admin/dist/css/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Admin/dist/css/datatables/fixedHeader.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Admin/dist/css/datatables/responsive.bootstrap.css" rel="stylesheet" />
+}
+<h3 class="text-center">LỊCH SỬ ĐẤU GIÁ</h3>
+<br />
+<div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+        <li><a href="@Url.Action("Auctioning")">Phiên đấu giá hiện tại</a></li>
+        <li><a href="@Url.Action("AuctionWin")">Đấu giá đã thắng</a></li>
+        <li><a href="@Url.Action("AuctionLost")">Đấu giá thua</a></li>
+    </ul>
+</div>
+<table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ProductName)</th>
+            <th>@Html.DisplayNameFor(model => model.AuctionPrice)</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuctionPrice)
+                </td>
+                <td>
+                    <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Product_Id })">[Chi tiết]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <!-- Js datatable.net -->
+    <script src="~/Scripts/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.fixedHeader.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/datatable/responsive.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+            new $.fn.dataTable.FixedHeader(table);
+        });
+    </script>
+}
+
+
