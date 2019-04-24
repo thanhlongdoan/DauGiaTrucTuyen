@@ -10,12 +10,15 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using DauGiaTrucTuyen.Models;
 
 namespace DauGiaTrucTuyen.DataBinding
 {
     public class ProductService : IProduct
     {
         Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
+
+        ApplicationDbContext context = new ApplicationDbContext();
 
         /// <summary>
         /// Trả về danh sách sản phẩm đấu giá
@@ -293,7 +296,6 @@ namespace DauGiaTrucTuyen.DataBinding
                                                orderby transactionAuction.AuctionPrice descending
                                                select new ListTopAuction
                                                {
-                                                   //UserName = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(transactionAuction.User_Id).UserName,
                                                    UserName = transactionAuction.User_Id,
                                                    PriceAuction = transactionAuction.AuctionPrice
                                                }).Take(5).ToList()

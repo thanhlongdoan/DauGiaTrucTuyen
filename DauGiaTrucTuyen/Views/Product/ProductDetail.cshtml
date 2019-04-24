@@ -56,7 +56,7 @@
                     <div class="cart-b">
                         <h4 style="color: brown" id="end-time"></h4>
                         <h4 style="color: brown" id="countdown"></h4>
-                        <h4 id="counter-time">@*@Model.AuctionTime s*@</h4>
+                        <h4 id="counter-time"></h4>
                         <br />
                         <h3 id="pricing">@Model.AuctionPrice<span> K</span></h3>
                         <div class="clearfix"></div>
@@ -186,11 +186,6 @@
                     $(code).insertBefore(tbody[0]);
                     $("tbody tr:last-child").remove();
                 }
-            }
-
-            //
-            auctionHub.client.sendMail = function (msg) {
-                console.log(msg)
             }
 
             $.connection.hub.start().done(function () {

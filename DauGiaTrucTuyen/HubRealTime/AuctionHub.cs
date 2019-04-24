@@ -59,7 +59,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                                  .FirstOrDefault();
                         if (query != null)
                         {
-                            SendMail(query);
+                            //SendMail(query);
                         }
                     }
 
