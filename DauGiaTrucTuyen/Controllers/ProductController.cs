@@ -34,7 +34,7 @@ namespace DauGiaTrucTuyen.Controllers
         //Danh sách sản phẩm cho trang người dùng
         public ActionResult GetListProductFromCategory(string id, int? page)
         {
-            int pageSize = 10;
+            int pageSize = 24;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             return View(_iProduct.GetListProductFromCategory(id).ToPagedList(pageIndex, pageSize));

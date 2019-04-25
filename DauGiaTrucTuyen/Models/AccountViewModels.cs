@@ -80,7 +80,6 @@ namespace DauGiaTrucTuyen.Models
 
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại !")]
         [Display(Name = "Số điện thoại")]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Số điện thoại không hợp lệ")]
         [Remote("CheckNumberPhoneExist", "Account", ErrorMessage = "Số điện thoại này đã được đăng ký !")]
         public string PhoneNumber { get; set; }
 

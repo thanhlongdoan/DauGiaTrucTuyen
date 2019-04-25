@@ -15,35 +15,54 @@
                 <div class="grid images_3_of_2 col-md-6">
                     @if (Model.ImageMore1 == null && Model.ImageMore2 == null)
                     {
-                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
+                        <img class="etalage_thumb_image img-responsive" width="350" height="410" src="@Model.Image" />
                     }
                     else
                     {
-                        if (Model.ImageMore1 != null)
+                        if (Model.ImageMore1 != null && Model.ImageMore2 != null)
                         {
                             <div class="flexslider1">
                                 <ul class="slides">
                                     <li data-thumb="@Model.Image">
-                                        <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                                        <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-responsive" alt=" "> </div>
                                     </li>
                                     <li data-thumb="@Model.ImageMore1">
-                                        <div class="thumb-image"> <img src="@Model.ImageMore1" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                                        <div class="thumb-image"> <img src="@Model.ImageMore1" data-imagezoom="true" class="img-responsive" alt=" "> </div>
+                                    </li>
+                                    <li data-thumb="@Model.ImageMore2">
+                                        <div class="thumb-image"> <img src="@Model.ImageMore2" data-imagezoom="true" class="img-responsive" alt=" "> </div>
                                     </li>
                                 </ul>
                             </div>
                         }
                         else
                         {
-                            <div class="flexslider1">
-                                <ul class="slides">
-                                    <li data-thumb="@Model.Image">
-                                        <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-fluid" alt=" "> </div>
-                                    </li>
-                                    <li data-thumb="@Model.ImageMore2">
-                                        <div class="thumb-image"> <img src="@Model.ImageMore2" data-imagezoom="true" class="img-fluid" alt=" "> </div>
-                                    </li>
-                                </ul>
-                            </div>
+                            if (Model.ImageMore2 == null)
+                            {
+                                <div class="flexslider1">
+                                    <ul class="slides">
+                                        <li data-thumb="@Model.Image">
+                                            <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-responsive" alt=" "> </div>
+                                        </li>
+                                        <li data-thumb="@Model.ImageMore1">
+                                            <div class="thumb-image"> <img src="@Model.ImageMore1" data-imagezoom="true" class="img-responsive" alt=" "> </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="flexslider1">
+                                    <ul class="slides">
+                                        <li data-thumb="@Model.Image">
+                                            <div class="thumb-image"> <img src="@Model.Image" data-imagezoom="true" class="img-responsive" alt=" "> </div>
+                                        </li>
+                                        <li data-thumb="@Model.ImageMore2">
+                                            <div class="thumb-image"> <img src="@Model.ImageMore2" data-imagezoom="true" class="img-responsive" alt=" "> </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
                         }
                     }
                     <div class="clearfix"> </div>
@@ -177,12 +196,17 @@
                     '<td><span class="badge bg-red">' + price + ' K</span></td>' +
                     '</tr>';
                 var tbody = document.getElementsByTagName("tbody");
-                console.log(tbody[0])
+                console.log(tbody.length)
                 if (tbody.length == "0") {
-                    $('tbody').append(code);
+                    tbody.append(code);
                 } else {
-                    $("tbody tr:last-child").remove();
-                    $(code).insertBefore($("tbody tr")[0]);
+                    if ($("tbody tr").length > 4) {
+                        $(code).insertBefore($("tbody tr")[0]);
+                        $("tbody tr:last-child").remove();
+                    }
+                    else {
+                        $(code).insertBefore($("tbody tr")[0]);
+                    }
                 }
             }
 

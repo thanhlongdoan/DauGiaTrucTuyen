@@ -28,7 +28,7 @@ namespace DauGiaTrucTuyen.Controllers
         [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
         public ActionResult Index(int? page)
         {
-            int pageSize = 10;
+            int pageSize = 24;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             return View(_iProduct.GetListProductForPageClient().ToPagedList(pageIndex, pageSize));
@@ -46,10 +46,14 @@ namespace DauGiaTrucTuyen.Controllers
 
         public ActionResult ListAuctioning(int? page)
         {
-            int pageSize = 10;
+            int pageSize = 24;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             return View(_iProduct.GetListProductForPageClientAuctionning().ToPagedList(pageIndex, pageSize));
+        }
+        public ActionResult SecurityView()
+        {
+            return View();
         }
     }
 }

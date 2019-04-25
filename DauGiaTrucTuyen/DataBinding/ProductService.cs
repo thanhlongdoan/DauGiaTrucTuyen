@@ -172,7 +172,7 @@ namespace DauGiaTrucTuyen.DataBinding
             var transaction = db.Transactions.Where(x => x.Product_Id == product.Products_Id).FirstOrDefault();
             if (product != null)
             {
-                product.StatusProduct = StatusProduct.Transactioning;
+                product.StatusProduct = StatusProduct.Auctioning;
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
 

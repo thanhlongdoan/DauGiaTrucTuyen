@@ -2,6 +2,7 @@
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
 using DauGiaTrucTuyen.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Data.Entity;
@@ -59,7 +60,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                                  .FirstOrDefault();
                         if (query != null)
                         {
-                            SendMail(query);
+                            //SendNoticationSuccess(query);
                         }
                     }
 
@@ -148,10 +149,31 @@ namespace DauGiaTrucTuyen.HubRealTime
         }
 
         //gửi email khi phiên đấu giá kết thúc ( gửi cho người thắng cuộc và người chủ sản phẩm)
-        public void SendMail(NoticationWin model)
+        public void SendNoticationSuccess(NoticationWin model)
         {
-            SendMail sendMail = new SendMail();
-            sendMail.SendMailNotication(model);
+            SendNotication sendNotication = new SendNotication();
+
+            //gửi thông báo cho người chủ sản phẩm
+            if (db.Users.FirstOrDefault(x => x.Id == model.User_Id_Add).EmailConfirmed == false)
+            {
+                //gui qua sdt
+                sendNotication.SendSMSNoticationForUserAdd(model);
+            }
+            else
+            {
+                sendNotication.SendMailNoticationUserAdd(model);
+            }
+
+            //gửi thông báo cho người thắng cuộc
+            if (db.Users.FirstOrDefault(x => x.Id == model.User_Id_Auction).EmailConfirmed == false)
+            {
+                //gui qua sdt
+                sendNotication.SendSMSNoticationForUserAuction(model);
+            }
+            else
+            {
+                sendNotication.SendMailNoticationForUserAuction(model);
+            }
         }
     }
 }

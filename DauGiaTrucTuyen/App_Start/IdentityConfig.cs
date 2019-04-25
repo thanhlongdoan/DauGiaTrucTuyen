@@ -15,6 +15,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Configuration;
 using Twilio.Clients;
+using Nexmo.Api;
 
 namespace DauGiaTrucTuyen
 {
@@ -55,8 +56,17 @@ namespace DauGiaTrucTuyen
     {
         public Task SendAsync(IdentityMessage message)
         {
-            var Twilio = new TwilioRestClient(ConfigurationManager.AppSettings[""],
-                ConfigurationManager.AppSettings[""]);
+            var client = new Client(creds: new Nexmo.Api.Request.Credentials
+            {
+                ApiKey = "8e34d9a0",
+                ApiSecret = "HaoyijDNILS5P1f8"
+            });
+            var results = client.SMS.Send(request: new SMS.SMSRequest
+            {
+                from = "DauGiaTrucTuyen",
+                to = message.Destination,
+                text = message.Body
+            });
             // Plug in your SMS service here to send a text message.
             return Task.FromResult(0);
         }

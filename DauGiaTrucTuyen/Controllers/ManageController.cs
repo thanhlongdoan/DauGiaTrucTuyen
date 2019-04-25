@@ -187,9 +187,8 @@ namespace DauGiaTrucTuyen.Controllers
                 var user = await UserManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return RedirectToAction("VerifyPhoneNumberConfirm");
                 }
-                ViewBag.Result = "SendedSms";
                 //return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
@@ -197,6 +196,11 @@ namespace DauGiaTrucTuyen.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult VerifyPhoneNumberConfirm()
+        {
+            return View();
+        }
         //
         // POST: /Manage/RemovePhoneNumber
         [HttpPost]

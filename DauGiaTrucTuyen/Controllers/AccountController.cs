@@ -204,8 +204,8 @@ namespace DauGiaTrucTuyen.Controllers
                         {
                             var message = new IdentityMessage
                             {
-                                Destination = model.PhoneNumber,
-                                Body = "Mã xác nhận tài khoản Đấu Giá Trực Tuyến của bạn là: " + code
+                                Destination = "84" + model.PhoneNumber,
+                                Body = "Ma xac nhan tai khoan Dau Gia Truc Tuyen cua ban la: " + code
                             };
                             await UserManager.SmsService.SendAsync(message);
                         }
