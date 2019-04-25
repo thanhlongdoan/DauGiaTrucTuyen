@@ -60,7 +60,7 @@ namespace DauGiaTrucTuyen.HubRealTime
                                  .FirstOrDefault();
                         if (query != null)
                         {
-                            //SendNoticationSuccess(query);
+                            SendNoticationSuccess(query);
                         }
                     }
 
