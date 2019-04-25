@@ -25,8 +25,8 @@ namespace DauGiaTrucTuyen.DataBinding
                         Product_Id = product.Products_Id,
                         ProductName = productDetail.ProductName,
                         Transaction_Id = transaction.Transaction_Id,
-                        AuctionPrice = (double)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
-                    }).ToList();
+                        AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
+                    }).Distinct().ToList();
         }
 
         public List<ListAuctionWinViewModel> ListAuctionWin(string sessionUserId)
@@ -45,7 +45,7 @@ namespace DauGiaTrucTuyen.DataBinding
                         Product_Id = product.Products_Id,
                         ProductName = productDetail.ProductName,
                         Transaction_Id = transaction.Transaction_Id,
-                        AuctionPrice = (double)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
+                        AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                     }).ToList();
         }
 
@@ -65,8 +65,8 @@ namespace DauGiaTrucTuyen.DataBinding
                         Product_Id = product.Products_Id,
                         ProductName = productDetail.ProductName,
                         Transaction_Id = transaction.Transaction_Id,
-                        AuctionPrice = (double)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
-                    }).ToList();
+                        AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
+                    }).Distinct().ToList();
         }
     }
 }

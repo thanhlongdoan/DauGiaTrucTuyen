@@ -31,9 +31,9 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
 
         // GET: Admin/Product
         /// <summary>
-        /// Danh sách sản phẩm đã duyệt
+        /// Danh sách sản phẩm đang đấu giá
         /// </summary>
-        /// <param name="status">status ==Approed </param>
+        /// <param name="status">status == Auctioning </param>
         /// <returns></returns>
         public ActionResult Index(string status)
         {
@@ -65,8 +65,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
             items.Add(new SelectListItem { Text = "4:00:00 s", Value = "144000000000" });
             items.Add(new SelectListItem { Text = "8:00:00 s", Value = "288000000000" });
             items.Add(new SelectListItem { Text = "12:00:00 s", Value = "432000000000" });
-            items.Add(new SelectListItem { Text = "24:00:00 s", Value = "864000000000" });
-            items.Add(new SelectListItem { Text = "48:00:00 s", Value = "1728000000000" });
+            items.Add(new SelectListItem { Text = "24:00:00 s", Value = "863999999999" });
             ViewBag.SelectedItems = items;
             return View();
         }

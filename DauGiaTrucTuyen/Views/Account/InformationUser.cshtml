@@ -21,7 +21,7 @@
                     <br />
                     <p class="text-center"><strong>@Model.UserName</strong></p>
                     <br />
-                    <div class="list-group" style="padding-left: 1%;">
+                    <div class="list-group box-information">
                         <a href="@Url.Action("InformationUser","Account")" class="list-group-item">Thông tin tài khoản</a>
                         <a href="@Url.Action("UpdateUser","Account")" class="list-group-item">Cập nhật thông tin tài khoản</a>
                         <a href="@Url.Action("ChangePassword","Manage")" class="list-group-item">Đổi mật khẩu</a>
@@ -32,7 +32,7 @@
         <!--/col-3-->
         <div class="col-sm-9">
             <div class="tab-content">
-                <div class="tab-pane active">
+                <div class="tab-pane active information">
                     <div class="col-xs-12 col-sm-6">
                         @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @readonly = "readonly" } })

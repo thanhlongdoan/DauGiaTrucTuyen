@@ -71,6 +71,10 @@
                                                 {
                                                     <a href="@Url.Action("Edit", new { id = item.Products_Id})"><i class="fas fa-edit"></i></a>
                                                 }
+                                                else
+                                                {
+                                                    <a id="js_btnEndAuction" href="javascript:;" data-id="@item.Products_Id">[Kết thúc]</a>
+                                                }
                                                 <a href="@Url.Action("Detail", new { id = item.Products_Id })"><i class="fas fa-info-circle"></i></a>
                                             </td>
                                         </tr>
@@ -100,5 +104,47 @@
             });
             new $.fn.dataTable.FixedHeader(table);
         });
+    </script>
+    <script>
+        $("#example").on("click", "#js_btnEndAuction", function () {
+            var id = $(this).attr('data-id');
+            swal({
+                title: "Kết thúc phiên đấu giá?",
+                text: "Bạn có chắc chắn muốn kết thúc phiên đấu giá tại đây không?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Đồng ý",
+                cancelButtonText: 'Không',
+                confirmButtonColor: "#ec6c62",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function (result) {
+                if (result) {
+                    $.ajax(
+                        {
+                            url: "/ManagerAuction/EndAuction?productId=" + id,
+                            type: "GET",
+                            success: function (data) {
+                                if (data) {
+                                    swal({
+                                        title: "Kết thúc phiên đấu giá thành công",
+                                        type: "success",
+                                        confirmButtonClass: "btn-primary",
+                                        confirmButtonText: "OK",
+                                        closeOnConfirm: false
+                                    }, function () {
+                                        location.href = "@Url.Action("Index")";
+                                    });
+                                }
+                                else {
+                                    swal("Xóa thất bại", ":(", "error");
+                                }
+                            }
+                        }
+                    )
+                }
+            });
+        })
     </script>
 }

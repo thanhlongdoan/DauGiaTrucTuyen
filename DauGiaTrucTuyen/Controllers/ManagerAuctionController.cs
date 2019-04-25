@@ -30,6 +30,13 @@ namespace DauGiaTrucTuyen.Controllers
             return View(_iProduct.GetListProductForClient(User.Identity.GetUserId()));
         }
 
+        public bool EndAuction(string productId)
+        {
+            if (_iProduct.EndAuction(productId))
+                return true;
+            return false;
+        }
+
         //Tạo mới sản phẩm (GET)
         [HttpGet]
         public ActionResult Create()
@@ -46,8 +53,7 @@ namespace DauGiaTrucTuyen.Controllers
             items.Add(new SelectListItem { Text = "4:00:00 s", Value = "144000000000" });
             items.Add(new SelectListItem { Text = "8:00:00 s", Value = "288000000000" });
             items.Add(new SelectListItem { Text = "12:00:00 s", Value = "432000000000" });
-            items.Add(new SelectListItem { Text = "24:00:00 s", Value = "864000000000" });
-            items.Add(new SelectListItem { Text = "48:00:00 s", Value = "1728000000000" });
+            items.Add(new SelectListItem { Text = "24:00:00 s", Value = "863999999999" });
             ViewBag.SelectedItems = items;
             return View();
         }

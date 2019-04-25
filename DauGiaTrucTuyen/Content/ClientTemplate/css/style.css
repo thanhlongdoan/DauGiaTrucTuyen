@@ -9,6 +9,28 @@ p {
     font-size: 14px;
 }
 
+input::placeholder {
+    font-size: 13px;
+    font-style: italic;
+}
+
+.item_price {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90px;
+    display: inline-block;
+    line-height: 15px;
+}
+
+.box-information {
+    padding: 1%;
+}
+
+.information label {
+    padding-top: 2%;
+}
+
 .hs-wrapper img {
     width: 180px;
     height: 220px;

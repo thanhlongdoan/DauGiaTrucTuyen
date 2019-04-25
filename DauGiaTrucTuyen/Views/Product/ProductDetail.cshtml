@@ -196,9 +196,8 @@
                     '<td><span class="badge bg-red">' + price + ' K</span></td>' +
                     '</tr>';
                 var tbody = document.getElementsByTagName("tbody");
-                console.log(tbody.length)
-                if (tbody.length == "0") {
-                    tbody.append(code);
+                if ($("tbody tr").length == 0) {
+                    $("tbody").append(code);
                 } else {
                     if ($("tbody tr").length > 4) {
                         $(code).insertBefore($("tbody tr")[0]);

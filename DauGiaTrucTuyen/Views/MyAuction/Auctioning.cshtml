@@ -15,7 +15,7 @@
 <br />
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-        <li><a href="@Url.Action("Auctioning")">Phiên đấu giá hiện tại</a></li>
+        <li><a href="@Url.Action("Auctioning")" style="color: #3c43a4; font-weight: bold">Phiên đấu giá hiện tại</a></li>
         <li><a href="@Url.Action("AuctionWin")">Đấu giá đã thắng</a></li>
         <li><a href="@Url.Action("AuctionLost")">Đấu giá thua</a></li>
     </ul>
@@ -36,7 +36,7 @@
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AuctionPrice)
+                    @Html.DisplayFor(modelItem => item.AuctionPrice) VND đồng
                 </td>
                 <td>
                     <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Product_Id })">[Chi tiết]</a>

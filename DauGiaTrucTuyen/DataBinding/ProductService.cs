@@ -55,7 +55,7 @@ namespace DauGiaTrucTuyen.DataBinding
                        join category in db.Categorys on product.Category_Id equals category.Categorys_Id
                        join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                        join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
-                       where product.User_Id == sessionUserId && product.StatusProduct.Equals(StatusProduct.Approved) || product.User_Id == sessionUserId && product.StatusProduct.Equals(StatusProduct.Review)
+                       where product.User_Id == sessionUserId && product.StatusProduct.Equals(StatusProduct.Auctioning) || product.User_Id == sessionUserId && product.StatusProduct.Equals(StatusProduct.Review)
                        select new ListProductViewModel
                        {
                            Products_Id = product.Products_Id,
@@ -450,6 +450,86 @@ namespace DauGiaTrucTuyen.DataBinding
             db.Entry(transaction).State = EntityState.Modified;
             db.SaveChanges();
             return true;
+        }
+
+
+        //kết thúc phiên đấu giá
+        public bool EndAuction(string productId)
+        {
+            var product = db.Products.FirstOrDefault(x => x.Products_Id == productId);
+            if (product != null)
+            {
+                product.StatusProduct = StatusProduct.Transactioning;
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+                var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
+                                                        || x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
+                                                        .ToList();
+                foreach (var item in transactions)
+                {
+                    //lấy ra người có giá cao nhất để update trạng thái win
+                    TransactionAuction transactionAuction = db.TransactionAuctions.Where(x => x.Transaction_Id == item.Transaction_Id
+                                                                                            && x.Status != null)
+                                                                                            .OrderByDescending(x => x.AuctionPrice)
+                                                                                            .FirstOrDefault();
+                    //update trạng thái win cho người thắng cuộc trong phiên đấu giá
+                    if (transactionAuction != null)
+                    {
+                        transactionAuction.Status = StatusTransactionAuction.Win;
+                        db.Entry(transactionAuction).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        //query để lấy thông tin gửi email 
+                        var query = (from productSendMail in db.Products
+                                     join productDetail in db.ProductDetails on productSendMail.Products_Id equals productDetail.Product_Id
+                                     join transactionSendMail in db.Transactions on productSendMail.Products_Id equals transactionSendMail.Product_Id
+                                     where transactionSendMail.Transaction_Id == transactionAuction.Transaction_Id &&
+                                         productSendMail.StatusProduct.Equals(StatusProduct.Auctioning)
+                                     select new NoticationWin
+                                     {
+                                         Transaction_Id = transactionSendMail.Transaction_Id,
+                                         ProductName = productDetail.ProductName,
+                                         PriceAuction = transactionAuction.AuctionPrice,
+                                         User_Id_Auction = transactionAuction.User_Id,
+                                         User_Id_Add = productSendMail.User_Id
+                                     })
+                                 .FirstOrDefault();
+                        if (query != null)
+                        {
+                            SendNoticationSuccess(query);
+                        }
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public void SendNoticationSuccess(NoticationWin model)
+        {
+            SendNotication sendNotication = new SendNotication();
+
+            //gửi thông báo cho người chủ sản phẩm
+            if (db.Users.FirstOrDefault(x => x.Id == model.User_Id_Add).EmailConfirmed == false)
+            {
+                //gui qua sdt
+                sendNotication.SendSMSNoticationForUserAdd(model);
+            }
+            else
+            {
+                sendNotication.SendMailNoticationUserAdd(model);
+            }
+
+            //gửi thông báo cho người thắng cuộc
+            if (db.Users.FirstOrDefault(x => x.Id == model.User_Id_Auction).EmailConfirmed == false)
+            {
+                //gui qua sdt
+                sendNotication.SendSMSNoticationForUserAuction(model);
+            }
+            else
+            {
+                sendNotication.SendMailNoticationForUserAuction(model);
+            }
         }
     }
 }

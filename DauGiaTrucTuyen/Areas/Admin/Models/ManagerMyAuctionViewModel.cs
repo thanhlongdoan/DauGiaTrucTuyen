@@ -16,7 +16,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string ProductName { get; set; }
 
         [Display(Name = "Giá tiền hiện tại")]
-        public double AuctionPrice { get; set; }
+        public long AuctionPrice { get; set; }
     }
 
     public class ListAuctionWinViewModel
@@ -29,7 +29,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string ProductName { get; set; }
 
         [Display(Name = "Giá tiền cao nhất")]
-        public double AuctionPrice { get; set; }
+        public long AuctionPrice { get; set; }
     }
 
     public class ListAuctionLostViewModel
@@ -42,6 +42,6 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string ProductName { get; set; }
 
         [Display(Name = "Giá tiền")]
-        public double AuctionPrice { get; set; }
+        public long AuctionPrice { get; set; }
     }
 }

@@ -35,5 +35,9 @@ namespace DauGiaTrucTuyen.IDataBinding
         EditProductViewModel GetViewEditProduct(string productId);
 
         bool Edit(EditProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2);
+
+        bool EndAuction(string productId);
+
+        void SendNoticationSuccess(NoticationWin model);
     }
 }
