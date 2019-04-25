@@ -1,14 +1,11 @@
 ﻿using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.Models;
 using Nexmo.Api;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace DauGiaTrucTuyen.DataBinding
 {

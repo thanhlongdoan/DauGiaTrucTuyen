@@ -1,13 +1,10 @@
 ﻿using DauGiaTrucTuyen.Areas.Admin.Models;
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
-using DauGiaTrucTuyen.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading;
 using System.Web;
 
 namespace DauGiaTrucTuyen.HubRealTime

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DauGiaTrucTuyen.Data;
+﻿using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.IDataBinding;
 using DauGiaTrucTuyen.Models;
 using System;

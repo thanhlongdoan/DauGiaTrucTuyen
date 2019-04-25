@@ -2,15 +2,12 @@
 using DauGiaTrucTuyen.Common;
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.IDataBinding;
+using DauGiaTrucTuyen.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using DauGiaTrucTuyen.Models;
 
 namespace DauGiaTrucTuyen.DataBinding
 {

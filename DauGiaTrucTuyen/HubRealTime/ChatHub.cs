@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Configuration;
-using DauGiaTrucTuyen.Data;
+﻿using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.DataBinding;
 using Microsoft.AspNet.SignalR;
+using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Configuration;
 
 namespace DauGiaTrucTuyen.HubRealTime
 {
