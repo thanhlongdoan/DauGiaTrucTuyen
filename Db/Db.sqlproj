@@ -65,7 +65,6 @@
     <Build Include="dbo\Tables\UserRoles.sql" />
     <Build Include="dbo\Tables\UserLogins.sql" />
     <Build Include="dbo\Tables\UserClaims.sql" />
-    <Build Include="dbo\Tables\UserChat.sql" />
     <Build Include="dbo\Tables\Transactions.sql" />
     <Build Include="dbo\Tables\TransactionAuction.sql" />
     <Build Include="dbo\Tables\StatusUsers.sql" />
@@ -73,9 +72,10 @@
     <Build Include="dbo\Tables\Reports.sql" />
     <Build Include="dbo\Tables\Products.sql" />
     <Build Include="dbo\Tables\ProductDetails.sql" />
-    <Build Include="dbo\Tables\MessageChat.sql" />
     <Build Include="dbo\Tables\FeedBacks.sql" />
     <Build Include="dbo\Tables\Categorys.sql" />
     <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="dbo\Tables\Users_Chat.sql" />
+    <Build Include="dbo\Tables\Message_User_Chat.sql" />
   </ItemGroup>
 </Project>
