@@ -543,13 +543,9 @@
     <Compile Include="IDataBinding\IProduct.cs" />
     <Compile Include="IDataBinding\IReport.cs" />
     <Compile Include="IDataBinding\IUser.cs" />
-    <Compile Include="Migrations\201904220245493_init.cs" />
-    <Compile Include="Migrations\201904220245493_init.Designer.cs">
-      <DependentUpon>201904220245493_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904240728454_init1.cs" />
-    <Compile Include="Migrations\201904240728454_init1.Designer.cs">
-      <DependentUpon>201904240728454_init1.cs</DependentUpon>
+    <Compile Include="Migrations\201904260811090_Initial.cs" />
+    <Compile Include="Migrations\201904260811090_Initial.Designer.cs">
+      <DependentUpon>201904260811090_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3688,16 +3684,13 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904220245493_init.resx">
-      <DependentUpon>201904220245493_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904240728454_init1.resx">
-      <DependentUpon>201904240728454_init1.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201904260811090_Initial.resx">
+      <DependentUpon>201904260811090_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
