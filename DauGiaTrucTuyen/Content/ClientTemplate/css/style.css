@@ -5004,6 +5004,10 @@ td.invert-image a img {
 }
 
 @media (max-width:480px) {
+    .list-auction {
+        text-align: center;
+    }
+
     #w3lssbmincart {
         left: 21%;
         width: 338px;
@@ -5109,11 +5113,11 @@ td.invert-image a img {
 
     .agile_ecommerce_tab_left {
         float: none;
-        width: 100%;
+        display: inline-block;
     }
 
         .agile_ecommerce_tab_left:nth-child(2) {
-            margin: 2em 0;
+            margin: 0em 0;
         }
 
     .w3_hs_bottom ul, .flex_ecommerce {

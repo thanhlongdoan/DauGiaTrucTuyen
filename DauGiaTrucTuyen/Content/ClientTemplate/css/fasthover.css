@@ -341,7 +341,7 @@
 
 @media (max-width: 600px) {
     .hs-wrapper {
-        width: 140px;
+        width: 100%;
         height: 182px;
     }
 
@@ -360,8 +360,16 @@
 
 @media (max-width:480px) {
     .hs-wrapper {
-        width: 215px;
-        height: 245px;
+        width: 100%;
+        height: 130px;
+    }
+
+    .item_price {
+        font-size: 13px;
+    }
+
+    .simpleCart_shelfItem p span {
+        font-size: 11px !important;
     }
 
     .hs-wrapper2 {
