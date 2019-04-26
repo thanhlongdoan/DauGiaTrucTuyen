@@ -179,6 +179,8 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [DisplayName("Giá cao nhất")]
         public decimal? AuctionPrice { get; set; }
 
+        public string Status { get; set; }
+
         public List<ListTopAuction> ListTopAuction { get; set; }
     }
 

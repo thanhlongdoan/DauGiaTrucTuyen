@@ -53,6 +53,7 @@
         $(document).ready(function () {
             //Js load thời gian đấu giá
             var items = @Html.Raw(Json.Encode(Model));
+            console.log(items)
             for (var i = 0; i < items.length; i++) {
                 var item = items[i];
                 var id = item.Products_Id;

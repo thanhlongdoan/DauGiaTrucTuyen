@@ -320,6 +320,7 @@ namespace DauGiaTrucTuyen.DataBinding
                              PriceStart = transaction.PriceStart,
                              StepPrice = transaction.StepPrice,
                              CategoryName = category.CategoryName,
+                             Status = product.StatusProduct,
                              AuctionPrice = db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                              Transaction_Id = transaction.Transaction_Id,
                              ListTopAuction = (from transactionAuction in db.TransactionAuctions
