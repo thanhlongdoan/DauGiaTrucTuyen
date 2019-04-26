@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[UserChat] (
+﻿CREATE TABLE [dbo].[Users_Chat] (
     [UserChat_Id]  NVARCHAR (128) NOT NULL,
     [ConnectionId] NVARCHAR (250) NULL,
     [User_Id]      NVARCHAR (128) NULL,
