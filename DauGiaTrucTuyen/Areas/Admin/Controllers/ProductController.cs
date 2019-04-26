@@ -76,7 +76,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 if (_iProduct.Create(model, file, file1, file2, User.Identity.GetUserId()))
-                    return RedirectToAction("Index", new { status = StatusProduct.Approved });
+                    return RedirectToAction("Index", new { status = StatusProduct.Transactioning });
                 return HttpNotFound();
             }
             else
