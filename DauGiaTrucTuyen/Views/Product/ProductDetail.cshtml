@@ -138,7 +138,8 @@
     </script>
     <!--Load thời gian đấu giá-->
     <script type="text/javascript">
-        if(@Model.Status != "Đang giao dịch")
+        console.log("@Model.Status")
+        if ("@Model.Status" != "Đang giao dich")
         {
             var upgradeTime = @Model.TimeRemaining;
             var seconds = upgradeTime;
@@ -148,7 +149,7 @@
                 var hours = Math.floor(hoursLeft / 3600);
                 var minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
                 var minutes = Math.floor(minutesLeft / 60);
-                var remainingSeconds = if;
+                var remainingSeconds = seconds % 60;
                 function pad(n) {
                     return (n < 10 ? "0" + n : n);
                             }

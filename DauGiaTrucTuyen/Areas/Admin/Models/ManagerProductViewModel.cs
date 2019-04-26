@@ -55,6 +55,8 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         public string Image { get; set; }
 
         public decimal PriceStart { get; set; }
+
+        public string Status { get; set; }
     }
 
     public class AddProductViewModel

@@ -29,39 +29,40 @@
 </div>
 @section scripts{
     <script>
-        $(document).ready(function () {
             //Js load thời gian đấu giá
             var items = @Html.Raw(Json.Encode(Model));
+            console.log(items)
             for (var i = 0; i < items.length; i++) {
                 var item = items[i];
-                var id = item.Products_Id;
-                var upgradeTime = item.TimeRemaining;
-                var seconds = upgradeTime;
+                if (item.Status != "Đang giao dich") {
+                    var id = item.Products_Id;
+                    var upgradeTime = item.TimeRemaining;
+                    var seconds = upgradeTime;
 
-                function startTimer(duration, display) {
-                    var timer = duration, hours, minutes, seconds;
-                    setInterval(function () {
-                        hours = Math.floor(timer / 3600);
-                        minutes = Math.floor((Math.floor((timer) - (hours * 3600))) / 60);
-                        seconds = Math.floor(timer % 60);
+                    function startTimer(duration, display) {
+                        var timer = duration, hours, minutes, seconds;
+                        setInterval(function () {
+                            hours = Math.floor(timer / 3600);
+                            minutes = Math.floor((Math.floor((timer) - (hours * 3600))) / 60);
+                            seconds = Math.floor(timer % 60);
 
-                        hours = hours < 10 ? "0" + hours : hours;
-                        minutes = minutes < 10 ? "0" + minutes : minutes;
-                        seconds = seconds < 10 ? "0" + seconds : seconds;
+                            hours = hours < 10 ? "0" + hours : hours;
+                            minutes = minutes < 10 ? "0" + minutes : minutes;
+                            seconds = seconds < 10 ? "0" + seconds : seconds;
 
-                        display.textContent = hours + ":" + minutes + ":" + seconds;
+                            display.textContent = hours + ":" + minutes + ":" + seconds;
 
-                        if (--timer < 0) {
-                            display.textContent = "ĐÃ KẾT THÚC";
-                        }
-                    }, 1000);
+                            if (--timer < 0) {
+                                display.textContent = "ĐANG KẾT THÚC";
+                            }
+                        }, 1000);
+                    }
+
+                    var fiveMinutes = upgradeTime,
+                        display = document.querySelector('#counter-time-' + id);
+                    startTimer(fiveMinutes, display);
                 }
-
-                var fiveMinutes = upgradeTime,
-                    display = document.querySelector('#counter-time-' + id);
-                startTimer(fiveMinutes, display);
             }
-        })
     </script>
     <script type="text/javascript">
         $(document).ready(function () {

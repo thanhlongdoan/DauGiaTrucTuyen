@@ -199,8 +199,9 @@ namespace DauGiaTrucTuyen.DataBinding
                         join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
                         orderby transaction.TimeLine ascending
                         where product.StatusProduct.Equals(StatusProduct.Auctioning) || product.StatusProduct.Equals(StatusProduct.Transactioning)
-                        select new ListProductForPageClientViewModel
+                        select new ListProductFullViewModel
                         {
+                            Status = product.StatusProduct,
                             Products_Id = product.Products_Id,
                             TimeLine = transaction.TimeLine,
                             AuctionDateStart = transaction.AuctionDateStart,
@@ -233,8 +234,9 @@ namespace DauGiaTrucTuyen.DataBinding
                         join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
                         orderby transaction.TimeLine ascending
                         where product.StatusProduct.Equals(StatusProduct.Auctioning)
-                        select new ListProductForPageClientViewModel
+                        select new ListProductFullViewModel
                         {
+                            Status = product.StatusProduct,
                             Products_Id = product.Products_Id,
                             TimeLine = transaction.TimeLine,
                             AuctionDateStart = transaction.AuctionDateStart,
@@ -268,8 +270,9 @@ namespace DauGiaTrucTuyen.DataBinding
                         orderby transaction.TimeLine ascending
                         where product.StatusProduct.Equals(StatusProduct.Auctioning) && product.Category_Id == categoryId
                         || product.StatusProduct.Equals(StatusProduct.Transactioning) && product.Category_Id == categoryId
-                        select new ListProductForPageClientViewModel
+                        select new ListProductFullViewModel
                         {
+                            Status = product.StatusProduct,
                             Products_Id = product.Products_Id,
                             TimeLine = transaction.TimeLine,
                             AuctionDateStart = transaction.AuctionDateStart,
