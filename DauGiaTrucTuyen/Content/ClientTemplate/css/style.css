@@ -23,6 +23,14 @@ input::placeholder {
     line-height: 15px;
 }
 
+.glyphicon.glyphicon-user {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90px;
+    display: inline-block;
+}
+
 .box-information {
     padding: 1%;
 }
