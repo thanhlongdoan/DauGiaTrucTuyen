@@ -8,5 +8,6 @@ namespace DauGiaTrucTuyen.IDataBinding
         List<ListAuctioningViewModel> ListAuctioning(string sessionUserId);
         List<ListAuctionWinViewModel> ListAuctionWin(string sessionUserId);
         List<ListAuctionLostViewModel> ListAuctionLost(string sessionUserId);
+        bool ConfirmTransaction(string productId);
     }
 }

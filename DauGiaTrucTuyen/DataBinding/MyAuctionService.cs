@@ -2,6 +2,7 @@
 using DauGiaTrucTuyen.Data;
 using DauGiaTrucTuyen.IDataBinding;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace DauGiaTrucTuyen.DataBinding
@@ -36,8 +37,7 @@ namespace DauGiaTrucTuyen.DataBinding
                     where transactionAuction.Status.Equals(StatusTransactionAuction.Win)
                         && transactionAuction.User_Id == sessionUserId
                         && product.StatusProduct.Equals(StatusProduct.Transactioning)
-                        || transactionAuction.User_Id == sessionUserId
-                        && product.StatusProduct.Equals(StatusProduct.Transactioned)
+                    //&& product.StatusProduct.Equals(StatusProduct.Transactioned)
                     select new ListAuctionWinViewModel
                     {
                         Product_Id = product.Products_Id,
@@ -56,8 +56,7 @@ namespace DauGiaTrucTuyen.DataBinding
                     where transactionAuction.Status.Equals(StatusTransactionAuction.Lost)
                           && transactionAuction.User_Id == sessionUserId
                           && product.StatusProduct.Equals(StatusProduct.Transactioning)
-                          || transactionAuction.User_Id == sessionUserId
-                          && product.StatusProduct.Equals(StatusProduct.Transactioned)
+                    //&& product.StatusProduct.Equals(StatusProduct.Transactioned)
                     select new ListAuctionLostViewModel
                     {
                         Product_Id = product.Products_Id,
@@ -65,6 +64,15 @@ namespace DauGiaTrucTuyen.DataBinding
                         Transaction_Id = transaction.Transaction_Id,
                         AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                     }).Distinct().ToList();
+        }
+
+        public bool ConfirmTransaction(string productId)
+        {
+            var product = db.Products.FirstOrDefault(x => x.Products_Id == productId);
+            product.StatusProduct = StatusProduct.Transactioned;
+            db.Entry(product).State = EntityState.Modified;
+            db.SaveChanges();
+            return true;
         }
     }
 }

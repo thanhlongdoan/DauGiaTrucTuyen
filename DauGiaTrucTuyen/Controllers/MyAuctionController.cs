@@ -43,5 +43,12 @@ namespace DauGiaTrucTuyen.Controllers
             ViewBag.ProductId = productId;
             return View();
         }
+
+        public bool ConfirmTransactioned(string productId)
+        {
+            if (_iMyAuction.ConfirmTransaction(productId))
+                return true;
+            return false;
+        }
     }
 }
