@@ -2,7 +2,7 @@
 @if (Request.IsAuthenticated)
 {
     <div class="col-md-1 col-sm-6 w3l_login logined">
-        <a href="@Url.Action("InformationUser", "Account")"><span class="glyphicon glyphicon-user" aria-hidden="true">@(User.Identity.GetUserName() != "admin@gmail.com" ? User.Identity.GetUserName() : "admin") </span></a>
+        <a href="@Url.Action("InformationUser", "Account")"><span class="glyphicon glyphicon-user logined" aria-hidden="true">@(User.Identity.GetUserName() != "admin@gmail.com" ? User.Identity.GetUserName() : "admin") </span></a>
 
     </div>
 

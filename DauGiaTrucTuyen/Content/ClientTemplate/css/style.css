@@ -23,7 +23,7 @@ input::placeholder {
     line-height: 15px;
 }
 
-.glyphicon.glyphicon-user {
+.glyphicon.glyphicon-user.logined {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
