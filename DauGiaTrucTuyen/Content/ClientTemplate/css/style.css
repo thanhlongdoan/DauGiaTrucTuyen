@@ -9,6 +9,15 @@ p {
     font-size: 14px;
 }
 
+#input-price {
+    width: 100% !important;
+    margin: auto !important;
+}
+
+.box-input-price {
+    width: 150px
+}
+
 input::placeholder {
     font-size: 13px;
     font-style: italic;
