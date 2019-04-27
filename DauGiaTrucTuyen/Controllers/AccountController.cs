@@ -592,7 +592,6 @@ namespace DauGiaTrucTuyen.Controllers
                 user.FirstName = model.FirstName;
                 user.Address = model.Address;
                 UserManager.Update(user);
-                UserManager.UpdateAsync(user);
                 return RedirectToAction("InformationUser");
             }
             return View(model);

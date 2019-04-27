@@ -124,15 +124,11 @@ namespace DauGiaTrucTuyen.Models
     {
         [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập !")]
         [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
-        [Remote("CheckUserNameExist", "Account", ErrorMessage = "Tên đăng nhập đã tồn tại !")]
         [Display(Name = "Tên đăng nhập")]
         public string UserName { get; set; }
     }
     public class UpdateUserViewModel
     {
-        [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập !")]
-        [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
-        [Display(Name = "Tên đăng nhập")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập tên !")]
