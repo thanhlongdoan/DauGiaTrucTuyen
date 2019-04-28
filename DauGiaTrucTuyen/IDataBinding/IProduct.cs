@@ -35,5 +35,7 @@ namespace DauGiaTrucTuyen.IDataBinding
         bool EndAuction(string productId);
 
         void SendNoticationSuccess(NoticationWin model);
+
+        List<ListProductViewModel> GetFullListProduct();
     }
 }

@@ -38,6 +38,13 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         {
             return View(_iProduct.GetListProduct(status));
         }
+        
+        /// Danh sách toàn bộ sản phẩm
+        public ActionResult GetFullListProduct()
+        {
+            return View(_iProduct.GetFullListProduct());
+        }
+
         /// <summary>
         /// Danh sách sản phẩm đang chờ phê duyệt
         /// </summary>

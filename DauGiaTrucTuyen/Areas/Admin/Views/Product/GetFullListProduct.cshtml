@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListProductViewModel>
+@{
+    ViewBag.Title = "Danh sách tất cả sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Danh sách sản phẩm đang chờ phê duyệt</div>
+    <div class="panel-body">
+        <a href="@Url.Action("Create")" class="btn btn-success">Thêm mới sản phẩm đấu giá</a>
+    </div>
+    <div class="panel-body">
+        <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TimeLine)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PriceStart)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryName)
+                    </th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TimeLine)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriceStart)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Detail", new { id = item.Products_Id })"><i class="fas fa-info-circle"></i></a>
+                            <a id="js_btnDelete" href="javascript:;" data-id="@item.Products_Id"><i class="fas fa-trash text-danger"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/Admin/Scripts/reponsive-table.js"></script>
+    <script src="~/Content/Admin/Scripts/delete/delete-product.js"></script>
+}
+
+

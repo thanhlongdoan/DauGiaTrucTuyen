@@ -2945,6 +2945,7 @@
     <Content Include="Areas\Admin\Views\Chart\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Set.cshtml" />
     <Content Include="Areas\Admin\Views\User\Handle.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\GetFullListProduct.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ckfinder\changelog.txt" />
     <Content Include="Scripts\ckfinder\ckfinder.html" />

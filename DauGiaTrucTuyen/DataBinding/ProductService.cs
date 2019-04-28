@@ -41,6 +41,25 @@ namespace DauGiaTrucTuyen.DataBinding
             return list.ToList();
         }
 
+        //danh sách toàn bộ sản phẩm
+        public List<ListProductViewModel> GetFullListProduct()
+        {
+            var list = from product in db.Products
+                       join category in db.Categorys on product.Category_Id equals category.Categorys_Id
+                       join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
+                       join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
+                       select new ListProductViewModel
+                       {
+                           Products_Id = product.Products_Id,
+                           ProductName = productDetail.ProductName,
+                           TimeLine = transaction.TimeLine,
+                           PriceStart = (decimal)transaction.PriceStart,
+                           Status = product.StatusProduct,
+                           CategoryName = productDetail.ProductName
+                       };
+            return list.ToList();
+        }
+
         /// <summary>
         /// Trả về danh sách sản phẩm đấu giá
         /// </summary>
@@ -76,7 +95,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 product.Products_Id = Guid.NewGuid().ToString();
                 product.CreateDate = DateTime.Now;
                 product.CreateBy = "admin";
-                product.StatusProduct = StatusProduct.Transactioning;
+                product.StatusProduct = StatusProduct.Auctioning;
                 product.Category_Id = model.Category_Id;
                 product.User_Id = sessionUserId;
                 db.Products.Add(product);
@@ -95,6 +114,7 @@ namespace DauGiaTrucTuyen.DataBinding
                 transaction.Transaction_Id = Guid.NewGuid().ToString();
                 transaction.TimeLine = TimeSpan.FromTicks(model.TimeLine);
                 transaction.AuctionDateApproved = DateTime.Now;
+                transaction.AuctionDateStart = DateTime.Now;
                 transaction.PriceStart = model.PriceStart;
                 transaction.StepPrice = model.StepPrice;
                 transaction.Product_Id = product.Products_Id;
