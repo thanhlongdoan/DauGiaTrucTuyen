@@ -19,11 +19,12 @@ namespace DauGiaTrucTuyen.DataBinding
                     join transactionAuction in db.TransactionAuctions on transaction.Transaction_Id equals transactionAuction.Transaction_Id
                     where transactionAuction.User_Id == sessionUserId
                         && product.StatusProduct.Equals(StatusProduct.Auctioning)
+                        && transactionAuction.Status != null
                     select new ListAuctioningViewModel
                     {
                         Product_Id = product.Products_Id,
                         ProductName = productDetail.ProductName,
-                        Transaction_Id = transaction.Transaction_Id,
+                        Transaction_Id = transactionAuction.Transaction_Id,
                         AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                     }).Distinct().ToList();
         }

@@ -3665,6 +3665,7 @@
     <Content Include="Views\Home\ListAuctioning.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumberConfirm.cshtml" />
     <Content Include="Views\Home\SecurityView.cshtml" />
+    <Content Include="Views\Home\Policy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

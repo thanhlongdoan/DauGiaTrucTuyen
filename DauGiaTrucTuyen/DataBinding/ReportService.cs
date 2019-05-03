@@ -40,7 +40,8 @@ namespace DauGiaTrucTuyen.DataBinding
                        {
                            Reports_Id = report.Reports_Id,
                            Title = report.Title,
-                           Transaction_Id = report.Transaction_Id
+                           Transaction_Id = report.Transaction_Id,
+                           Status = report.Status
                        };
             return list.ToList();
         }

@@ -46,9 +46,3 @@
     cursor: pointer;
     font-size: 15px;
 }
-
-.imagePreview {
-    background-size: contain;
-    background: #fff;
-    background-repeat: no-repeat;
-}

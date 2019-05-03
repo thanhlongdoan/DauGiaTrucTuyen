@@ -40,6 +40,8 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [DisplayName("Mã phiên đấu giá")]
         public string Transaction_Id { get; set; }
 
+        public string Status { get; set; }
+
     }
 
     public class DetailReportViewModel
@@ -58,10 +60,10 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [DisplayName("Mã phiên đấu giá")]
         public string Transaction_Id { get; set; }
 
-        [DisplayName("Người tạo")]
+        [DisplayName("Người gửi báo cáo")]
         public string CreateBy { get; set; }
 
-        [DisplayName("Ngày tạo")]
+        [DisplayName("Ngày gửi báo cáo")]
         public DateTime CreateDate { get; set; }
 
         [DisplayName("Trạng thái")]

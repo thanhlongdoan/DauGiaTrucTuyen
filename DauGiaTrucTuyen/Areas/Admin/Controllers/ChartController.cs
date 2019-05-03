@@ -1,4 +1,6 @@
-﻿using System.Web.Helpers;
+﻿using DauGiaTrucTuyen.Data;
+using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace DauGiaTrucTuyen.Areas.Admin.Controllers
@@ -6,6 +8,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ChartController : Controller
     {
+        Db_DauGiaTrucTuyen db = new Db_DauGiaTrucTuyen();
         public ActionResult Index()
         {
             return View();
@@ -13,6 +16,11 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
 
         public ActionResult Chart()
         {
+            var product = db.Products.Where(x => x.CreateDate.Value.Year == 2019).ToList();
+            foreach (var item in product)
+            {
+
+            }
             decimal Jan = 0;
             decimal Feb = 4;
             decimal Mar = 3;

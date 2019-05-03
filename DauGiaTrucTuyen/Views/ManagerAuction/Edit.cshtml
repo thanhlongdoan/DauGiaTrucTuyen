@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-8 imgUp">
-                                            <div class="imagePreview"><img src="@Model.Image" class="img-responsive" alt="Không có" /></div>
+                                            <div class="imagePreview"></div>
                                             <label class="btn btn-primary">
                                                 Chọn ảnh<input type="file" name="file" id="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
                                             </label>
@@ -60,14 +60,14 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Hình ảnh mở rộng</label>
                                         <div class="col-md-4 imgUp">
-                                            <div class="imagePreview"><img src="@Model.ImageMore1" class="img-responsive" alt="Không có" /></div>
+                                            <div class="imagePreview"></div>
                                             <label class="btn btn-primary">
                                                 Chọn ảnh mở rộng 1<input type="file" name="file1" id="file1" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
                                             </label>
                                             @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="col-md-4 imgUp">
-                                            <div class="imagePreview"><img src="@Model.ImageMore2" class="img-responsive" alt="Không có" /></div>
+                                            <div class="imagePreview"></div>
                                             <label class="btn btn-primary">
                                                 Chọn ảnh mở rộng 2<input type="file" name="file2" id="file2" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
                                             </label>

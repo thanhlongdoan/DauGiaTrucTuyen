@@ -30,7 +30,10 @@
                             @Html.DisplayFor(modelItem => item.Transaction_Id)
                         </td>
                         <td>
-                            <a id="js_btnResponsed" href="javascript:;" class="btn btn-default" data-id="@item.Reports_Id" style="display: inline-block">Xác nhận phản hồi</a>
+                            @if (item.Status == "Chưa Phản Hồi")
+                            {
+                                <a id="js_btnResponsed" href="javascript:;" class="btn btn-default" data-id="@item.Reports_Id" style="display: inline-block">Xác nhận phản hồi</a>
+                            }
                             <a href="@Url.Action("Details", new { reports_id = item.Reports_Id })"><i class="fas fa-info-circle"></i></a>
                             <a id="js_btnDelete" href="javascript:;" data-id="@item.Reports_Id"><i class="fas fa-trash text-danger"></i></a>
                         </td>
