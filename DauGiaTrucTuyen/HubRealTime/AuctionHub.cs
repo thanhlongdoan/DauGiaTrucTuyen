@@ -117,36 +117,44 @@ namespace DauGiaTrucTuyen.HubRealTime
             var transaction = db.Transactions.Where(x => x.Product_Id == productId
                                                         && x.Product.StatusProduct.Equals(StatusProduct.Auctioning))
                                                         .FirstOrDefault();
-            if (transaction == null)
+            var statusUser = db.StatusUsers.FirstOrDefault(x => x.User_Id == userId);
+            if (statusUser.BlockAuctionStatus.Equals(StatusBlockAuction.Close))
             {
-                Clients.Caller.AuctionError("Phiên đấu giá đã kết thúc !");
+                Clients.Caller.AuctionError("Tài khoản của bạn đã bi khóa chức năng này!");
             }
             else
             {
-                decimal? priceing = db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice);
-                if (DateTime.Now > (transaction.AuctionDateStart + transaction.TimeLine))
+                if (transaction == null)
                 {
                     Clients.Caller.AuctionError("Phiên đấu giá đã kết thúc !");
                 }
                 else
                 {
-                    if (price > priceing && transaction != null)
+                    decimal? priceing = db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice);
+                    if (DateTime.Now > (transaction.AuctionDateStart + transaction.TimeLine))
                     {
-                        TransactionAuction transactionAuction = new TransactionAuction();
-                        transactionAuction.Transaction_Id = transaction.Transaction_Id;
-                        transactionAuction.User_Id = userId;
-                        transactionAuction.AuctionTime = DateTime.Now;
-                        transactionAuction.AuctionPrice = price;
-                        transactionAuction.Status = StatusTransactionAuction.Lost;
-                        db.TransactionAuctions.Add(transactionAuction);
-                        db.SaveChanges();
-
-                        Groups.Add(Context.ConnectionId, transaction.Transaction_Id);
-
-                        Clients.Group(transaction.Transaction_Id).Auctioning(price, HttpContext.Current.User.Identity.Name);
+                        Clients.Caller.AuctionError("Phiên đấu giá đã kết thúc !");
                     }
                     else
-                        Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại !");
+                    {
+                        if (price > priceing && transaction != null)
+                        {
+                            TransactionAuction transactionAuction = new TransactionAuction();
+                            transactionAuction.Transaction_Id = transaction.Transaction_Id;
+                            transactionAuction.User_Id = userId;
+                            transactionAuction.AuctionTime = DateTime.Now;
+                            transactionAuction.AuctionPrice = price;
+                            transactionAuction.Status = StatusTransactionAuction.Lost;
+                            db.TransactionAuctions.Add(transactionAuction);
+                            db.SaveChanges();
+
+                            Groups.Add(Context.ConnectionId, transaction.Transaction_Id);
+
+                            Clients.Group(transaction.Transaction_Id).Auctioning(price, HttpContext.Current.User.Identity.Name);
+                        }
+                        else
+                            Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại !");
+                    }
                 }
             }
         }
