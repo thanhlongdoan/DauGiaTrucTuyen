@@ -57,13 +57,21 @@ namespace DauGiaTrucTuyen.DataBinding
                     where transactionAuction.Status.Equals(StatusTransactionAuction.Lost)
                           && transactionAuction.User_Id == sessionUserId
                           && product.StatusProduct.Equals(StatusProduct.Transactioning)
+                          //kiểm tra xem Transaction_Id có phải là người đó thắng không
+                          && transactionAuction.Transaction_Id != (from Tran in db.TransactionAuctions
+                                                                   where (Tran.Transaction_Id == transactionAuction.Transaction_Id
+                                                                   && transactionAuction.Status.Equals(StatusTransactionAuction.Win)
+                                                                   && transactionAuction.User_Id == sessionUserId)
+                                                                   select Tran.Transaction_Id)
+                                                                   .FirstOrDefault()
                     //&& product.StatusProduct.Equals(StatusProduct.Transactioned)
                     select new ListAuctionLostViewModel
                     {
                         Product_Id = product.Products_Id,
                         ProductName = productDetail.ProductName,
                         Transaction_Id = transaction.Transaction_Id,
-                        AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
+                        AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id
+                                        && x.Status.Equals(StatusTransactionAuction.Lost)).Max(x => x.AuctionPrice),
                     }).Distinct().ToList();
         }
 

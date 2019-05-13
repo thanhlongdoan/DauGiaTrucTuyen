@@ -69,6 +69,7 @@
                                             <td>
                                                 @if (item.Status == "Đang chờ duyệt")
                                                 {
+                                                    <span>Đang chờ duyệt</span>
                                                     <a href="@Url.Action("Edit", new { id = item.Products_Id})"><i class="fas fa-edit"></i></a>
                                                 }
                                                 else
