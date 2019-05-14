@@ -21,17 +21,18 @@ namespace DauGiaTrucTuyen.Areas.Admin.Controllers
         {
             List<DataPoint> dataPoints = new List<DataPoint>();
 
-            dataPoints.Add(new DataPoint(1481999400000, 4.67));
-            dataPoints.Add(new DataPoint(1482604200000, 4.7));
-            dataPoints.Add(new DataPoint(1483209000000, 4.96));
-            dataPoints.Add(new DataPoint(1483813800000, 5.12));
-            dataPoints.Add(new DataPoint(1484418600000, 5.08));
-            dataPoints.Add(new DataPoint(1485023400000, 5.11));
-            dataPoints.Add(new DataPoint(1485628200000, 5));
-            dataPoints.Add(new DataPoint(1486233000000, 5.2));
-            dataPoints.Add(new DataPoint(1486837800000, 4.7));
-            dataPoints.Add(new DataPoint(1487442600000, 4.74));
-            dataPoints.Add(new DataPoint(1488047400000, 4.67));
+            dataPoints.Add(new DataPoint(1546300800000, 4.67));
+            dataPoints.Add(new DataPoint(1548979200000, 4.7));
+            dataPoints.Add(new DataPoint(1551398400000, 4.96));
+            dataPoints.Add(new DataPoint(1554076800000, 5.12));
+            dataPoints.Add(new DataPoint(1556668800000, 5.08));
+            dataPoints.Add(new DataPoint(1559347200000, 5.11));
+            dataPoints.Add(new DataPoint(1561939200000, 5));
+            dataPoints.Add(new DataPoint(1564617600000, 5.2));
+            dataPoints.Add(new DataPoint(1567296000000, 4.7));
+            dataPoints.Add(new DataPoint(1569888000000, 4.74));
+            dataPoints.Add(new DataPoint(1572566400000, 4.67));
+            dataPoints.Add(new DataPoint(1575158400000, 4.67));
 
 
             JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
