@@ -13,7 +13,15 @@ p {
     width: 100% !important;
     margin: auto !important;
 }
+.flexslider1 ol li img{
+    width: 112px;
+    height: 75px;
+}
 
+.thumb-image img {
+    width: 350px;
+    height: 235px;
+}
 .box-input-price {
     width: 150px
 }

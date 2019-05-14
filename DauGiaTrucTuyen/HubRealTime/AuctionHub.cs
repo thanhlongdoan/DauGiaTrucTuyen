@@ -118,11 +118,8 @@ namespace DauGiaTrucTuyen.HubRealTime
                                                         && x.Product.StatusProduct.Equals(StatusProduct.Auctioning))
                                                         .FirstOrDefault();
             var statusUser = db.StatusUsers.FirstOrDefault(x => x.User_Id == userId);
-            if (statusUser.BlockAuctionStatus.Equals(StatusBlockAuction.Close))
-            {
-                Clients.Caller.AuctionError("Tài khoản của bạn đã bi khóa chức năng này!");
-            }
-            else
+
+            if (statusUser == null || !statusUser.BlockAuctionStatus.Equals(StatusBlockAuction.Close))
             {
                 if (transaction == null)
                 {
@@ -156,6 +153,10 @@ namespace DauGiaTrucTuyen.HubRealTime
                             Clients.Caller.AuctionError("Giá tiền phải lớn hơn giá tiền hiện tại !");
                     }
                 }
+            }
+            else
+            {
+                Clients.Caller.AuctionError("Tài khoản của bạn đã bi khóa chức năng này!");
             }
         }
 

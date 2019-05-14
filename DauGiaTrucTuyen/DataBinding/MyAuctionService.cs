@@ -50,6 +50,7 @@ namespace DauGiaTrucTuyen.DataBinding
 
         public List<ListAuctionLostViewModel> ListAuctionLost(string sessionUserId)
         {
+            //List<ListAuctionLostViewModel> list = new List<ListAuctionLostViewModel>();
             return (from product in db.Products
                     join productDetail in db.ProductDetails on product.Products_Id equals productDetail.Product_Id
                     join transaction in db.Transactions on product.Products_Id equals transaction.Product_Id
@@ -57,13 +58,6 @@ namespace DauGiaTrucTuyen.DataBinding
                     where transactionAuction.Status.Equals(StatusTransactionAuction.Lost)
                           && transactionAuction.User_Id == sessionUserId
                           && product.StatusProduct.Equals(StatusProduct.Transactioning)
-                          //kiểm tra xem Transaction_Id có phải là người đó thắng không
-                          && transactionAuction.Transaction_Id != (from Tran in db.TransactionAuctions
-                                                                   where (Tran.Transaction_Id == transactionAuction.Transaction_Id
-                                                                   && transactionAuction.Status.Equals(StatusTransactionAuction.Win)
-                                                                   && transactionAuction.User_Id == sessionUserId)
-                                                                   select Tran.Transaction_Id)
-                                                                   .FirstOrDefault()
                     //&& product.StatusProduct.Equals(StatusProduct.Transactioned)
                     select new ListAuctionLostViewModel
                     {
@@ -73,6 +67,19 @@ namespace DauGiaTrucTuyen.DataBinding
                         AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id
                                         && x.Status.Equals(StatusTransactionAuction.Lost)).Max(x => x.AuctionPrice),
                     }).Distinct().ToList();
+
+            //var transactionAuctions = db.TransactionAuctions.Where(x => x.Status.Equals(StatusTransactionAuction.Win)
+            //                                                && x.User_Id == sessionUserId).ToList();
+
+            //foreach (var item in query)
+            //{
+            //    foreach (var transactionAuction in transactionAuctions)
+            //    {
+            //        if (item.Transaction_Id != transactionAuction.Transaction_Id)
+            //            list.Add(item);
+            //    }
+            //}
+            //return list;
         }
 
         public bool ConfirmTransaction(string productId)
