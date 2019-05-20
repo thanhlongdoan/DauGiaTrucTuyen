@@ -41,7 +41,10 @@
                 <td>
                     <a href="@Url.Action("ProductDetail", "Product", new { productId = item.Product_Id })">[Chi tiết]</a>
                     <a href="@Url.Action("FeedBack", new { productId = item.Product_Id })">[Đánh giá]</a>
-                    <a id="js_btnConfirmTransaction" href="javascript:;" data-id="@item.Product_Id">[Xác nhận GD thành công]</a>
+                    @if (!item.StatusProduct.Equals("Đang đấu giá"))
+                    {
+                        <a id="js_btnConfirmTransaction" href="javascript:;" data-id="@item.Product_Id">[Xác nhận GD thành công]</a>
+                    })
                 </td>
             </tr>
         }
@@ -96,7 +99,7 @@
                                     });
                                 }
                                 else {
-                                    swal("Xác nhận thất bạn", ":(", "error");
+                                    swal("Xác nhận thất bại", ":(", "error");
                                 }
                             }
                         }

@@ -94,8 +94,17 @@ namespace DauGiaTrucTuyen.DataBinding
         public bool DeleteUser(string id)
         {
             var user = db.Users.Find(id);
+            var feedback = context.FeedBacks.FirstOrDefault(x => x.User_Id == id);
+            var userchat = context.Users_Chat.FirstOrDefault(x => x.User_Id == id);
+            var product = context.Products.FirstOrDefault(x => x.User_Id == id);
+            var report = context.Reports.FirstOrDefault(x => x.User_Id == id);
+            var transactionAuction = context.TransactionAuctions.FirstOrDefault(x => x.User_Id == id);
             if (user != null)
             {
+                if (feedback != null || userchat != null || product != null || report != null || transactionAuction != null)
+                {
+                    return false;
+                }
                 db.Users.Remove(user);
                 db.SaveChanges();
                 return true;

@@ -19,9 +19,8 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [Required(ErrorMessage = " Nội dung là bắt buộc")]
         public string Content { get; set; }
 
-        [DisplayName("Tài khoản cần báo cáo")]
-        [Required(ErrorMessage = "Tài khoản là bắt buộc")]
-        [RegularExpression(@"^\S*$", ErrorMessage = "Tên đăng nhập không hợp lệ")]
+        [DisplayName("Tên tài khoản cần báo cáo")]
+        [Required(ErrorMessage = "Tên tài khoản là bắt buộc")]
         public string ReportUser { get; set; }
 
         [DisplayName("Mã phiên đấu giá")]
@@ -42,6 +41,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         public string Status { get; set; }
 
+        public DateTime? CreateDate { get; set; }
     }
 
     public class DetailReportViewModel
@@ -54,7 +54,7 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [DisplayName("Nội dung")]
         public string Content { get; set; }
 
-        [DisplayName("Tài khoản cần báo cáo")]
+        [DisplayName("Tên tài khoản cần báo cáo")]
         public string ReportUser { get; set; }
 
         [DisplayName("Mã phiên đấu giá")]

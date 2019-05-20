@@ -62,6 +62,7 @@ namespace DauGiaTrucTuyen.Controllers
         [HttpPost]
         public ActionResult Create(AddProductViewModel model, HttpPostedFileBase file, HttpPostedFileBase file1, HttpPostedFileBase file2)
         {
+            //model.Image = file.ToString();
             if (ModelState.IsValid)
             {
                 if (_iProduct.CreateForClient(model, file, file1, file2, User.Identity.GetUserId()))

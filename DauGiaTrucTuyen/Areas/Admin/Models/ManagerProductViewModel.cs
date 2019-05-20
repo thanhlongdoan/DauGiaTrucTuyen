@@ -27,6 +27,8 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
         [DisplayName("Tên danh mục sản phẩm")]
         [Required(ErrorMessage = "Tên danh mục sản phẩm là bắt buộc")]
         public string CategoryName { get; set; }
+
+        public DateTime? CreateDate { get; set; }
     }
 
     public class ListProductForPageClientViewModel

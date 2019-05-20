@@ -19,7 +19,7 @@
                         url: "/Admin/Category/Delete?id=" + id,
                         type: "GET",
                         success: function (data) {
-                            if (data) {
+                            if (data != "False") {
                                 swal({
                                     title: "Đã xóa thành công",
                                     type: "success",

@@ -28,7 +28,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">Đăng ký sản phẩm đấu giá</div>
                         <div class="panel-body panel-primary">
-                            @using (Html.BeginForm("Create", "ManagerAuction", FormMethod.Post, new { area = "admin", enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("Create", "ManagerAuction", FormMethod.Post, new { area = "", enctype = "multipart/form-data" }))
                             {
                                 @Html.AntiForgeryToken()
 

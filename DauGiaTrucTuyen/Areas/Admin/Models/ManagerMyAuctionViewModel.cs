@@ -30,6 +30,8 @@ namespace DauGiaTrucTuyen.Areas.Admin.Models
 
         [Display(Name = "Giá tiền cao nhất")]
         public long AuctionPrice { get; set; }
+
+        public string StatusProduct { get; set; }
     }
 
     public class ListAuctionLostViewModel

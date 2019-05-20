@@ -35,15 +35,16 @@ namespace DauGiaTrucTuyen.DataBinding
 
         public List<ListReportViewModel> GetListReport()
         {
-            var list = from report in db.Reports
+            var list = (from report in db.Reports
                        select new ListReportViewModel
                        {
                            Reports_Id = report.Reports_Id,
                            Title = report.Title,
                            Transaction_Id = report.Transaction_Id,
-                           Status = report.Status
-                       };
-            return list.ToList();
+                           Status = report.Status,
+                           CreateDate = report.CreateDate
+                       }).OrderByDescending(x => x.CreateDate).ToList();
+            return list;
         }
 
         //Xóa báo cáo

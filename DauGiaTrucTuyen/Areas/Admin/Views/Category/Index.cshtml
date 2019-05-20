@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<DauGiaTrucTuyen.Areas.Admin.Models.ListCategoryViewModel>
 
 @{
-    /**/
-
     ViewBag.Title = "Danh sách danh mục sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int counter = 0;
 }
 
 <div class="panel panel-primary">
@@ -16,6 +15,7 @@
         <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
             <thead>
                 <tr>
+                    <th>STT</th>
                     <th>
                         @Html.DisplayNameFor(model => model.CategoryName)
                     </th>
@@ -30,6 +30,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>@Html.Raw(++counter)</td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CategoryName)
                         </td>

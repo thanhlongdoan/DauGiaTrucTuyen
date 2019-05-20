@@ -78,44 +78,57 @@ namespace DauGiaTrucTuyen.Controllers
                 return View(model);
             }
             var user = await UserManager.FindAsync(model.UserName, model.Password);
-            var query = db.StatusUsers.FirstOrDefault(x => x.BlockUserStatus.Equals(StatusBlockUser.Close) && x.User_Id == user.Id);
-            if (query != null)
+
+            if (user == null)
             {
-                ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa !");
-                return View(model);
-            }
-            if (user != null && user.EmailConfirmed == false && user.PhoneNumberConfirmed == false)
-            {
-                ModelState.AddModelError("", "Tài khoản của bạn chưa được xác thực !");
+                ModelState.AddModelError("", "Đăng nhập không đúng !");
                 return View(model);
             }
             else
             {
-                var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-                switch (result)
+                if (user.EmailConfirmed == false && user.PhoneNumberConfirmed == false)
                 {
-                    case SignInStatus.Success:
-                        {
-                            if (!UserManager.IsInRole(user.Id, "Admin"))
-                                return RedirectToLocal(returnUrl);
-                            return RedirectToAction("Index", "Home", new { area = "admin" });
+                    ModelState.AddModelError("", "Tài khoản của bạn chưa được xác thực !");
+                    return View(model);
+                }
+                else
+                {
+                    var query = db.StatusUsers.FirstOrDefault(x => x.BlockUserStatus.Equals(StatusBlockUser.Close) && x.User_Id == user.Id);
 
-                        }
-                    case SignInStatus.LockedOut:
+                    if (query != null)
+                    {
+                        ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa !");
+                        return View(model);
+                    }
+                    else
+                    {
+                        var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+                        switch (result)
                         {
-                            user.LockoutEndDateUtc = DateTime.Now;
-                            user.LockoutEnabled = true;
-                            await UserManager.UpdateAsync(user);
-                            ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa tạm thời. Vùi lòng thử lại sau ít phút !");
+                            case SignInStatus.Success:
+                                {
+                                    if (!UserManager.IsInRole(user.Id, "Admin"))
+                                        return RedirectToLocal(returnUrl);
+                                    return RedirectToAction("Index", "Home", new { area = "admin" });
+
+                                }
+                            case SignInStatus.LockedOut:
+                                {
+                                    user.LockoutEndDateUtc = DateTime.Now;
+                                    user.LockoutEnabled = true;
+                                    await UserManager.UpdateAsync(user);
+                                    ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa tạm thời. Vùi lòng thử lại sau ít phút !");
+                                }
+                                return View(model);
+                            //return View("Lockout");
+                            case SignInStatus.RequiresVerification:
+                                return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                            case SignInStatus.Failure:
+                            default:
+                                ModelState.AddModelError("", "Đăng nhập không đúng !");
+                                return View(model);
                         }
-                        return View(model);
-                    //return View("Lockout");
-                    case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                    case SignInStatus.Failure:
-                    default:
-                        ModelState.AddModelError("", "Đăng nhập không đúng !");
-                        return View(model);
+                    }
                 }
             }
         }

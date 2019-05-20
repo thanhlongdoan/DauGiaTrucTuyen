@@ -44,6 +44,7 @@ namespace DauGiaTrucTuyen.DataBinding
                         Product_Id = product.Products_Id,
                         ProductName = productDetail.ProductName,
                         Transaction_Id = transaction.Transaction_Id,
+                        StatusProduct = product.StatusProduct,
                         AuctionPrice = (long)db.TransactionAuctions.Where(x => x.Transaction.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                     }).ToList();
         }

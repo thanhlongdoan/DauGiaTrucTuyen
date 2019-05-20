@@ -36,9 +36,10 @@ namespace DauGiaTrucTuyen.DataBinding
                            TimeLine = transaction.TimeLine,
                            PriceStart = (decimal)transaction.PriceStart,
                            Status = product.StatusProduct,
-                           CategoryName = productDetail.ProductName
+                           CategoryName = productDetail.ProductName,
+                           CreateDate = product.CreateDate
                        };
-            return list.ToList();
+            return list.OrderByDescending(x => x.CreateDate).ToList();
         }
 
         //danh sách toàn bộ sản phẩm
@@ -55,9 +56,10 @@ namespace DauGiaTrucTuyen.DataBinding
                            TimeLine = transaction.TimeLine,
                            PriceStart = (decimal)transaction.PriceStart,
                            Status = product.StatusProduct,
-                           CategoryName = productDetail.ProductName
+                           CategoryName = productDetail.ProductName,
+                           CreateDate = product.CreateDate
                        };
-            return list.ToList();
+            return list.OrderByDescending(x => x.CreateDate).ToList();
         }
 
         /// <summary>
@@ -79,9 +81,10 @@ namespace DauGiaTrucTuyen.DataBinding
                            TimeLine = transaction.TimeLine,
                            PriceStart = (decimal)transaction.PriceStart,
                            Status = product.StatusProduct,
-                           CategoryName = productDetail.ProductName
+                           CategoryName = productDetail.ProductName,
+                           CreateDate = product.CreateDate
                        };
-            return list.ToList();
+            return list.OrderByDescending(x => x.CreateDate).ToList();
         }
 
         //Tạo mới sản phẩm đấu giá ( dành cho admin )
@@ -228,7 +231,7 @@ namespace DauGiaTrucTuyen.DataBinding
                             PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                             Image = productDetail.Image
                         };
-            var list = query.ToList();
+            var list = query.OrderByDescending(x => x.AuctionDateStart).ToList();
             List<ListProductFullViewModel> listView = new List<ListProductFullViewModel>();
             foreach (var item in list)
             {
@@ -263,7 +266,7 @@ namespace DauGiaTrucTuyen.DataBinding
                             PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                             Image = productDetail.Image
                         };
-            var list = query.ToList();
+            var list = query.OrderByDescending(x => x.AuctionDateStart).ToList();
             List<ListProductFullViewModel> listView = new List<ListProductFullViewModel>();
             foreach (var item in list)
             {
@@ -299,7 +302,7 @@ namespace DauGiaTrucTuyen.DataBinding
                             PriceStart = (decimal)db.TransactionAuctions.Where(x => x.Transaction_Id == transaction.Transaction_Id).Max(x => x.AuctionPrice),
                             Image = productDetail.Image
                         };
-            var list = query.ToList();
+            var list = query.OrderByDescending(x => x.AuctionDateStart).ToList();
             List<ListProductFullViewModel> listView = new List<ListProductFullViewModel>();
             foreach (var item in list)
             {
@@ -483,44 +486,40 @@ namespace DauGiaTrucTuyen.DataBinding
                 product.StatusProduct = StatusProduct.Transactioning;
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                var transactions = db.Transactions.Where(x => x.Product.StatusProduct.Equals(StatusProduct.Auctioning)
-                                                        || x.Product.StatusProduct.Equals(StatusProduct.Transactioning))
-                                                        .ToList();
-                foreach (var item in transactions)
+                var transactions = db.Transactions.FirstOrDefault(x => x.Product_Id == productId);
+                //lấy ra người có giá cao nhất để update trạng thái win
+                TransactionAuction transactionAuction = db.TransactionAuctions.Where(x => x.Transaction_Id == transactions.Transaction_Id
+                                                                                        && x.Status != null)
+                                                                                        .OrderByDescending(x => x.AuctionPrice)
+                                                                                        .FirstOrDefault();
+                //update trạng thái win cho người thắng cuộc trong phiên đấu giá
+                if (transactionAuction != null)
                 {
-                    //lấy ra người có giá cao nhất để update trạng thái win
-                    TransactionAuction transactionAuction = db.TransactionAuctions.Where(x => x.Transaction_Id == item.Transaction_Id
-                                                                                            && x.Status != null)
-                                                                                            .OrderByDescending(x => x.AuctionPrice)
-                                                                                            .FirstOrDefault();
-                    //update trạng thái win cho người thắng cuộc trong phiên đấu giá
-                    if (transactionAuction != null)
-                    {
-                        transactionAuction.Status = StatusTransactionAuction.Win;
-                        db.Entry(transactionAuction).State = EntityState.Modified;
-                        db.SaveChanges();
+                    transactionAuction.Status = StatusTransactionAuction.Win;
+                    db.Entry(transactionAuction).State = EntityState.Modified;
+                    db.SaveChanges();
 
-                        //query để lấy thông tin gửi email 
-                        var query = (from productSendMail in db.Products
-                                     join productDetail in db.ProductDetails on productSendMail.Products_Id equals productDetail.Product_Id
-                                     join transactionSendMail in db.Transactions on productSendMail.Products_Id equals transactionSendMail.Product_Id
-                                     where transactionSendMail.Transaction_Id == transactionAuction.Transaction_Id &&
-                                         productSendMail.StatusProduct.Equals(StatusProduct.Auctioning)
-                                     select new NoticationWin
-                                     {
-                                         Transaction_Id = transactionSendMail.Transaction_Id,
-                                         ProductName = productDetail.ProductName,
-                                         PriceAuction = transactionAuction.AuctionPrice,
-                                         User_Id_Auction = transactionAuction.User_Id,
-                                         User_Id_Add = productSendMail.User_Id
-                                     })
-                                 .FirstOrDefault();
-                        if (query != null)
-                        {
-                            SendNoticationSuccess(query);
-                        }
+                    //query để lấy thông tin gửi email 
+                    var query = (from productSendMail in db.Products
+                                 join productDetail in db.ProductDetails on productSendMail.Products_Id equals productDetail.Product_Id
+                                 join transactionSendMail in db.Transactions on productSendMail.Products_Id equals transactionSendMail.Product_Id
+                                 where transactionSendMail.Transaction_Id == transactionAuction.Transaction_Id
+                                 select new NoticationWin
+                                 {
+                                     Transaction_Id = transactionSendMail.Transaction_Id,
+                                     ProductName = productDetail.ProductName,
+                                     PriceAuction = transactionAuction.AuctionPrice,
+                                     User_Id_Auction = transactionAuction.User_Id,
+                                     User_Id_Add = productSendMail.User_Id
+                                 })
+                             .FirstOrDefault();
+                    if (query != null)
+                    {
+                        //gửi mail
+                        SendNoticationSuccess(query);
                     }
                 }
+                //}
                 return true;
             }
             return false;

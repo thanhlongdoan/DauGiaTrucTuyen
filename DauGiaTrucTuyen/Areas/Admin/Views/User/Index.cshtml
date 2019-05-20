@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Danh sách người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int counter = 0;
 }
 
 <div class="panel panel-primary">
@@ -11,6 +12,7 @@
         <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
             <thead>
                 <tr>
+                    <th>STT</th>
                     <th>
                         @Html.DisplayNameFor(model => model.UserName)
                     </th>
@@ -27,6 +29,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>@Html.Raw(++counter)</td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UserName)
                         </td>
